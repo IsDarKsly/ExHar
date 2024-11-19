@@ -1,0 +1,429 @@
+{
+    "entries" : 
+    [
+        {
+            "key" : "Sandstorm",
+            "value" : "Sandstorm"
+        },
+        {
+            "key" : "Options",
+            "value" : "Options"
+        },
+        {
+            "key" : "Language",
+            "value" : "Language"
+        },
+        {
+            "key" : "Voice Volume",
+            "value" : "Voice Volume"
+        },
+        {
+            "key" : "Effects Volume",
+            "value" : "Effects Volume"
+        },
+        {
+            "key" : "Music Volume",
+            "value" : "Music Volume"
+        },
+        {
+            "key" : "Master Volume",
+            "value" : "Master Volume"
+        },
+        {
+            "key" : "Fullscreen",
+            "value" : "Fullscreen"
+        },
+        {
+            "key" : "Resolution",
+            "value" : "Resolution"
+        },
+        {
+            "key" : "Start",
+            "value" : "Start"
+        },
+        {
+            "key" : "Exit",
+            "value" : "Exit"
+        },
+        {
+            "key" : "Character Select",
+            "value" : "Character Select"
+        },
+        {
+            "key" : "Back",
+            "value" : "Back"
+        },
+        {
+            "key" : "Create",
+            "value" : "Create"
+        },
+        {
+            "key" : "Enter Name",
+            "value" : "Enter Name"
+        },
+        {
+            "key" : "Are You Sure?",
+            "value" : "Are You Sure?"
+        },
+        {
+            "key" : "Yes",
+            "value" : "Yes"
+        },
+        {
+            "key" : "No",
+            "value" : "No"
+        },
+        {
+            "key" : "Strength",
+            "value" : "Strength"
+        },
+        {
+            "key" : "Dexterity",
+            "value" : "Dexterity"
+        },
+        {
+            "key" : "Intellect",
+            "value" : "Intellect"
+        },
+        {
+            "key" : "Wisdom",
+            "value" : "Wisdom"
+        },
+        {
+            "key" : "Constitution",
+            "value" : "Constitution"
+        },
+        {
+            "key" : "StrengthDesc",
+            "value" : "Those who invest in strength will find themselves more capable of dealing damage with melee weapons"
+        },
+        {
+            "key" : "DexterityDesc",
+            "value" : "The dextrous deal greater damage with ranged weapons, and dodge attacks with ease"
+        },
+        {
+            "key" : "IntellectDesc",
+            "value" : "Mental capacity is directly linked with ones Mana Pool, and will increase spell damage"
+        },
+        {
+            "key" : "WisdomDesc",
+            "value" : "Knowing where and when to hit will lead to increased chances of critical strikes"
+        },
+        {
+            "key" : "ConstitutionDesc",
+            "value" : "Conditioning will lead to a greater health pool, as well as more stamina"
+        },
+        {
+            "key" : "Gender?",
+            "value" : "Gender?"
+        },
+        {
+            "key" : "MaleDesc",
+            "value" : "The males of the human species tend to be taller and stronger than their female substitutes. But but tend to suffer from shortened lifespans due to poor decision making skills"
+        },
+        {
+            "key" : "FemaleDesc",
+            "value" : "The smaller of the two, women use wit to survive the hardships of the land. At the cost of strength, women are more cunning then their male substitutes."
+        },
+        {
+            "key" : "Male",
+            "value" : "Male"
+        },
+        {
+            "key" : "Female",
+            "value" : "Female"
+        },
+        {
+            "key" : "Class",
+            "value" : "Class"
+        },
+        {
+            "key" : "Warrior",
+            "value" : "Warrior"
+        },
+        {
+            "key" : "Rogue",
+            "value" : "Rogue"
+        },
+        {
+            "key" : "Mage",
+            "value" : "Mage"
+        },
+        {
+            "key" : "WarriorDesc",
+            "value" : "The bravest warriors need not cheap tricks to best their foes. A simple weapon is all these few need to make their living. Warriors are forged in blood and battle.\nStr +2.5%\nCon +2.5%\nInt -5%"
+        },
+        {
+            "key" : "RogueDesc",
+            "value" : "It's a dangerous world, the clever know not to recklessly cleave your way through life. A dagger here, some poison there. Rogues live their life away from prying eyes.\nDex +2.5%\nWis +2.5%\nCon -5%"
+        },
+        {
+            "key" : "MageDesc",
+            "value" : "Magic, the greatest equalizer in all the land. Every creature has the capability to use magic, yet not every creature has the intellect needed to master it.\nInt +5%\nCon -2.5%\nStr -2.5%"
+        },
+        {
+            "key" : "Race",
+            "value" : "Race"
+        },
+        {
+            "key" : "Wild One",
+            "value" : "Wild One"
+        },
+        {
+            "key" : "Westerner",
+            "value" : "Westerner"
+        },
+        {
+            "key" : "Novun",
+            "value" : "Novun"
+        },
+        {
+            "key" : "Arenaen",
+            "value" : "Arenaen"
+        },
+        {
+            "key" : "Avition",
+            "value" : "Avition"
+        },
+        {
+            "key" : "Umbran",
+            "value" : "Umbran"
+        },
+        {
+            "key" : "Wild One Desc",
+            "value" : "The pale humans of the Central wilds inhabit the dangerous forests within. Those who were raised within the forest will be found more Cunning than the rest.\nWis +5%"
+        },
+        {
+            "key" : "WesternerDesc",
+            "value" : "Once a great civilization, the Western capital fell to the Demonic scourge that plagues the western lands. All of those born in the West have served in it's Military, and are Sturdier for it.\nCon +5%"
+        },
+        {
+            "key" : "NovunDesc",
+            "value" : "The clever engineers of the south-east, the Expansionist nation of the Novun consistently have conflicts with every other nation. The Novun have become increasingly strategic for that reason.\nInt +2.5%\nWis +2.5%"
+        },
+        {
+            "key" : "ArenaenDesc",
+            "value" : "The Arenaen are the natives of the southern Desert. Years in the scorching sun have darkened their skin. Arenaens will find themselves slightly stronger than the other races.\nStr +5%"
+        },
+        {
+            "key" : "AvitionDesc",
+            "value" : "The graceful scholars of the north-east, the Avition are strong believers in magic. Their constant clashes with the Novun have led their people to greater heights in the Magical Arts.\nInt +5%"
+        },
+        {
+            "key" : "UmbranDesc",
+            "value" : "Seemingly isolated by the northern mountains. The Umbran operate silently in the cold, sunless lands of the North. Legend has it, a breed of dark Immortals sought refuge in the lands of snow, long ago.\nDex +5%"
+        },
+        {
+            "key" : "Continue",
+            "value" : "Continue"
+        },
+        {
+            "key" : "Skin Color",
+            "value" : "Skin Color"
+        },
+        {
+            "key" : "Eyes",
+            "value" : "Eyes"
+        },
+        {
+            "key" : "Eye Color",
+            "value" : "Eye Color"
+        },
+        {
+            "key" : "Hair",
+            "value" : "Hair"
+        },
+        {
+            "key" : "Hair Color",
+            "value" : "Hair Color"
+        },
+        {
+            "key" : "Eyebrow",
+            "value" : "Eyebrow"
+        },
+        {
+            "key" : "Eyebrow Color",
+            "value" : "Eyebrow Color"
+        },
+        {
+            "key" : "Mouth",
+            "value" : "Mouth"
+        },
+        {
+            "key" : "Nose",
+            "value" : "Nose"
+        },
+        {
+            "key" : "Extra",
+            "value" : "Extra"
+        },
+        {
+            "key" : "Extra Color",
+            "value" : "Extra Color"
+        },
+        {
+            "key" : "Stat",
+            "value" : "Stat"
+        },
+        {
+            "key" : "Points",
+            "value" : "Points"
+        },
+        {
+            "key" : "Confirm",
+            "value" : "Confirm"
+        },
+        {
+            "key": "Chinese",
+            "value": "Chinese"
+        },
+        {
+            "key": "Hindi",
+            "value": "Hindi"
+        },
+        {
+            "key": "English",
+            "value": "English"
+        },
+        {
+            "key": "Spanish",
+            "value": "Spanish"
+        },
+        {
+            "key": "Arabic",
+            "value": "Arabic"
+        },
+        {
+            "key": "Bengali",
+            "value": "Bengali"
+        },
+        {
+            "key": "Portuguese",
+            "value": "Portuguese"
+        },
+        {
+            "key": "Russian",
+            "value": "Russian"
+        },
+        {
+            "key": "Japanese",
+            "value": "Japanese"
+        },
+        {
+            "key": "Indonesian",
+            "value": "Indonesian"
+        },
+        {
+            "key": "French",
+            "value": "French"
+        },
+        {
+            "key": "Turkish",
+            "value": "Turkish"
+        },
+        {
+            "key": "Vietnamese",
+            "value": "Vietnamese"
+        },
+        {
+            "key": "Urdu",
+            "value": "Urdu"
+        },
+        {
+            "key": "Tamil",
+            "value": "Tamil"
+        },
+        {
+            "key": "Telugu",
+            "value": "Telugu"
+        },
+        {
+            "key": "Korean",
+            "value": "Korean"
+        },
+        {
+            "key": "Pashto",
+            "value": "Pashto"
+        },
+        {
+            "key": "Italian",
+            "value": "Italian"
+        },
+        {
+            "key": "Thai",
+            "value": "Thai"
+        },
+        {
+            "key": "Persian",
+            "value": "Persian"
+        },
+        {
+            "key": "German",
+            "value": "German"
+        },
+        {
+            "key": "Swedish",
+            "value": "Swedish"
+        },
+        {
+            "key": "Dutch",
+            "value": "Dutch"
+        },
+        {
+            "key": "Greek",
+            "value": "Greek"
+        },
+        {
+            "key": "Danish",
+            "value": "Danish"
+        },
+        {
+            "key": "Finnish",
+            "value": "Finnish"
+        },
+        {
+            "key": "Norwegian",
+            "value": "Norwegian"
+        },
+        {
+            "key": "Hebrew",
+            "value": "Hebrew"
+        },
+        {
+            "key": "Yiddish",
+            "value": "Yiddish"
+        },
+        {
+            "key": "Divehi",
+            "value": "Divehi"
+        },
+        {
+            "key": "Syriac",
+            "value": "Syriac"
+        },
+        {
+            "key": "Difficulty",
+            "value": "Difficulty"
+        },
+        {
+            "key": "Timed",
+            "value": "Timed"
+        },
+        {
+            "key": "Classic",
+            "value": "Classic"
+        },
+        {
+            "key": "TimedDesc",
+            "value": "On this difficulty, you will have to respond in combat in under 10 seconds. The quicker your response, the more effective your ability. Fail to respond in time, and suffer dire consequences."
+        },
+        {
+            "key": "ClassicDesc",
+            "value": "A more classic turn based RPG, combat moves will be on your own terms. Don't feel rushed, go get a snack and ponder your next move."
+        },
+        {
+            "key" : "TEST",
+            "value" : "This is a test"
+        }
+    ]
+}

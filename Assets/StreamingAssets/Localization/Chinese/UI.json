@@ -1,0 +1,344 @@
+{
+    "entries": [
+        {
+            "key": "Sandstorm",
+            "value": "沙尘暴"
+        },
+        {
+            "key": "Options",
+            "value": "选项"
+        },
+        {
+            "key": "Language",
+            "value": "语言"
+        },
+        {
+            "key": "Voice Volume",
+            "value": "语音音量"
+        },
+        {
+            "key": "Effects Volume",
+            "value": "效果音量"
+        },
+        {
+            "key": "Music Volume",
+            "value": "音乐音量"
+        },
+        {
+            "key": "Master Volume",
+            "value": "主音量"
+        },
+        {
+            "key": "Fullscreen",
+            "value": "全屏"
+        },
+        {
+            "key": "Resolution",
+            "value": "分辨率"
+        },
+        {
+            "key": "Start",
+            "value": "开始"
+        },
+        {
+            "key": "Exit",
+            "value": "退出"
+        },
+        {
+            "key": "Character Select",
+            "value": "角色选择"
+        },
+        {
+            "key": "Back",
+            "value": "返回"
+        },
+        {
+            "key": "Create",
+            "value": "创建"
+        },
+        {
+            "key": "Enter Name",
+            "value": "输入名字"
+        },
+        {
+            "key": "Are You Sure?",
+            "value": "你确定吗？"
+        },
+        {
+            "key": "Yes",
+            "value": "是"
+        },
+        {
+            "key": "No",
+            "value": "否"
+        },
+        {
+            "key": "Strength",
+            "value": "力量"
+        },
+        {
+            "key": "Dexterity",
+            "value": "敏捷"
+        },
+        {
+            "key": "Intellect",
+            "value": "智力"
+        },
+        {
+            "key": "Wisdom",
+            "value": "智慧"
+        },
+        {
+            "key": "Constitution",
+            "value": "体质"
+        },
+        {
+            "key": "Gender?",
+            "value": "性别？"
+        },
+        {
+            "key": "Male",
+            "value": "男"
+        },
+        {
+            "key": "Female",
+            "value": "女"
+        },
+        {
+            "key": "Class",
+            "value": "职业"
+        },
+        {
+            "key": "Warrior",
+            "value": "战士"
+        },
+        {
+            "key": "Rogue",
+            "value": "盗贼"
+        },
+        {
+            "key": "Mage",
+            "value": "法师"
+        },
+        {
+            "key": "Race",
+            "value": "种族"
+        },
+        {
+            "key": "Wild One",
+            "value": "野性之人"
+        },
+        {
+            "key": "Westerner",
+            "value": "西方人"
+        },
+        {
+            "key": "Novun",
+            "value": "诺文"
+        },
+        {
+            "key": "Arenaen",
+            "value": "阿瑞那人"
+        },
+        {
+            "key": "Avition",
+            "value": "阿维提安"
+        },
+        {
+            "key": "Umbran",
+            "value": "暗影族"
+        },
+        {
+            "key": "Continue",
+            "value": "继续"
+        },
+        {
+            "key": "Skin Color",
+            "value": "肤色"
+        },
+        {
+            "key": "Eyes",
+            "value": "眼睛"
+        },
+        {
+            "key": "Eye Color",
+            "value": "眼睛颜色"
+        },
+        {
+            "key": "Hair",
+            "value": "头发"
+        },
+        {
+            "key": "Hair Color",
+            "value": "头发颜色"
+        },
+        {
+            "key": "Eyebrow",
+            "value": "眉毛"
+        },
+        {
+            "key": "Eyebrow Color",
+            "value": "眉毛颜色"
+        },
+        {
+            "key": "Mouth",
+            "value": "嘴巴"
+        },
+        {
+            "key": "Nose",
+            "value": "鼻子"
+        },
+        {
+            "key": "Extra",
+            "value": "其他"
+        },
+        {
+            "key": "Extra Color",
+            "value": "其他颜色"
+        },
+        {
+            "key": "Stat",
+            "value": "属性"
+        },
+        {
+            "key": "Points",
+            "value": "点数"
+        },
+        {
+            "key": "Confirm",
+            "value": "确认"
+        },
+        {
+            "key": "Chinese",
+            "value": "中文"
+        },
+        {
+            "key": "Hindi",
+            "value": "印地语"
+        },
+        {
+            "key": "English",
+            "value": "英语"
+        },
+        {
+            "key": "Spanish",
+            "value": "西班牙语"
+        },
+        {
+            "key": "Arabic",
+            "value": "阿拉伯语"
+        },
+        {
+            "key": "Bengali",
+            "value": "孟加拉语"
+        },
+        {
+            "key": "Portuguese",
+            "value": "葡萄牙语"
+        },
+        {
+            "key": "Russian",
+            "value": "俄语"
+        },
+        {
+            "key": "Japanese",
+            "value": "日语"
+        },
+        {
+            "key": "Indonesian",
+            "value": "印尼语"
+        },
+        {
+            "key": "French",
+            "value": "法语"
+        },
+        {
+            "key": "Turkish",
+            "value": "土耳其语"
+        },
+        {
+            "key": "Vietnamese",
+            "value": "越南语"
+        },
+        {
+            "key": "Urdu",
+            "value": "乌尔都语"
+        },
+        {
+            "key": "Tamil",
+            "value": "泰米尔语"
+        },
+        {
+            "key": "Telugu",
+            "value": "泰卢固语"
+        },
+        {
+            "key": "Korean",
+            "value": "韩语"
+        },
+        {
+            "key": "Pashto",
+            "value": "普什图语"
+        },
+        {
+            "key": "Italian",
+            "value": "意大利语"
+        },
+        {
+            "key": "Thai",
+            "value": "泰语"
+        },
+        {
+            "key": "Persian",
+            "value": "波斯语"
+        },
+        {
+            "key": "German",
+            "value": "德语"
+        },
+        {
+            "key": "Swedish",
+            "value": "瑞典语"
+        },
+        {
+            "key": "Dutch",
+            "value": "荷兰语"
+        },
+        {
+            "key": "Greek",
+            "value": "希腊语"
+        },
+        {
+            "key": "Danish",
+            "value": "丹麦语"
+        },
+        {
+            "key": "Finnish",
+            "value": "芬兰语"
+        },
+        {
+            "key": "Norwegian",
+            "value": "挪威语"
+        },
+        {
+            "key": "Hebrew",
+            "value": "希伯来语"
+        },
+        {
+            "key": "Yiddish",
+            "value": "意第绪语"
+        },
+        {
+            "key": "Divehi",
+            "value": "迪维希语"
+        },
+        {
+            "key": "Syriac",
+            "value": "叙利亚语"
+        },
+        {
+            "key": "TEST",
+            "value": "这是一个测试"
+        }
+    ]
+}

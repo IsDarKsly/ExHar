@@ -1,0 +1,291 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &142124846690437513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6424624816543470431}
+  - component: {fileID: 282522289042262195}
+  m_Layer: 0
+  m_Name: SpriteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6424624816543470431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142124846690437513}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &282522289042262195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142124846690437513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b87cce6fc84350489508d97be30878d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterPrefab: {fileID: 6694124848802618109, guid: 681e471853747414bbaef58ca0801ce5, type: 3}
+  femaleSprites:
+    eyebrow:
+    - {fileID: 21300000, guid: 5d96e63fe68361f4686aa42aa3df50f4, type: 3}
+    - {fileID: 21300000, guid: 6d8a5505617655148833eb43c5e2a1bc, type: 3}
+    - {fileID: 21300000, guid: a88d83c50cf03e244a8c7be012249573, type: 3}
+    - {fileID: 21300000, guid: 63ed49513647ded4bba89575e81cca7a, type: 3}
+    eye:
+    - {fileID: 21300000, guid: a2c3691b81a67a040a9178509dc1cc36, type: 3}
+    - {fileID: 21300000, guid: 6e6b9d56adb8c8d44b24c68423288a9e, type: 3}
+    eyecolor:
+    - {fileID: 21300000, guid: a520d014a10976042bd7cc79a7835c20, type: 3}
+    - {fileID: 21300000, guid: 0d5ec74cc5cb7bd4d958eb19e57a7f3a, type: 3}
+    hair:
+    - {fileID: 21300000, guid: be6d1a51f9e6a34448d12d32b694eea7, type: 3}
+    - {fileID: 21300000, guid: b2e5a1e87dbb9f4419fe42b30a933942, type: 3}
+    - {fileID: 21300000, guid: 6d1b928be70294348afee70662332a22, type: 3}
+    - {fileID: 21300000, guid: 7372f2273b00cfe4aabb330102675f3d, type: 3}
+    - {fileID: 21300000, guid: 9a8d93db6d03ac2469b2a39934a82e2d, type: 3}
+    haircolor:
+    - {fileID: 21300000, guid: b682a875bf2fb624f9468ae3ea5ecf5f, type: 3}
+    - {fileID: 21300000, guid: 0a037783aaba07c41b6d87cf2f19df7c, type: 3}
+    - {fileID: 21300000, guid: 76ce922bcfb45ff469d2f4c525369616, type: 3}
+    - {fileID: 21300000, guid: 5b71eddf2f7bfe14bbd79fb21595d8d5, type: 3}
+    - {fileID: 21300000, guid: 2c6434ffecf1f874e81b8af9b032b9d4, type: 3}
+    mouth:
+    - {fileID: 21300000, guid: 5562ee4536f4a8b42b92cacabc3833bd, type: 3}
+    - {fileID: 21300000, guid: 4d58824755ed92145a46ae09924fa79d, type: 3}
+    - {fileID: 21300000, guid: 5f779cddd28bd0845b2f51936c8da18c, type: 3}
+    - {fileID: 21300000, guid: ffb3a4f2197101f4fa97ed8a80221b3b, type: 3}
+    - {fileID: 21300000, guid: 5dbdbc3129d94704b918460d1fc7073d, type: 3}
+    nose:
+    - {fileID: 21300000, guid: f6b4ed53ff990b949bed37c3e123fffc, type: 3}
+    - {fileID: 21300000, guid: f023191f6c16b6041ba4c6944250ccaf, type: 3}
+    - {fileID: 21300000, guid: e9a6bea229215f94081bd54656790faf, type: 3}
+    - {fileID: 21300000, guid: 9eb3c67b1577cc34cbc8f52d4c1e32e0, type: 3}
+    - {fileID: 21300000, guid: ca2cc2b15e2f6744ca0a8bf9d7377f05, type: 3}
+    skincolor:
+    - {fileID: 21300000, guid: 0eacf2ff84e464545b7e2a1c1891ceb2, type: 3}
+    skinshape:
+    - {fileID: 21300000, guid: 40031fed6911a4c438d0d3c854c794e9, type: 3}
+    extracolor:
+    - {fileID: 21300000, guid: 53a861e1bf6f8e7428403b3e3e9e8215, type: 3}
+    - {fileID: 21300000, guid: 18110699f277d5349816aacb9a270add, type: 3}
+    - {fileID: 21300000, guid: 1011b8b8899163e49b0542d2454e983f, type: 3}
+    - {fileID: 21300000, guid: 3b359c60a0736d34ab72b9863aa0ab92, type: 3}
+    - {fileID: 21300000, guid: 5372ce58fb5254142811a635d25e3e2b, type: 3}
+    extra:
+    - {fileID: 21300000, guid: 53a861e1bf6f8e7428403b3e3e9e8215, type: 3}
+    - {fileID: 21300000, guid: 1ba0eba61661f9649ae0f72beb0f7ab0, type: 3}
+    - {fileID: 21300000, guid: b1ce41e102d9e274788565338b8d58b7, type: 3}
+    - {fileID: 21300000, guid: 771fad18019333d449d6063739ce4390, type: 3}
+    - {fileID: 21300000, guid: ac873b1353344d84ea5e83cd80cd6146, type: 3}
+  maleSprites:
+    eyebrow:
+    - {fileID: 21300000, guid: 862591a8d456db94bac8f30edab4a26c, type: 3}
+    - {fileID: 21300000, guid: 4d27aed5c228f4248980fd857ff403e0, type: 3}
+    - {fileID: 21300000, guid: 2fc12abf86feca342ace5b33390e4468, type: 3}
+    - {fileID: 21300000, guid: de96b813056aa1943a66f24c1c726c2b, type: 3}
+    eye:
+    - {fileID: 21300000, guid: 3a2e51fadc5242c4ba808141ff969d64, type: 3}
+    - {fileID: 21300000, guid: eb4e2a4f713dda645b3e8f2423baba4f, type: 3}
+    eyecolor:
+    - {fileID: 21300000, guid: 0d88ab8c48625c44c905fd8cfe9505fb, type: 3}
+    - {fileID: 21300000, guid: 654c6e1f20b303f43b6c93891c817528, type: 3}
+    hair:
+    - {fileID: 21300000, guid: 62c62f68738ea8143b4fd1ef5f0884e8, type: 3}
+    - {fileID: 21300000, guid: a9a4e2165620296409f74cea6b858d73, type: 3}
+    - {fileID: 21300000, guid: 1532bf77e75f26b48a481047f8c5a23e, type: 3}
+    - {fileID: 21300000, guid: a7c84eef2410ec646bf6e316694f4412, type: 3}
+    - {fileID: 21300000, guid: 9005fa4dbfb8c9149b6f64704c000294, type: 3}
+    haircolor:
+    - {fileID: 21300000, guid: 5a7078fc63f8167468ce6ede1183fa11, type: 3}
+    - {fileID: 21300000, guid: a659b142dc4ed0948a8222188a115c66, type: 3}
+    - {fileID: 21300000, guid: 62f1bc6e47b76f441aebf49e72f8dd70, type: 3}
+    - {fileID: 21300000, guid: 33682553242b06743a0c17a6c361ac77, type: 3}
+    - {fileID: 21300000, guid: 3c060ccc57e952b4a87456ffa01a9c49, type: 3}
+    mouth:
+    - {fileID: 21300000, guid: e7c8a7bf20a115543b36767ad3fbd914, type: 3}
+    - {fileID: 21300000, guid: 4b57eca38d414e641bf52a8af870b75e, type: 3}
+    - {fileID: 21300000, guid: b3ed96b848909eb4abdd002845aa608d, type: 3}
+    - {fileID: 21300000, guid: 3c965e5c75d8b464c97e7dea98acf100, type: 3}
+    - {fileID: 21300000, guid: 1809d0940ccb923498f66b1ac1aea082, type: 3}
+    nose:
+    - {fileID: 21300000, guid: ea4939444bc8ed545ad66c4e0fecbc00, type: 3}
+    - {fileID: 21300000, guid: 8f9af42ab7e95824eb5bd242c4204ebd, type: 3}
+    - {fileID: 21300000, guid: 9b4021c7135697f43a8c263e5b33364c, type: 3}
+    - {fileID: 21300000, guid: 7655637c0777f864d9de1e4f9952fba5, type: 3}
+    - {fileID: 21300000, guid: 6940541a92b9a9143a96c54ad59705b1, type: 3}
+    skincolor:
+    - {fileID: 21300000, guid: c3826cdd697c5794994b6c847861b26e, type: 3}
+    skinshape:
+    - {fileID: 21300000, guid: 425731b54d75e08469fa7a057a43a899, type: 3}
+    extracolor:
+    - {fileID: 21300000, guid: 53a861e1bf6f8e7428403b3e3e9e8215, type: 3}
+    - {fileID: 21300000, guid: 0ad873693bc40a24886124d4830aee15, type: 3}
+    - {fileID: 21300000, guid: ce08a3187518f7c47b234e058eaa0ff7, type: 3}
+    - {fileID: 21300000, guid: 67a18dbb8536f824ca3d23dfe2c138b5, type: 3}
+    extra:
+    - {fileID: 21300000, guid: 028b42fdbd5c7ca48a597b5673e24570, type: 3}
+    - {fileID: 21300000, guid: 95e128c3b6ab35a439da107adf6285bd, type: 3}
+    - {fileID: 21300000, guid: 5c0db0352a7e6e74e80005f89695e043, type: 3}
+    - {fileID: 21300000, guid: 46ce44af502e85a4e954c57dcf6f79d2, type: 3}
+  raceColor:
+  - race: 0
+    skincolors:
+    - {r: 0.9686275, g: 0.90196085, b: 0.8862746, a: 1}
+    - {r: 1, g: 0.9033019, b: 0.8066038, a: 1}
+    - {r: 1, g: 0.8780488, b: 0.75, a: 1}
+    eyecolors:
+    - {r: 0.61960787, g: 0.4156863, b: 0.13333334, a: 1}
+    - {r: 0.35686275, g: 0.5058824, b: 0.49803925, a: 1}
+    - {r: 0.37647063, g: 0.18431373, b: 0.07058824, a: 1}
+    - {r: 0.49803925, g: 0.46274513, b: 0.121568635, a: 1}
+    - {r: 0.20310621, g: 0.49803922, b: 0.12156863, a: 1}
+    haircolors:
+    - {r: 0.3584906, g: 0.22272019, b: 0.13697046, a: 1}
+    - {r: 0.7176471, g: 0.454902, b: 0.27450982, a: 1}
+    - {r: 0.3301887, g: 0.15061238, b: 0, a: 1}
+    - {r: 0.21176472, g: 0.14901961, b: 0.08235294, a: 1}
+    - {r: 0.4339623, g: 0.3654811, b: 0.29271984, a: 1}
+    - {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
+    extracolors:
+    - {r: 0.054957267, g: 0.6132076, b: 0.09140568, a: 1}
+    - {r: 0.054901943, g: 0.36638978, b: 0.6117647, a: 1}
+    - {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
+  - race: 1
+    skincolors:
+    - {r: 0.5176471, g: 0.4156863, b: 0.32941177, a: 1}
+    - {r: 0.4666667, g: 0.30980393, b: 0.20784315, a: 1}
+    - {r: 0.3254902, g: 0.28235295, b: 0.27450982, a: 1}
+    - {r: 0.34509805, g: 0.23137257, b: 0.21568629, a: 1}
+    eyecolors:
+    - {r: 0.53333336, g: 0.2509804, b: 0.09411766, a: 1}
+    - {r: 0.49803925, g: 0.52156866, b: 0.5686275, a: 1}
+    - {r: 0.3019608, g: 0.13333334, b: 0.06666667, a: 1}
+    - {r: 0.084905684, g: 0.05739419, b: 0.014017446, a: 1}
+    haircolors:
+    - {r: 0.06666667, g: 0.03137255, b: 0.03529412, a: 1}
+    - {r: 0.1764706, g: 0.14117648, b: 0.1137255, a: 1}
+    - {r: 0.2051976, g: 0.2046102, b: 0.20754719, a: 1}
+    - {r: 0.3623684, g: 0.35831255, b: 0.41509432, a: 1}
+    - {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
+    extracolors:
+    - {r: 0.16037738, g: 0.032529376, b: 0.032529376, a: 1}
+    - {r: 0.5283019, g: 0.08721964, b: 0.08721964, a: 1}
+    - {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
+  - race: 2
+    skincolors:
+    - {r: 0.98823535, g: 0.8000001, b: 0.6901961, a: 1}
+    - {r: 0.93725497, g: 0.8196079, b: 0.74509805, a: 1}
+    - {r: 0.77647066, g: 0.68235296, b: 0.5882353, a: 1}
+    - {r: 0.5176471, g: 0.41960788, b: 0.34117648, a: 1}
+    - {r: 0.46274513, g: 0.30588236, b: 0.227451, a: 1}
+    - {r: 0.5882353, g: 0.35686275, b: 0.23137257, a: 1}
+    eyecolors:
+    - {r: 0.49803925, g: 0.52156866, b: 0.5686275, a: 1}
+    - {r: 0.35686275, g: 0.5058824, b: 0.49803925, a: 1}
+    - {r: 0.49803925, g: 0.46274513, b: 0.121568635, a: 1}
+    - {r: 0.61960787, g: 0.4156863, b: 0.13333334, a: 1}
+    - {r: 0.53333336, g: 0.2509804, b: 0.09411766, a: 1}
+    - {r: 0.36862746, g: 0.29411766, b: 0.20392159, a: 1}
+    - {r: 0.3019608, g: 0.13333334, b: 0.06666667, a: 1}
+    - {r: 0.08627451, g: 0.058823533, b: 0.015686275, a: 1}
+    haircolors:
+    - {r: 0.35686275, g: 0.22352943, b: 0.13725491, a: 1}
+    - {r: 0.96470594, g: 0.8235295, b: 0.5921569, a: 1}
+    - {r: 0.7686275, g: 0.49411768, b: 0.2627451, a: 1}
+    - {r: 0.21176472, g: 0.14901961, b: 0.08235294, a: 1}
+    - {r: 0.06666667, g: 0.03137255, b: 0.03529412, a: 1}
+    - {r: 0.36078432, g: 0.35686275, b: 0.4156863, a: 1}
+    - {r: 0.9058824, g: 0.9058824, b: 0.9058824, a: 1}
+    extracolors:
+    - {r: 0.054901965, g: 0.3647059, b: 0.6117647, a: 1}
+    - {r: 0.16078432, g: 0.03137255, b: 0.03137255, a: 1}
+    - {r: 0.5294118, g: 0.08627451, b: 0.08627451, a: 1}
+    - {r: 0.34738255, g: 0.09892311, b: 0.5377358, a: 1}
+    - {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
+  - race: 3
+    skincolors:
+    - {r: 0.77647066, g: 0.68235296, b: 0.5882353, a: 1}
+    - {r: 0.89019614, g: 0.6431373, b: 0.54901963, a: 1}
+    - {r: 0.9215687, g: 0.7254902, b: 0.5921569, a: 1}
+    - {r: 0.5176471, g: 0.41960788, b: 0.34117648, a: 1}
+    eyecolors:
+    - {r: 0.2627451, g: 0.32941177, b: 0.30980393, a: 1}
+    - {r: 0.40000004, g: 0.49411768, b: 0.5372549, a: 1}
+    - {r: 0.3019608, g: 0.13333334, b: 0.06666667, a: 1}
+    - {r: 0.36862746, g: 0.29411766, b: 0.20392159, a: 1}
+    haircolors:
+    - {r: 0.21176472, g: 0.14901961, b: 0.08235294, a: 1}
+    - {r: 0.20392159, g: 0.20392159, b: 0.20784315, a: 1}
+    - {r: 0.06666667, g: 0.03137255, b: 0.03529412, a: 1}
+    - {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
+    extracolors:
+    - {r: 0.7169812, g: 0.11411695, b: 0.043965846, a: 1}
+    - {r: 1, g: 0.6564403, b: 0.051886797, a: 1}
+    - {r: 0.745283, g: 0, b: 0.54136175, a: 1}
+    - {r: 0.9245283, g: 0.9245283, b: 0.9245283, a: 1}
+  - race: 4
+    skincolors:
+    - {r: 0.9294118, g: 0.86274517, b: 0.8117648, a: 1}
+    - {r: 0.91372555, g: 0.8196079, b: 0.8000001, a: 1}
+    - {r: 0.8313726, g: 0.69803923, b: 0.6627451, a: 1}
+    - {r: 0.62352943, g: 0.4901961, b: 0.43921572, a: 1}
+    eyecolors:
+    - {r: 0.35686275, g: 0.5058824, b: 0.49803925, a: 1}
+    - {r: 0.48989856, g: 0.7704631, b: 0.9528302, a: 1}
+    - {r: 0.49803925, g: 0.46274513, b: 0.121568635, a: 1}
+    - {r: 0.36862746, g: 0.29411766, b: 0.20392159, a: 1}
+    haircolors:
+    - {r: 1, g: 0.92549026, b: 0.75294125, a: 1}
+    - {r: 0.7607844, g: 0.5411765, b: 0.3647059, a: 1}
+    - {r: 0.3529412, g: 0.23137257, b: 0.1764706, a: 1}
+    - {r: 0.96470594, g: 0.8235295, b: 0.5921569, a: 1}
+    - {r: 1, g: 0.9624628, b: 0.9009434, a: 1}
+    extracolors:
+    - {r: 0, g: 0, b: 0, a: 1}
+    - {r: 0.16642934, g: 0.21205978, b: 0.6415094, a: 1}
+    - {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
+  - race: 5
+    skincolors:
+    - {r: 0.95294124, g: 0.8862746, b: 0.77647066, a: 1}
+    - {r: 0.8862746, g: 0.7411765, b: 0.5254902, a: 1}
+    - {r: 0.80392164, g: 0.5921569, b: 0.41176474, a: 1}
+    - {r: 0.8196079, g: 0.7254902, b: 0.5764706, a: 1}
+    eyecolors:
+    - {r: 0.38823533, g: 0.34509805, b: 0.24313727, a: 1}
+    - {r: 0.5754717, g: 0.36575344, b: 0.035288375, a: 1}
+    - {r: 0.454902, g: 0.25490198, b: 0.16470589, a: 1}
+    - {r: 0.2627451, g: 0.22352943, b: 0.23137257, a: 1}
+    haircolors:
+    - {r: 0.227451, g: 0.13725491, b: 0.1137255, a: 1}
+    - {r: 0.14117648, g: 0.14117648, b: 0.14117648, a: 1}
+    - {r: 0.11764707, g: 0.098039225, b: 0.10588236, a: 1}
+    - {r: 0.9245283, g: 0.9245283, b: 0.9245283, a: 1}
+    extracolors:
+    - {r: 0, g: 0, b: 0, a: 1}
+    - {r: 0.4339623, g: 0, b: 0, a: 1}
+    - {r: 0.4481132, g: 1, b: 0.9519797, a: 1}
+    - {r: 1, g: 1, b: 1, a: 1}
+  premadeSprites: []
+  ItemSprites: []
+  EquipmentSprites: []
+  blankSprite: {fileID: 21300000, guid: 53a861e1bf6f8e7428403b3e3e9e8215, type: 3}
