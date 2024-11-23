@@ -13,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
     public static MainMenuManager Instance;
 
     [SerializeField] public GameObject[] saveSlots = new GameObject[3]; //Will represent our 3 save slot gameObjects
+    [SerializeField] public GameObject[] deleteSlots = new GameObject[3];   //Will represent our 3 delete slots
 
     //  Private Variables
 
@@ -46,10 +47,16 @@ public class MainMenuManager : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
+            saveSlots[i].transform.Find("Button").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = LocalizationManager.Instance.ReadUIDictionary("Create");
+            saveSlots[i].GetComponentInChildren<LocalizableText>().is_custom = false;
+            deleteSlots[i].SetActive(false);
+
             if (File.Exists(DataManager.FOLDERPATH + "save" + i.ToString() + @"\ex.txt")) //Checks to see if a character file exists at this location
             {
                 LoadClass.LoadValue(out string x, DataManager.FOLDERPATH + "save" + i.ToString() + @"\name.txt"); //We begin by loading the name data we find at this location
                 saveSlots[i].transform.Find("Button").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = x; //We set the visual slot at this index
+                saveSlots[i].GetComponentInChildren<LocalizableText>().is_custom = true;
+                deleteSlots[i].SetActive(true);
             }
         }
     }
@@ -82,6 +89,15 @@ public class MainMenuManager : MonoBehaviour
         {
             createCharacter(); //Runs the create character function
         }
+    }
+    
+    /// <summary>
+    /// Starts deletion process of a character
+    /// </summary>
+    /// <param name="i"></param>
+    public void StartDelete(int i) 
+    {
+        MenuManager.Instance.ActivateConfirmMenu(() => { DataManager.Instance.DeleteCharacter(i); SetSaveTexts(); });
     }
 
 

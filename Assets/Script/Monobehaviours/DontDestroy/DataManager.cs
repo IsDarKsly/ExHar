@@ -61,7 +61,7 @@ public class DataManager : MonoBehaviour
             DontDestroyOnLoad(this); //Mark this gameobject to remain after loading to new scenes
             return;
         }
-        Destroy(this); //We delete ourself
+        Destroy(this.gameObject); //We delete ourself
     }
 
     /// <summary>
@@ -132,5 +132,15 @@ public class DataManager : MonoBehaviour
         playerCharacter = character; //Creates a new mainCharacter based around the values in the character creator
 
         SaveGame(); //Overwrites the character using the new playerCharacter value
+    }
+
+    /// <summary>
+    /// This will delete the data at a specific location
+    /// </summary>
+    /// <param name="i"></param>
+    public void DeleteCharacter(int i) 
+    {
+        saveSlot = i;
+        File.Delete(SAVEPATH+@"\ex.txt");
     }
 }

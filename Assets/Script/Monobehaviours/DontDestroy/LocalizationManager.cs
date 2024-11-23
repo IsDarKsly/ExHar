@@ -45,7 +45,7 @@ public class LocalizationManager : MonoBehaviour
             DontDestroyOnLoad(this); //Mark this gameobject to remain after loading to new scenes
             return;
         }
-        Destroy(this); //We delete ourself
+        Destroy(this.gameObject); //We delete ourself
     }
 
 

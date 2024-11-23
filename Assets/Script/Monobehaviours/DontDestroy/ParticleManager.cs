@@ -16,7 +16,7 @@ public class ParticleManager : MonoBehaviour
             Instance = this;
             return;
         }
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
 
