@@ -11,6 +11,16 @@ public class MenuManager : MonoBehaviour
     public ConfirmMenu ConfirmMenuObj;
 
     public DetailsMenu DetailsMenuObj;
+
+    public PauseMenu PauseMenuObj;
+
+    public PartyMenu PartyMenuObj;
+
+    public InventoryMenu InventoryMenuObj;
+
+    public SkillMenu SkillMenuObj;
+
+    public TalentMenu TalentMenuObj;
     /// <summary>
     /// The Instance that serves as our interface into this object
     /// </summary>
@@ -116,5 +126,22 @@ public class MenuManager : MonoBehaviour
     public void HideDetails() 
     {
         DetailsMenuObj.SetActive(false);
+    }
+
+    /// <summary>
+    /// Sets the pause menu to active
+    /// </summary>
+    public void PauseGame() 
+    {
+        PauseMenuObj.SetActive(true);
+    }
+
+    /// <summary>
+    /// When the game initially loads, this function will populate all relevant menus (Inventory and Party menu)
+    /// </summary>
+    public void PopulateMenus() 
+    {
+        PartyMenuObj.Load();
+        InventoryMenuObj.Load();
     }
 }

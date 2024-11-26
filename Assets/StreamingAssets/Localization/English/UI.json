@@ -119,11 +119,11 @@
         },
         {
             "key" : "MaleDesc",
-            "value" : "The males of the human species tend to be taller and stronger than their female substitutes. But but tend to suffer from shortened lifespans due to poor decision making skills"
+            "value" : "The males of the human species tend to be taller and stronger than their female substitutes. But but tend to suffer from shortened lifespans due to poor decision making skills\nStr +2.5%\nCon +2.5%"
         },
         {
             "key" : "FemaleDesc",
-            "value" : "The smaller of the two, women use wit to survive the hardships of the land. At the cost of strength, women are more cunning then their male substitutes."
+            "value" : "The smaller of the two, women use wit to survive the hardships of the land. At the cost of strength, women are more cunning then their male substitutes.\nDex +2.5%\nInt +2.5%"
         },
         {
             "key" : "Male",
@@ -159,7 +159,7 @@
         },
         {
             "key" : "MageDesc",
-            "value" : "Magic, the greatest equalizer in all the land. Every creature has the capability to use magic, yet not every creature has the intellect needed to master it.\nInt +5%\nCon -2.5%\nStr -2.5%"
+            "value" : "Magic, the greatest equalizer in all the land. Every creature has the capability to use magic, yet not every creature has the intellect needed to master it.\nInt +5%\nCon -5%\nStr -5%"
         },
         {
             "key" : "Race",
@@ -195,7 +195,7 @@
         },
         {
             "key" : "WesternerDesc",
-            "value" : "Once a great civilization, the Western capital fell to the Demonic scourge that plagues the western lands. All of those born in the West have served in it's Military, and are Sturdier for it.\nCon +5%"
+            "value" : "Once a great civilization, the Western capital fell to the Demonic scourge that plagues the western lands. All of those born in the West have served in it's Military, and are Stronger for it.\nStr +5%"
         },
         {
             "key" : "NovunDesc",
@@ -203,7 +203,7 @@
         },
         {
             "key" : "ArenaenDesc",
-            "value" : "The Arenaen are the natives of the southern Desert. Years in the scorching sun have darkened their skin. Arenaens will find themselves slightly stronger than the other races.\nStr +5%"
+            "value" : "The Arenaen are the natives of the southern Desert. Years in the scorching sun have darkened their skin. Arenaens will find themselves slightly more resilient than the other races.\nCon +5%"
         },
         {
             "key" : "AvitionDesc",
@@ -420,6 +420,30 @@
         {
             "key": "ClassicDesc",
             "value": "A more classic turn based RPG, combat moves will be on your own terms. Don't feel rushed, go get a snack and ponder your next move."
+        },
+        {
+            "key" : "Skills",
+            "value" : "Skills"
+        },
+        {
+            "key" : "Talents",
+            "value" : "Talents"
+        },
+        {
+            "key" : "Save",
+            "value" : "Save"
+        },
+        {
+            "key" : "Save and Exit",
+            "value" : "Save and Exit"
+        },
+        {
+            "key" : "Paused",
+            "value" : "Paused"
+        },
+        {
+            "key" : "Equipment",
+            "value" : "Equipment"
         },
         {
             "key" : "TEST",

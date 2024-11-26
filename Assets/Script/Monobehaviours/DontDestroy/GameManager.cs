@@ -30,14 +30,6 @@ public class GameManager : MonoBehaviour
         Destroy(this.gameObject); //We delete ourself
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("e")) 
-        {
-            TransitionManager.Instance.FadeToBlack(3.0f, ()=>LoadScene("Game"));
-        }
-    }
-
     /// <summary>
     /// This Coroutine the Localization manager to wait for its dependencies to exist before allowing use of any Dependent methods
     /// </summary>

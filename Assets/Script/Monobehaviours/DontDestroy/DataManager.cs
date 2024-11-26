@@ -90,6 +90,7 @@ public class DataManager : MonoBehaviour
         inventory = LoadClass.Load<Inventory>(DataManager.SAVEPATH + @"\inventory");
         roster = LoadClass.Load<Roster>(DataManager.SAVEPATH + @"\roster");
 
+        MenuManager.Instance.PopulateMenus();
     }
 
     /// <summary>
@@ -130,8 +131,13 @@ public class DataManager : MonoBehaviour
     public void CreateGame(MainCharacter character)//Will create and overwrite a character at the given slot
     {
         playerCharacter = character; //Creates a new mainCharacter based around the values in the character creator
+        roster = new Roster();  //  Creates new roster
+        inventory = new Inventory();    //  Creates new inventory
 
         SaveGame(); //Overwrites the character using the new playerCharacter value
+        
+
+        TransitionManager.Instance.FadeToBlack(3, ()=> { LoadGame(); GameManager.Instance.LoadScene("Game"); },2);
     }
 
     /// <summary>

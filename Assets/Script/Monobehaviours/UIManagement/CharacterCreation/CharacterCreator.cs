@@ -37,21 +37,11 @@ public class CharacterCreator : MonoBehaviour //This gameobject will contain any
     /// </summary>
     public void FinalizeCharacter()
     {
-        MainCharacter character = new MainCharacter()
+        for(int i = 0; i < stats.Length; i++) 
         {
-            name = CharacterCreator.Instance.charName,
-            appearance = CharacterCreator.Instance.AppearanceObj.GetAppearance(),
-            spec = CharacterCreator.Instance.spec,
-            race = CharacterCreator.Instance.race,
-            gender = CharacterCreator.Instance.Gender,
-
-            pointStrength = CharacterCreator.Instance.stats[0],
-            pointDexterity = CharacterCreator.Instance.stats[1],
-            pointIntellect = CharacterCreator.Instance.stats[2],
-            pointWisdom = CharacterCreator.Instance.stats[3],
-            pointConstitution = CharacterCreator.Instance.stats[4],
-            gamemode = difficulty
-        };
+            stats[i] -= 10;
+        }
+        MainCharacter character = new MainCharacter(charName, Gender, race, spec, AppearanceObj.GetAppearance(), stats, difficulty);
 
         DataManager.Instance.CreateGame(character);
     }

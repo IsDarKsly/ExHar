@@ -198,8 +198,8 @@ public class LocalizationManager : MonoBehaviour
     public string ReadUIDictionary(string key) 
     {
         if (!_initialized) return null;
-        Debug.Assert(UI_Dictionary.ContainsKey(key), "Key is not in Dictionary");
-        return UI_Dictionary[key];
+        Debug.Assert(UI_Dictionary.ContainsKey(key), $"{key} is not in Dictionary");
+        return UI_Dictionary.ContainsKey(key) ? UI_Dictionary[key] : "";
     }
 
     /// <summary>

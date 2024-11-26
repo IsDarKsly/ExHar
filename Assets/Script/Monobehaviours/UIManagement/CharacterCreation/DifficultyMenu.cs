@@ -19,7 +19,7 @@ public class DifficultyMenu : MonoBehaviour
         string title = i == 0 ? LocalizationManager.Instance.ReadUIDictionary("Classic") : LocalizationManager.Instance.ReadUIDictionary("Timed");
         string desc = i == 0 ? LocalizationManager.Instance.ReadUIDictionary("ClassicDesc") : LocalizationManager.Instance.ReadUIDictionary("TimedDesc");
 
-        MenuManager.Instance.ShowDetails(title, desc, () => { MenuManager.Instance.ActivateConfirmMenu(() => { SetActive(false); CharacterCreator.Instance.FinalizeCharacter(); }); });
+        MenuManager.Instance.ShowDetails(title, desc, () => { MenuManager.Instance.ActivateConfirmMenu(() => { CharacterCreator.Instance.FinalizeCharacter(); }); });
     }
 
 }

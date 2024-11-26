@@ -21,6 +21,14 @@ public class MainCharacter : Humanoid {
         
     }
 
+    /// <summary>
+    /// Default constructor for level 1 character
+    /// </summary>
+    public MainCharacter(string _name, bool _gender, RACE _race, CLASS _spec, Appearance _appearance, int[] _stats, DIFFICULTY _gamemode) : base(_name, _gender, _race, _spec,  _appearance, _stats)
+    {
+        gamemode = _gamemode;
+    }
+
 }
 
 public enum DIFFICULTY { CLASSIC, TIMED }
