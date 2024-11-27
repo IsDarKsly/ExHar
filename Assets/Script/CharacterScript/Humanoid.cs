@@ -15,6 +15,12 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     public string they { get => gender ? "he" : "she"; } //Sets the Pronoun for they
     public string their { get => gender ? "his" : "her"; } //Sets the Pronoun for their
 
+    public int Hp;
+
+    public int Mana;
+
+    public int Stamina;
+
     public Appearance appearance { get; set; } //The appearance of our character
 
     //these points have to do with the allocated points a character has chosen
@@ -25,6 +31,39 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     public int pointWisdom { get; set; }
     public int pointConstitution { get; set; }
     //Conclusion of point allocated Stats
+
+    //Equipment
+    public Armor Helmet { get; set; }
+    public Armor Chest { get; set; }
+    public Armor Leggings { get; set; }
+    public Armor Boots { get; set; }
+    public Armor Gloves { get; set; }
+    public Jewelry Amulet { get; set; }
+    public Jewelry Ring1 { get; set; }
+    public Jewelry Ring2 { get; set; }
+    public Weapon MainHand { get; set; }
+    public Weapon OffHand { get; set; }
+    //End of Equipment
+
+    /// <summary>
+    /// The list of statuses this humanoid has
+    /// </summary>
+    public List<StatusEffect> statuses = new List<StatusEffect>();
+
+    /// <summary>
+    /// Points available to spend on talents
+    /// </summary>
+    public int TalentPoints { get; set; } = 0;
+
+    /// <summary>
+    /// The list of active talents, also known as skills, this unit has
+    /// </summary>
+    public List<ActiveTalents> ActiveTalents = new List<ActiveTalents>();
+
+    /// <summary>
+    /// The list of passive talents this unit has
+    /// </summary>
+    public List<PassiveTalents> PassiveTalents = new List<PassiveTalents>();
 
     /// <summary>
     /// The level of this character
@@ -76,6 +115,68 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     }
 
     /// <summary>
+    /// Removes a status effect from the list of statuses
+    /// </summary>
+    /// <param name="status"></param>
+    public void RemoveStatus(StatusEffect status) 
+    {
+        statuses.Remove(status);
+    }
+
+    /// <summary>
+    /// Clears the status effect list
+    /// </summary>
+    /// <param name="status"></param>
+    public void ClearStatusList()
+    {
+        statuses.Clear();
+    }
+
+    /// <summary>
+    /// Adds a status effect to a character,
+    /// if a status already exists via identifier the duration is refreshed.
+    /// if this status is also a resource changer, a stack is added, which changes the end calculation.
+    /// Multiple stuns are not allowed
+    /// </summary>
+    /// <param name="status"></param>
+    public void AddStatus(StatusEffect status)
+    {
+        if (status.stun && statuses.Exists(t => t.stun || t.stunres)) //    If this is a stun, and we are already stunned or have stun resistance
+        {
+            Debug.Log("Character is already stunned or has stun resistance");
+            return;
+        }
+
+        var existingstatus = statuses.Find(t => t.identifier == status.identifier); // See if this status already exists
+        if (existingstatus != null) 
+        {
+            if (existingstatus.resourceboost)   //  This status effects a resource 
+            {
+                statuses.Find(t => t.identifier == status.identifier).Duration = status.Duration;   //  Refresh the duration
+                existingstatus.stacks++;    //  Add a stack
+            }
+            else    //  This effect is meant to be replaced, like an aura
+            {
+                RemoveStatus(existingstatus);
+                AddStatus(status);
+            }
+
+            return;
+        }
+
+        statuses.Add(status);
+    }
+
+    /// <summary>
+    /// Returns true if the character is stunned
+    /// </summary>
+    /// <returns></returns>
+    public bool IsStunned() 
+    {
+        return statuses.Exists(t=>t.stun);  //  There is a stun in the status list
+    }
+
+    /// <summary>
     /// Adds some amount of XP to the character and levels them up if applicable
     /// </summary>
     /// <param name="amount"></param>
@@ -86,6 +187,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         {
             XP = 0;
             Level++;
+            TalentPoints++;
             availablePoints += 4;
 
             tmp_con = pointConstitution;
@@ -114,6 +216,139 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         tmp_int = pointIntellect;
     }
 
+    /// <summary>
+    /// Resets the talents
+    /// </summary>
+    public void ResetTalents() 
+    {
+        foreach (var skill in ActiveTalents) 
+        {
+            if (skill.Refundable) TalentPoints++;
+        }
+
+        foreach (var skill in PassiveTalents)
+        {
+            if (skill.Refundable) TalentPoints++;
+        }
+
+        var newactives = ActiveTalents.FindAll(t=>!t.Refundable);   //  Get a new list of only non refundables
+        var newpassives = PassiveTalents.FindAll(t => !t.Refundable);
+
+        ActiveTalents = newactives; //  Overwrite old list with new list
+        PassiveTalents = newpassives;
+
+    }
+
+    /// <summary>
+    /// Adds the diff to the Mana, use negatives for mana loss
+    /// </summary>
+    /// <param name="diff"></param>
+    public void ChangeMana(int diff) 
+    {
+        Mana += diff;
+        Mana = GetMana();
+    }
+
+    /// <summary>
+    /// Adds the diff to the Health, use negatives for mana loss
+    /// </summary>
+    /// <param name="diff"></param>
+    public void ChangeHealth(int diff)
+    {
+        Hp += diff;
+        Hp = GetHealth();
+    }
+
+    /// <summary>
+    /// Adds the diff to the Stamina, use negatives for mana loss
+    /// </summary>
+    /// <param name="diff"></param>
+    public void ChangeStamina(int diff)
+    {
+        Stamina += diff;
+        Stamina = GetStamina();
+    }
+
+    /// <summary>
+    /// Gets the mana this character has
+    /// </summary>
+    /// <returns></returns>
+    public int GetMana()
+    {
+        if (Mana > GetMaxMana())
+        {
+            Mana = GetMaxMana();
+        }
+        else if (Mana < 0) 
+        {
+            Mana = 0;
+        }
+
+        return (Mana);
+    }
+
+    /// <summary>
+    /// Gets the mana this character has
+    /// </summary>
+    /// <returns></returns>
+    public int GetHealth()
+    {
+        if (Hp > GetMaxHealth())
+        {
+            Hp = GetMaxHealth();
+        }
+        else if (Hp < 0)
+        {
+            Hp = 0;
+        }
+
+        return (Hp);
+    }
+
+    /// <summary>
+    /// Gets the mana this character has
+    /// </summary>
+    /// <returns></returns>
+    public int GetStamina()
+    {
+        if (Stamina > GetMaxStamina())
+        {
+            Stamina = GetMaxStamina();
+        }
+        else if (Stamina < 0)
+        {
+            Stamina = 0;
+        }
+
+        return (Stamina);
+    }
+
+    /// <summary>
+    /// Gets the maximum mana this character can have
+    /// </summary>
+    /// <returns></returns>
+    public int GetMaxMana()
+    {
+        return GetStat(STATS.Intellect) * 5;
+    }
+
+    /// <summary>
+    /// Gets the maximum health this character can have
+    /// </summary>
+    /// <returns></returns>
+    public int GetMaxHealth()
+    {
+        return GetStat(STATS.Constitution) * 10;
+    }
+
+    /// <summary>
+    /// Gets the maximum stamina this character can have
+    /// </summary>
+    /// <returns></returns>
+    public int GetMaxStamina()
+    {
+        return GetStat(STATS.Intellect) * 5;
+    }
 
     /// <summary>
     /// Used for getting a given stat
@@ -131,20 +366,63 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <returns></returns>
     public int GetStatAdditions(STATS stat) 
     {
+        int _stat = 0;
+
         switch (stat)
         {
             case STATS.Constitution:
-                return pointConstitution;
+                _stat = pointConstitution;
+                break;
             case STATS.Strength:
-                return pointStrength;
+                _stat = pointStrength;
+                break;
             case STATS.Dexterity:
-                return pointDexterity;
+                _stat = pointDexterity;
+                break;
             case STATS.Intellect:
-                return pointIntellect;
+                _stat = pointIntellect;
+                break;
             case STATS.Wisdom:
-                return pointWisdom;
+                _stat = pointWisdom;
+                break;
         }
-        return 0;
+
+        _stat += GetFlatEquipmentBonus(stat);
+        _stat += GetFlatStatusEffect(stat);
+        _stat += GetFlatPassiveEffect(stat);
+        return _stat;
+    }
+
+    /// <summary>
+    /// Returns the flat effects for all statuses
+    /// </summary>
+    /// <returns></returns>
+    public int GetFlatStatusEffect(STATS stat) 
+    {
+        int num = 0;
+
+        foreach (var status in statuses) 
+        {
+            num += status.GetStatChange(stat);
+        }
+
+        return num;
+    }
+
+    /// <summary>
+    /// Returns the flat effects for all passives
+    /// </summary>
+    /// <returns></returns>
+    public int GetFlatPassiveEffect(STATS stat)
+    {
+        int num = 0;
+
+        foreach (var status in PassiveTalents)
+        {
+            if(status.trigger==PASSIVETRIGGER.Consistent) num += status.GetStatBonus(stat);
+        }
+
+        return num;
     }
 
     /// <summary>
@@ -154,8 +432,10 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <returns></returns>
     public float GetStatMultipliers(STATS stat) 
     {
-        return (1 * GetGenderMultiplier(stat) * GetClassMultiplier(stat) * GetRacialMultiplier(stat));
+        return (1 * GetGenderMultiplier(stat) * GetClassMultiplier(stat) * GetRacialMultiplier(stat) * GetEquipmentMult(stat));
     }
+
+
 
     /// <summary>
     /// Gets this characters class multiplier for a specific stat
@@ -362,7 +642,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     }
 
     /// <summary>
-    /// Used for setting stat points.
+    /// Used for setting stat points. Only for construction really
     /// </summary>
     public void SetStatPoint(STATS stat, int points) 
     {
@@ -396,9 +676,114 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
             Debug.LogError($"Nu-uh {stat}, {points}, {(10 + (Level * 4))}");
             Application.Quit();
         }
-
     }
 
+    /// <summary>
+    /// Gets the flat bonus for all equipment
+    /// </summary>
+    /// <param name="stat"></param>
+    /// <returns></returns>
+    public int GetFlatEquipmentBonus(STATS stat) 
+    {
+        int bonus = 0;
+
+        if (Helmet != null) bonus += Helmet.GetStatBonus(stat);
+        if (Chest != null) bonus += Chest.GetStatBonus(stat);
+        if (Leggings != null) bonus += Leggings.GetStatBonus(stat);
+        if (Boots != null) bonus += Boots.GetStatBonus(stat);
+        if (Gloves != null) bonus += Gloves.GetStatBonus(stat);
+        if (Amulet != null) bonus += Amulet.GetStatBonus(stat);
+        if (Ring1 != null) bonus += Ring1.GetStatBonus(stat);
+        if (Ring2 != null) bonus += Ring1.GetStatBonus(stat);
+        if (MainHand != null) bonus += MainHand.GetStatBonus(stat);
+        if (OffHand != null) bonus += OffHand.GetStatBonus(stat);
+
+        return bonus;
+    }
+
+    /// <summary>
+    /// Gets the multipliers for equipments
+    /// Each multiplier is actually multiplicative
+    /// </summary>
+    /// <param name="stat"></param>
+    /// <returns></returns>
+    public float GetEquipmentMult(STATS stat)
+    {
+        float bonus = 1f;
+
+        if (Helmet != null) bonus += Helmet.GetMultiplier(stat);
+        if (Chest != null) bonus += Chest.GetMultiplier(stat);
+        if (Leggings != null) bonus += Leggings.GetMultiplier(stat);
+        if (Boots != null) bonus += Boots.GetMultiplier(stat);
+        if (Gloves != null) bonus += Gloves.GetMultiplier(stat);
+        if (Amulet != null) bonus += Amulet.GetMultiplier(stat);
+        if (Ring1 != null) bonus += Ring1.GetMultiplier(stat);
+        if (Ring2 != null) bonus += Ring1.GetMultiplier(stat);
+        if (MainHand != null) bonus += MainHand.GetMultiplier(stat);
+        if (OffHand != null) bonus += OffHand.GetMultiplier(stat);
+
+        return bonus;
+    }
+
+    /// <summary>
+    /// Calculates the defense from armor, shields, statuses, and talents
+    /// </summary>
+    /// <returns></returns>
+    public int CalculateFlatDefense(DamageType type) 
+    {
+        int num = 0;
+
+        if (Helmet != null) num += Helmet.GetFlatDefense(type);
+        if (Chest != null) num += Chest.GetFlatDefense(type);
+        if (Leggings != null) num += Leggings.GetFlatDefense(type);
+        if (Boots != null) num += Boots.GetFlatDefense(type);
+        if (Gloves != null) num += Gloves.GetFlatDefense(type);
+        if (MainHand != null && MainHand.WeaponType == WeaponType.Shield) num += MainHand.GetFlatDefense(type);
+        if (OffHand != null && MainHand.WeaponType == WeaponType.Shield) num += OffHand.GetFlatDefense(type);
+
+        foreach (var status in statuses)
+        {
+            num += status.GetDefenseChange(type);
+        }
+
+        foreach (var skill in PassiveTalents)
+        {
+            num += skill.GetDefenseBonus(type);
+        }
+
+        return num;
+    }
+
+    /// <summary>
+    /// Gets the Resistance from armor, jewelry, statuses, and talents
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public float CalculateResistance(DamageSubType type) 
+    {
+        float num = 0;
+
+        if (Helmet != null) num += Helmet.GetResistance(type);
+        if (Chest != null) num += Chest.GetResistance(type);
+        if (Leggings != null) num += Leggings.GetResistance(type);
+        if (Boots != null) num += Boots.GetResistance(type);
+        if (Gloves != null) num += Gloves.GetResistance(type);
+        if (Amulet != null) num += Amulet.GetResistance(type);
+        if (Ring1 != null) num += Ring1.GetResistance(type);
+        if (Ring2 != null) num += Ring2.GetResistance(type);
+
+        foreach (var status in statuses) 
+        {
+            num += status.GetResistanceChange(type);
+        }
+
+        foreach (var skill in PassiveTalents)
+        {
+            num += skill.GetResistance(type);
+        }
+
+        return num;
+    }
 
 
     /// <summary>
@@ -503,5 +888,5 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
 
 public enum CLASS { MAGE, ROGUE, WARRIOR } //Our enums representing a characters class
 public enum RACE { Wild_One, Arenaen, Westerner, Avition, Novun, Umbran } //Our enums representing a characters race
-
 public enum STATS { Constitution, Strength, Dexterity, Intellect, Wisdom } //Our enum representing a stat, this simply helps with getting and setting
+public enum RESOURCES { Health, Stamina, Mana } //Enum representing resources

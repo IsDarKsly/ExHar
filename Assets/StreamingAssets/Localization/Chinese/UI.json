@@ -18,7 +18,7 @@
         },
         {
             "key": "Effects Volume",
-            "value": "效果音量"
+            "value": "音效音量"
         },
         {
             "key": "Music Volume",
@@ -26,7 +26,7 @@
         },
         {
             "key": "Master Volume",
-            "value": "主音量"
+            "value": "总音量"
         },
         {
             "key": "Fullscreen",
@@ -46,7 +46,7 @@
         },
         {
             "key": "Character Select",
-            "value": "角色选择"
+            "value": "选择角色"
         },
         {
             "key": "Back",
@@ -93,16 +93,44 @@
             "value": "体质"
         },
         {
+            "key": "StrengthDesc",
+            "value": "投资力量会让你更擅长使用近战武器造成伤害"
+        },
+        {
+            "key": "DexterityDesc",
+            "value": "敏捷的人用远程武器造成更大伤害，并能轻松躲避攻击"
+        },
+        {
+            "key": "IntellectDesc",
+            "value": "智力与法力值直接相关，并提高法术伤害"
+        },
+        {
+            "key": "WisdomDesc",
+            "value": "知道何时何地攻击会增加暴击的可能性"
+        },
+        {
+            "key": "ConstitutionDesc",
+            "value": "锻炼体质会增加生命值和耐力"
+        },
+        {
             "key": "Gender?",
             "value": "性别？"
         },
         {
+            "key": "MaleDesc",
+            "value": "人类男性通常比女性更高更强壮，但决策能力较差导致寿命较短\n力量+2.5%\n体质+2.5%"
+        },
+        {
+            "key": "FemaleDesc",
+            "value": "女性个头较小，用智慧应对艰难环境。以力量为代价，女性比男性更机智。\n敏捷+2.5%\n智力+2.5%"
+        },
+        {
             "key": "Male",
-            "value": "男"
+            "value": "男性"
         },
         {
             "key": "Female",
-            "value": "女"
+            "value": "女性"
         },
         {
             "key": "Class",
@@ -121,12 +149,24 @@
             "value": "法师"
         },
         {
+            "key": "WarriorDesc",
+            "value": "勇敢的战士无需花招就能击败敌人。一把简单的武器就是他们的生存之道。战士在鲜血和战斗中锻造而成。\n力量+2.5%\n体质+2.5%\n智力-5%"
+        },
+        {
+            "key": "RogueDesc",
+            "value": "在这个危险的世界中，聪明人知道不要鲁莽行事。匕首与毒药是盗贼的生活方式。\n敏捷+2.5%\n智慧+2.5%\n体质-5%"
+        },
+        {
+            "key": "MageDesc",
+            "value": "魔法是世界上最大的平衡器。每个生物都能使用魔法，但只有高智力者才能掌握它。\n智力+5%\n体质-5%\n力量-5%"
+        },
+        {
             "key": "Race",
             "value": "种族"
         },
         {
             "key": "Wild One",
-            "value": "野性之人"
+            "value": "荒野者"
         },
         {
             "key": "Westerner",
@@ -134,19 +174,43 @@
         },
         {
             "key": "Novun",
-            "value": "诺文"
+            "value": "诺夫人"
         },
         {
             "key": "Arenaen",
-            "value": "阿瑞那人"
+            "value": "沙漠人"
         },
         {
             "key": "Avition",
-            "value": "阿维提安"
+            "value": "阿维特人"
         },
         {
             "key": "Umbran",
-            "value": "暗影族"
+            "value": "暗影人"
+        },
+        {
+            "key": "Wild One Desc",
+            "value": "中部荒野的苍白人类居住在危险的森林中。他们比其他种族更狡猾。\n智慧+5%"
+        },
+        {
+            "key": "WesternerDesc",
+            "value": "曾经伟大的文明，西方首都被魔族侵略摧毁。所有出生于西方的人都服过兵役，因此更强壮。\n力量+5%"
+        },
+        {
+            "key": "NovunDesc",
+            "value": "东南部聪明的工程师，扩张主义的诺夫人因与其他国家不断冲突而更加有战略眼光。\n智力+2.5%\n智慧+2.5%"
+        },
+        {
+            "key": "ArenaenDesc",
+            "value": "沙漠的原住民长年生活在烈日下，皮肤变得黝黑，比其他种族更有韧性。\n体质+5%"
+        },
+        {
+            "key": "AvitionDesc",
+            "value": "东北部优雅的学者是魔法的忠实信徒。他们与诺夫人的冲突让他们的魔法技能达到新的高度。\n智力+5%"
+        },
+        {
+            "key": "UmbranDesc",
+            "value": "北方山脉的孤立种族，生活在寒冷无阳的土地上。传说有不朽的黑暗生物曾在此寻求庇护。\n敏捷+5%"
         },
         {
             "key": "Continue",
@@ -335,6 +399,70 @@
         {
             "key": "Syriac",
             "value": "叙利亚语"
+        },
+        {
+            "key": "Difficulty",
+            "value": "难度"
+        },
+        {
+            "key": "Timed",
+            "value": "限时"
+        },
+        {
+            "key": "Classic",
+            "value": "经典"
+        },
+        {
+            "key": "TimedDesc",
+            "value": "在此难度下，你需要在10秒内作出战斗反应。反应越快，能力越强。未能及时作出反应，将面临严重后果。"
+        },
+        {
+            "key": "ClassicDesc",
+            "value": "一个更经典的回合制RPG，战斗行动完全由你掌控。不要着急，去拿个零食慢慢思考下一步行动。"
+        },
+        {
+            "key": "Skills",
+            "value": "技能"
+        },
+        {
+            "key": "Talents",
+            "value": "天赋"
+        },
+        {
+            "key": "Save",
+            "value": "保存"
+        },
+        {
+            "key": "Save and Exit",
+            "value": "保存并退出"
+        },
+        {
+            "key": "Paused",
+            "value": "暂停"
+        },
+        {
+            "key": "Equipment",
+            "value": "装备"
+        },
+        {
+            "key": "Magic Resistance",
+            "value": "魔法抗性"
+        },
+        {
+            "key": "Health",
+            "value": "生命值"
+        },
+        {
+            "key": "Stamina",
+            "value": "耐力"
+        },
+        {
+            "key": "Mana",
+            "value": "法力值"
+        },
+        {
+            "key": "Armor",
+            "value": "护甲"
         },
         {
             "key": "TEST",

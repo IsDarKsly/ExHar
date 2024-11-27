@@ -80,6 +80,8 @@ public class MenuManager : MonoBehaviour
         LocalizationManager.Instance.UpdateUI();
 
         DataManager.Instance.SaveOptions();
+
+        if (PartyMenuObj.GetCurrentCharacter() != null) PartyMenuObj.UpdateCurrentCharacter();
     }
 
     /// <summary>

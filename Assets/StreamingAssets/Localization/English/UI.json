@@ -446,6 +446,26 @@
             "value" : "Equipment"
         },
         {
+            "key" : "Magic Resistance",
+            "value" : "Magic Resistance"
+        },
+        {
+            "key" : "Health",
+            "value" : "Health"
+        },
+        {
+            "key" : "Stamina",
+            "value" : "Stamina"
+        },
+        {
+            "key" : "Mana",
+            "value" : "Mana"
+        },
+        {
+            "key" : "Armor",
+            "value" : "Armor"
+        },
+        {
             "key" : "TEST",
             "value" : "This is a test"
         }

@@ -12,6 +12,22 @@ public class PartyMenu : MonoBehaviour
 {
     public CharacterInfoMenu characterinfo;
 
+    /// <summary>
+    /// This is a list containing texts for the current characters display info
+    /// [0] Name text
+    /// [1] Health text
+    /// [2] Stamina text
+    /// [3] Mana text
+    /// [4] Constitution text
+    /// [5] Strength text
+    /// [6] Dexterity text
+    /// [7] Intellect text
+    /// [8] Wisdom text
+    /// [9] Armor text
+    /// [10] Resistance text
+    /// </summary>
+    public List<TMP_Text> infoList = new List<TMP_Text>();
+
     public GameObject[] partyslot = new GameObject[4];
     public GameObject rosterParent;
     public TMP_InputField input;
@@ -112,6 +128,15 @@ public class PartyMenu : MonoBehaviour
     public void SetActive(bool b)
     {
         gameObject.SetActive(b);
+    }
+
+    /// <summary>
+    /// Returns the current character
+    /// </summary>
+    /// <returns></returns>
+    public Humanoid GetCurrentCharacter() 
+    {
+        return current_character;
     }
 
     /// <summary>
@@ -224,6 +249,17 @@ public class PartyMenu : MonoBehaviour
         appearnceObj.SetAppearance(current_character.appearance);
         appearnceObj.updateLooks();
 
+        infoList[0].text = current_character.name;
+        infoList[1].text = LocalizationManager.Instance.ReadUIDictionary("Health") + $": {current_character.GetHealth()} / {current_character.GetMaxHealth()}";
+        infoList[2].text = LocalizationManager.Instance.ReadUIDictionary("Stamina") + $": {current_character.GetStamina()} / {current_character.GetMaxStamina()}";
+        infoList[3].text = LocalizationManager.Instance.ReadUIDictionary("Mana") + $": {current_character.GetMana()} / {current_character.GetMaxMana()}";
+        infoList[4].text = LocalizationManager.Instance.ReadUIDictionary("Constitution") + $": {current_character.GetStat(STATS.Constitution)}";
+        infoList[5].text = LocalizationManager.Instance.ReadUIDictionary("Strength") + $": {current_character.GetStat(STATS.Strength)}";
+        infoList[6].text = LocalizationManager.Instance.ReadUIDictionary("Dexterity") + $": {current_character.GetStat(STATS.Dexterity)}";
+        infoList[7].text = LocalizationManager.Instance.ReadUIDictionary("Intellect") + $": {current_character.GetStat(STATS.Intellect)}";
+        infoList[8].text = LocalizationManager.Instance.ReadUIDictionary("Wisdom") + $": {current_character.GetStat(STATS.Wisdom)}";
+        infoList[9].text = LocalizationManager.Instance.ReadUIDictionary("Armor") + $": {current_character.CalculateFlatDefense(DamageType.Physical)}";
+        infoList[10].text = LocalizationManager.Instance.ReadUIDictionary("Magic Resistance") + $": {current_character.CalculateFlatDefense(DamageType.Magical)}";
     }
 
 }

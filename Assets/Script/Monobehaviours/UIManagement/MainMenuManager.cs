@@ -83,7 +83,7 @@ public class MainMenuManager : MonoBehaviour
 
         if (File.Exists(DataManager.FOLDERPATH + "save" + slot.ToString() + @"\ex.txt")) //Checks to see if a character file exists at this location
         {
-            Debug.Log("This will begin loading: " + DataManager.FOLDERPATH + "save" + slot.ToString() + @"\ex.txt"); //Here we will start loading the next scene
+            TransitionManager.Instance.FadeToBlack(3, () => { DataManager.Instance.LoadGame(); GameManager.Instance.LoadScene("Game"); }, 2);
         }
         else
         {
