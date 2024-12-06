@@ -9,22 +9,32 @@ using UnityEngine;
 [System.Serializable]
 public class Equipment : Item
 {
-    public SerializableDictionary<STATS, int> StatBonuses { get; set; } = new SerializableDictionary<STATS, int>();
-    public SerializableDictionary<STATS, float> StatMultipliers { get; set; } = new SerializableDictionary<STATS, float>();
+    public Dictionary<STATS, int> StatBonuses { get; set; } = new Dictionary<STATS, int>();
+    public Dictionary<STATS, float> StatMultipliers { get; set; } = new Dictionary<STATS, float>();
 
     /// <summary>
     /// A flat number used to deal or reduce physical/magical damage
     /// </summary>
-    public SerializableDictionary<DamageType, int> EquipmentValue { get; set; } = new SerializableDictionary<DamageType, int>();
+    public Dictionary<DamageType, int> EquipmentValue { get; set; } = new Dictionary<DamageType, int>();
 
     /// <summary>
-    /// A Percentage used to resist a percentage of damage, or determine what
+    /// A Percentage used to resist a percentage of damage, or determine what percent of damage is being dealt as a subtype
     /// </summary>
-    public SerializableDictionary<DamageSubType, float> EquipmentPercent { get; set; } = new SerializableDictionary<DamageSubType, float>();
+    public Dictionary<DamageSubType, float> EquipmentPercent { get; set; } = new Dictionary<DamageSubType, float>();
+
+    /// <summary>
+    /// The passives on this piece of equipment
+    /// </summary>
+    public List<PassiveTalents> passives { get; set; } = new List<PassiveTalents>();
 
     public int GetStatBonus(STATS stat) => StatBonuses.ContainsKey(stat) ? StatBonuses[stat] : 0;
 
     public float GetMultiplier(STATS stat) => StatMultipliers.ContainsKey(stat) ? StatMultipliers[stat] : 1f;
+
+    /// <summary>
+    /// Whether a piece of equipment is currently equipped or not
+    /// </summary>
+    public bool IsEquipped { get; set; } = false;
 
     public Equipment() { }
 
@@ -122,6 +132,18 @@ public class Equipment : Item
 public struct Damage 
 {
     /// <summary>
+    /// Whether or not this damage is critical
+    /// Default to false
+    /// </summary>
+    public bool IsCritical;
+
+    /// <summary>
+    /// Whether this damage can be dodged or not
+    /// defaults to True (Most attacks can be dodged)
+    /// </summary>
+    public bool IsDodgeable;
+
+    /// <summary>
     /// This represents the exact portion of damage
     /// </summary>
     public Dictionary<DamageType, int> damagePortion;
@@ -137,11 +159,14 @@ public struct Damage
     /// </summary>
     /// <param name="t_dam"></param>
     /// <param name="t_per"></param>
-    public Damage(Dictionary<DamageType, int> t_dam, Dictionary<DamageSubType, float> t_per) 
+    public Damage(Dictionary<DamageType, int> t_dam, Dictionary<DamageSubType, float> t_per, bool iscrit = false, bool candodge = true) 
     {
+        IsDodgeable = candodge;
+        IsCritical = iscrit;
         damagePortion = t_dam;
         damagePercent = t_per;
     }
+
 }
 
 /// <summary>

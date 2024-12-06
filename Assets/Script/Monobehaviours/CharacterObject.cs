@@ -19,7 +19,9 @@ public class CharacterObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
     /// <param name="targ"></param>
     public void Initiate(Humanoid targ, Action onclick, Action onenter, Action onexit) 
     {
+        if(appearanceObj == null) appearanceObj = GetComponentInChildren<AppearanceObj>();
         character = targ;
+        //Debug.Log($"{character}");
         appearanceObj.SetAppearance(character.appearance);
 
         gameObject.GetComponent<Button>().onClick.AddListener(()=>onclick());

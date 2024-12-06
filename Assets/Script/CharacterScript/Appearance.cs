@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
 public class Appearance //Will control the Appearance of a character
 {   
     //All of the custom parameters of a character
@@ -26,6 +27,9 @@ public class Appearance //Will control the Appearance of a character
     private int mouth = 0;
     private int skinshape = 0;
     private int skincolor = 0;
+
+    public PRESETAPPEARANCE PRESET = PRESETAPPEARANCE.CUSTOM; //Will assume custom character
+    public int SpriteID = 0; // Sprite ID, only used by the monster sprites
 
 
     //Using get and set to determ an varying value
@@ -164,8 +168,6 @@ public class Appearance //Will control the Appearance of a character
 
     //End of custom Parameters
 
-    public int PRESET = 0; //If Zero, will assume custom character
-
 
     public int getValueUsingList<T>(int i, List<T> l) //This function will allow us get the variables more easily by checking to see if we are within range before using them
     {
@@ -187,4 +189,9 @@ public class Appearance //Will control the Appearance of a character
     }
 
 }
+
+/// <summary>
+/// This will determine whether a character is just an entire preset sprite
+/// </summary>
+public enum PRESETAPPEARANCE { CUSTOM, MONSTER, Deterion, Yuki}
 

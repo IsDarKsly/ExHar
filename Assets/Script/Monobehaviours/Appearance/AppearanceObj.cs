@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class AppearanceObj : MonoBehaviour
 {
-    private Appearance appearance;
+    private Appearance appearance = new Appearance();
 
     /// <summary>
     /// Gets the Appearance class from the Appearance Obj
@@ -24,6 +24,7 @@ public class AppearanceObj : MonoBehaviour
     /// <param name="appearance">Appearance of a character</param>
     public void SetAppearance(Appearance appearance) 
     {
+        GetAppearance();
         this.appearance = appearance;
         updateLooks();
     }
@@ -54,9 +55,15 @@ public class AppearanceObj : MonoBehaviour
 
         blankLooks(); //Resets the looks in case of errors
 
-        if (appearance.PRESET != 0)
+        if (appearance.PRESET != PRESETAPPEARANCE.CUSTOM)
         {
-            PremadeI.sprite = SpriteManager.Instance.premadeSprites[appearance.PRESET].characterSprites[0];
+            if (appearance.PRESET == PRESETAPPEARANCE.MONSTER) 
+            {
+                PremadeI.sprite = SpriteManager.Instance.MonsterSprites[appearance.SpriteID];
+                return;
+            }
+
+            PremadeI.sprite = SpriteManager.Instance.premadeSprites[((int)appearance.PRESET) - 2].characterSprites[0];
             return;
         }
 

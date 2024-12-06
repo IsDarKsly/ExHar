@@ -111,6 +111,29 @@ public class TransitionManager : MonoBehaviour
         StartCoroutine(INSTANT_Fade(time, wait_time));
     }
 
+    /// <summary>
+    /// Transition is meant to be a sort of "catch all" function that simplifies transitions.
+    /// Instead of having to remember the specific name of the transition function, the enum can be passed instead
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="time"></param>
+    /// <param name="action"></param>
+    /// <param name="wait_time"></param>
+    public void Transition(TRANSITIONTYPE type, float time, Action action = null, float wait_time = 1.0f) 
+    {
+        switch (type) 
+        {
+            case TRANSITIONTYPE.Fade:
+                FadeToBlack(time, action, wait_time);
+                break;
+            case TRANSITIONTYPE.ImmediateFade:
+                IMMEDIATE_FadeFromBlack(time, action, wait_time);
+                break;
+            default:
+                Debug.LogError($"{type.ToString()} not implemented");
+                break;
+        }
+    }
 
     /// <summary>
     /// If action is true, we take it. Called by various animations
@@ -128,3 +151,5 @@ public class TransitionManager : MonoBehaviour
         return false;
     }
 }
+
+public enum TRANSITIONTYPE { Fade, ImmediateFade }

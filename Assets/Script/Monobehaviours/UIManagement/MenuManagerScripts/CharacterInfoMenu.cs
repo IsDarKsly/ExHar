@@ -15,7 +15,7 @@ public class CharacterInfoMenu : MonoBehaviour
     /// <param name="person"></param>
     public void Activate(Humanoid person) 
     {
-        n_text.text = person.name;
+        n_text.text = person.Name;
         r_text.text = LocalizationManager.Instance.ReadUIDictionary(person.race.ToString());
         l_text.text = LocalizationManager.Instance.ReadUIDictionary("Level") + person.Level.ToString();
         c_text.text = LocalizationManager.Instance.ReadUIDictionary(person.spec.ToString());

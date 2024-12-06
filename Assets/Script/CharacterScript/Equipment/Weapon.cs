@@ -16,17 +16,19 @@ public class Weapon : Equipment
     /// Represents the various physical boosting scaling factors a weapon has.
     /// Should really only be 2 stats at any given time
     /// </summary>
-    public SerializableDictionary<DamageType, SerializableDictionary<STATS, float>> WeaponScaling = new SerializableDictionary<DamageType, SerializableDictionary<STATS, float>>();
+    public Dictionary<DamageType, Dictionary<STATS, float>> WeaponScaling = new Dictionary<DamageType, Dictionary<STATS, float>>();
 
 
     /// <summary>
-    /// Gets the lower bound of damage this weapon can do
-    /// This is simplly 70% of the calculated damage
+    /// Takes a damage reference and randomly calculates its damage between 70% and 100%
     /// </summary>
     /// <returns></returns>
-    public int GetLowerBound() 
+    public void GetDamageRange(ref Damage damage) 
     {
-        return 0;
+        foreach (var kvp in damage.damagePortion) 
+        {
+            damage.damagePortion[kvp.Key] = (int)(damage.damagePortion[kvp.Key]*Random.Range(0.7f, 1f));
+        }
     }
 
     public Weapon() { }
@@ -42,8 +44,8 @@ public class Weapon : Equipment
     /// <param name="wWeight"></param>
     public Weapon(string name, string description, int id, WeaponType wType, WeaponWeight wWeight) : base(name, description, id)
     {
-        WeaponScaling[DamageType.Physical] = new SerializableDictionary<STATS, float>();
-        WeaponScaling[DamageType.Magical] = new SerializableDictionary<STATS, float>();
+        WeaponScaling[DamageType.Physical] = new Dictionary<STATS, float>();
+        WeaponScaling[DamageType.Magical] = new Dictionary<STATS, float>();
 
         WeaponType = wType;
         WeaponWeight = wWeight;
@@ -53,8 +55,9 @@ public class Weapon : Equipment
     /// Calculates the damage dealt by the weapon.
     /// </summary>
     /// <param name="humanoid">The character wielding the weapon</param>
+    /// <param name="raw">If you want the true max damage, no randomization, set this to true</param>
     /// <returns>The calculated damage</returns>
-    public Damage GetWeaponDamage(Humanoid humanoid)
+    public Damage GetWeaponDamage(in Humanoid humanoid, bool raw = false)
     {
         // No damage for shields or general equipment
         if (WeaponType == WeaponType.Shield) return new Damage(null, null);
@@ -69,8 +72,12 @@ public class Weapon : Equipment
             EquipmentValue[flatdam.Key] = (int)(EquipmentValue[flatdam.Key]*(WeaponWeight == WeaponWeight.TwoHand ? 1.75f : 1.0f));
         }
 
+        var dam = new Damage(EquipmentValue, EquipmentPercent);
+
+        if (!raw) GetDamageRange(ref dam);
+
         // Calculate final damage
-        return new Damage(EquipmentValue, EquipmentPercent);
+        return dam;
     }
 
     /// <summary>
@@ -99,6 +106,19 @@ public class Weapon : Equipment
     {
         if (WeaponType != WeaponType.Shield) return 0;
         return EquipmentValue.ContainsKey(type) ? EquipmentValue[type] : 0;
+    }
+
+    /// <summary>
+    /// ONLY IF THIS IS A SHIELD
+    /// Returns the percent value associated with this resistance
+    /// This should be additive with other similar effects
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public float GetResistance(DamageSubType type)
+    {
+        if (WeaponType != WeaponType.Shield) return 0;
+        return EquipmentPercent.ContainsKey(type) ? EquipmentPercent[type] : 0f;
     }
 
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
 public abstract class Talents
@@ -24,29 +25,33 @@ public abstract class Talents
     /// </summary>
     public int SpriteID { get; set; }
 
+    /// <summary>
+    /// This determines how many characters are targeted by this ability
+    /// It is really only used by the BattleManager to determine who should be targeted
+    /// </summary>
+    public TARGETTYPE TargetType { get; set; }
+
+    /// <summary>
+    /// Again, used by the BattleManager to determine who should be targeted
+    /// </summary>
+    public int Targets { get; set; }
+
     public Talents() 
     {
     
     }
-
-    public Talents(string name, string description, int level, int maxlevel, bool refundable, int spriteid) 
-    {
-        this.Name = name;
-        this.Description = description;
-        this.Level = level;
-        this.MaxLevel = maxlevel;
-        this.Refundable = refundable;
-        this.SpriteID = spriteid;
-    }
-
-    /// <summary>
-    /// Add talent to person
-    /// </summary>
-    public abstract void AddTalent(Humanoid person);
 
     /// <summary>
     /// Levels a particular talent up
     /// </summary>
     public abstract void LevelUp();
 
+    /// <summary>
+    /// This will invoke the skill
+    /// </summary>
+    /// <param name="targets"></param>
+    public abstract void Invoke(List<Humanoid> targets, Humanoid owner);
+
 }
+
+public enum TARGETTYPE { SINGLE, MULTIPLE, ALLENEMIES, ALLALLIES, SELF }

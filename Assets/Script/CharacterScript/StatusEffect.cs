@@ -9,11 +9,11 @@ using UnityEngine;
 /// </summary>
 public class StatusEffect
 {
-    public SerializableDictionary<STATS, int> stat_change = new SerializableDictionary<STATS, int>();
-    public SerializableDictionary<DamageType, SerializableDictionary<DamageSubType, int>> damage_change = new SerializableDictionary<DamageType, SerializableDictionary<DamageSubType, int>>();
-    public SerializableDictionary<DamageType, int> defense_change = new SerializableDictionary<DamageType, int>();
-    public SerializableDictionary<DamageSubType, float> resistance_change = new SerializableDictionary<DamageSubType, float>();
-    public SerializableDictionary<RESOURCES, int> resource_change = new SerializableDictionary<RESOURCES, int>();
+    public Dictionary<STATS, int> stat_change = new Dictionary<STATS, int>();
+    public Dictionary<DamageType, Dictionary<DamageSubType, int>> damage_change = new Dictionary<DamageType, Dictionary<DamageSubType, int>>();
+    public Dictionary<DamageType, int> defense_change = new Dictionary<DamageType, int>();
+    public Dictionary<DamageSubType, float> resistance_change = new Dictionary<DamageSubType, float>();
+    public Dictionary<RESOURCES, int> resource_change = new Dictionary<RESOURCES, int>();
 
     /// <summary>
     /// Defines whether this stat needs to offset a resource each turn
@@ -46,10 +46,14 @@ public class StatusEffect
 
     public StatusEffect() 
     {
-        damage_change[DamageType.Physical] = new SerializableDictionary<DamageSubType, int>();
-        damage_change[DamageType.Magical] = new SerializableDictionary<DamageSubType, int>();
+        damage_change[DamageType.Physical] = new Dictionary<DamageSubType, int>();
+        damage_change[DamageType.Magical] = new Dictionary<DamageSubType, int>();
     }
 
+    /// <summary>
+    /// Ticks a buff on a character
+    /// </summary>
+    /// <param name="human"></param>
     public void Tick(Humanoid human) 
     {
         if (resourceboost) Restore(human);

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+[System.Serializable]
 public class Consumable : Item
 {
     public int HealthRestore { get; set; } // How much health it restores
@@ -17,16 +17,16 @@ public class Consumable : Item
     public void Use(Humanoid target)
     {
         // Logic for using the consumable
-        Debug.Log($"{Name} used on {target.name}.");
+        Debug.Log($"{Name} used on {target.Name}.");
         if (HealthRestore > 0)
         {
             // Restore health logic
-            Debug.Log($"{target.name} restored {HealthRestore} health.");
+            Debug.Log($"{target.Name} restored {HealthRestore} health.");
         }
         if (ManaRestore > 0)
         {
             // Restore mana logic
-            Debug.Log($"{target.name} restored {ManaRestore} mana.");
+            Debug.Log($"{target.Name} restored {ManaRestore} mana.");
         }
     }
 }

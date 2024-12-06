@@ -176,7 +176,7 @@ public class PartyMenu : MonoBehaviour
         foreach (CharacterObject obj in roster)
         {
             obj.gameObject.SetActive(false);
-            if (obj.character.name.Contains(input.text))
+            if (obj.character.Name.Contains(input.text))
             {
                 obj.gameObject.SetActive(true);
             }
@@ -249,7 +249,7 @@ public class PartyMenu : MonoBehaviour
         appearnceObj.SetAppearance(current_character.appearance);
         appearnceObj.updateLooks();
 
-        infoList[0].text = current_character.name;
+        infoList[0].text = current_character.Name;
         infoList[1].text = LocalizationManager.Instance.ReadUIDictionary("Health") + $": {current_character.GetHealth()} / {current_character.GetMaxHealth()}";
         infoList[2].text = LocalizationManager.Instance.ReadUIDictionary("Stamina") + $": {current_character.GetStamina()} / {current_character.GetMaxStamina()}";
         infoList[3].text = LocalizationManager.Instance.ReadUIDictionary("Mana") + $": {current_character.GetMana()} / {current_character.GetMaxMana()}";

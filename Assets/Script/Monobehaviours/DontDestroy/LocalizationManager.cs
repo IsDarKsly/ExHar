@@ -10,7 +10,7 @@ public class LocalizationManager : MonoBehaviour
     public static string LOCALIZATIONPATH { get { return Application.streamingAssetsPath + @"\Localization\"; } }
     public static string LANGUAGEPATH { get { return LOCALIZATIONPATH + $"{DataManager.Instance.options.language}\\"; } }
 
-    
+
 
     /// <summary>
     /// The Instance that serves as our interface into this object
@@ -31,6 +31,18 @@ public class LocalizationManager : MonoBehaviour
     private Dictionary<string, string> UI_Dictionary;
 
     /// <summary>
+    /// Will be used to attempt getting a translated name
+    /// </summary>
+
+    private Dictionary<string, string> Name_Dictionary;
+
+    /// <summary>
+    /// This Dictionary will require some tuning, but represents every race and gender name combination
+    /// </summary>
+    private Dictionary<bool, Dictionary<RACE, List<string>>> Specific_Name_Dictionary;
+
+
+    /// <summary>
     /// Will be used by text assets to update font
     /// </summary>
     private Dictionary<string, TMP_FontAsset> Font_Dictionary;
@@ -42,13 +54,38 @@ public class LocalizationManager : MonoBehaviour
         {
             Instance = this; //We set Instance to ourself
             LoadFonts();    //  Load the existing fonts into the dictionary
+
+            InitializeNameDictionaries();
+
             DontDestroyOnLoad(this); //Mark this gameobject to remain after loading to new scenes
             return;
         }
         Destroy(this.gameObject); //We delete ourself
     }
 
+    /// <summary>
+    /// Sets all the possible name dictionaries
+    /// </summary>
+    private void InitializeNameDictionaries() 
+    {
+        Name_Dictionary = new Dictionary<string, string>();
 
+        Specific_Name_Dictionary = new Dictionary<bool, Dictionary<RACE, List<string>>>();
+        Specific_Name_Dictionary[true] = new Dictionary<RACE, List<string>>();
+        Specific_Name_Dictionary[true][RACE.Wild_One] = new List<string>();
+        Specific_Name_Dictionary[true][RACE.Arenaen] = new List<string>();
+        Specific_Name_Dictionary[true][RACE.Westerner] = new List<string>();
+        Specific_Name_Dictionary[true][RACE.Avition] = new List<string>();
+        Specific_Name_Dictionary[true][RACE.Novun] = new List<string>();
+        Specific_Name_Dictionary[true][RACE.Umbran] = new List<string>();
+        Specific_Name_Dictionary[false] = new Dictionary<RACE, List<string>>();
+        Specific_Name_Dictionary[false][RACE.Wild_One] = new List<string>();
+        Specific_Name_Dictionary[false][RACE.Arenaen] = new List<string>();
+        Specific_Name_Dictionary[false][RACE.Westerner] = new List<string>();
+        Specific_Name_Dictionary[false][RACE.Avition] = new List<string>();
+        Specific_Name_Dictionary[false][RACE.Novun] = new List<string>();
+        Specific_Name_Dictionary[false][RACE.Umbran] = new List<string>();
+    }
 
     /// <summary>
     /// Loads all fonts into
@@ -110,7 +147,48 @@ public class LocalizationManager : MonoBehaviour
         dictionary = null;
         if (!_initialized) return;
         Debug.Assert(File.Exists(PATH), $"{PATH} does not exist");
-        dictionary = JsonUtility.FromJson<LCLZ_Language>(File.ReadAllText(PATH)).ToDictionary();
+        dictionary = LoadClass.Load<Dictionary<string, string>>(PATH);
+    }
+
+    /// <summary>
+    /// Load names attempts to load every name combination
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator LoadNames() 
+    {
+        yield return new WaitUntil(() => _initialized == true);
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Arenaen" + "Male" + "Names.json", Specific_Name_Dictionary[true][RACE.Arenaen]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Arenaen" + "Female" + "Names.json", Specific_Name_Dictionary[false][RACE.Arenaen]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Avition" + "Male" + "Names.json", Specific_Name_Dictionary[true][RACE.Avition]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Avition" + "Female" + "Names.json", Specific_Name_Dictionary[false][RACE.Avition]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Novun" + "Male" + "Names.json", Specific_Name_Dictionary[true][RACE.Novun]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Novun" + "Female" + "Names.json", Specific_Name_Dictionary[false][RACE.Novun]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Umbran" + "Male" + "Names.json", Specific_Name_Dictionary[true][RACE.Umbran]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Umbran" + "Female" + "Names.json", Specific_Name_Dictionary[false][RACE.Umbran]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Western" + "Male" + "Names.json", Specific_Name_Dictionary[true][RACE.Westerner]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\Western" + "Female" + "Names.json", Specific_Name_Dictionary[false][RACE.Westerner]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\WildOne" + "Male" + "Names.json", Specific_Name_Dictionary[true][RACE.Wild_One]));
+        StartCoroutine(LoadName(LANGUAGEPATH + @"Names\WildOne" + "Female" + "Names.json", Specific_Name_Dictionary[false][RACE.Wild_One]));
+    }
+
+    /// <summary>
+    /// This sets up a temp dictionary that loads each kvp into the seperated list structure and the general translation structure
+    /// </summary>
+    /// <param name="PATH"></param>
+    /// <returns></returns>
+    private IEnumerator LoadName(string PATH, List<string> list) 
+    {
+        yield return new WaitUntil(() => _initialized == true);
+        Dictionary<string, string> dictionary = null;
+        Debug.Assert(File.Exists(PATH), $"{PATH} does not exist");
+        dictionary = LoadClass.Load<Dictionary<string, string>>(PATH);
+
+        foreach (var kvp in dictionary) 
+        {
+            list.Add(kvp.Key);
+            Name_Dictionary[kvp.Key] = kvp.Value;
+        }
+
     }
 
     //  Public methods
@@ -121,6 +199,7 @@ public class LocalizationManager : MonoBehaviour
     public void ReloadUI() 
     {
         LoadDictionary(out UI_Dictionary, LANGUAGEPATH + "UI.json");
+        StartCoroutine(LoadNames());
     }
 
     /// <summary>
@@ -199,7 +278,7 @@ public class LocalizationManager : MonoBehaviour
     {
         if (!_initialized) return null;
         Debug.Assert(UI_Dictionary.ContainsKey(key), $"{key} is not in Dictionary");
-        return UI_Dictionary.ContainsKey(key) ? UI_Dictionary[key] : "";
+        return UI_Dictionary.ContainsKey(key) ? UI_Dictionary[key] : key;
     }
 
     /// <summary>

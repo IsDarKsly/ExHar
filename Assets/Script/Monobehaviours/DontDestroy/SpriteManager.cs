@@ -16,14 +16,11 @@ public class SpriteManager : MonoBehaviour
 
     public GameObject CharacterPrefab; //The prefab for our character
 
-    [NonReorderable]
-    public FemaleSprites femaleSprites; //Any and all female sprites
-
-    public MaleSprites maleSprites; //Any and all male sprites
-
+    [NonReorderable] public FemaleSprites femaleSprites; //Any and all female sprites
+    [NonReorderable] public MaleSprites maleSprites; //Any and all male sprites
     public List<RacialColors> raceColor; //Each racial color
     public List <PremadeCharacters> premadeSprites; //A list of every premades sprites
-    
+    public List<Sprite> MonsterSprites = new List<Sprite>(); //Any item sprites
     public List<Sprite> ItemSprites = new List<Sprite>(); //Any item sprites
     public List<Sprite> EquipmentSprites = new List<Sprite>(); //Any equipment sprites
 

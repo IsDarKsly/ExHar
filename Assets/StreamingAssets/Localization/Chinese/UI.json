@@ -1,472 +1,126 @@
 {
-    "entries": [
-        {
-            "key": "Sandstorm",
-            "value": "沙尘暴"
-        },
-        {
-            "key": "Options",
-            "value": "选项"
-        },
-        {
-            "key": "Language",
-            "value": "语言"
-        },
-        {
-            "key": "Voice Volume",
-            "value": "语音音量"
-        },
-        {
-            "key": "Effects Volume",
-            "value": "音效音量"
-        },
-        {
-            "key": "Music Volume",
-            "value": "音乐音量"
-        },
-        {
-            "key": "Master Volume",
-            "value": "总音量"
-        },
-        {
-            "key": "Fullscreen",
-            "value": "全屏"
-        },
-        {
-            "key": "Resolution",
-            "value": "分辨率"
-        },
-        {
-            "key": "Start",
-            "value": "开始"
-        },
-        {
-            "key": "Exit",
-            "value": "退出"
-        },
-        {
-            "key": "Character Select",
-            "value": "选择角色"
-        },
-        {
-            "key": "Back",
-            "value": "返回"
-        },
-        {
-            "key": "Create",
-            "value": "创建"
-        },
-        {
-            "key": "Enter Name",
-            "value": "输入名字"
-        },
-        {
-            "key": "Are You Sure?",
-            "value": "你确定吗？"
-        },
-        {
-            "key": "Yes",
-            "value": "是"
-        },
-        {
-            "key": "No",
-            "value": "否"
-        },
-        {
-            "key": "Strength",
-            "value": "力量"
-        },
-        {
-            "key": "Dexterity",
-            "value": "敏捷"
-        },
-        {
-            "key": "Intellect",
-            "value": "智力"
-        },
-        {
-            "key": "Wisdom",
-            "value": "智慧"
-        },
-        {
-            "key": "Constitution",
-            "value": "体质"
-        },
-        {
-            "key": "StrengthDesc",
-            "value": "投资力量会让你更擅长使用近战武器造成伤害"
-        },
-        {
-            "key": "DexterityDesc",
-            "value": "敏捷的人用远程武器造成更大伤害，并能轻松躲避攻击"
-        },
-        {
-            "key": "IntellectDesc",
-            "value": "智力与法力值直接相关，并提高法术伤害"
-        },
-        {
-            "key": "WisdomDesc",
-            "value": "知道何时何地攻击会增加暴击的可能性"
-        },
-        {
-            "key": "ConstitutionDesc",
-            "value": "锻炼体质会增加生命值和耐力"
-        },
-        {
-            "key": "Gender?",
-            "value": "性别？"
-        },
-        {
-            "key": "MaleDesc",
-            "value": "人类男性通常比女性更高更强壮，但决策能力较差导致寿命较短\n力量+2.5%\n体质+2.5%"
-        },
-        {
-            "key": "FemaleDesc",
-            "value": "女性个头较小，用智慧应对艰难环境。以力量为代价，女性比男性更机智。\n敏捷+2.5%\n智力+2.5%"
-        },
-        {
-            "key": "Male",
-            "value": "男性"
-        },
-        {
-            "key": "Female",
-            "value": "女性"
-        },
-        {
-            "key": "Class",
-            "value": "职业"
-        },
-        {
-            "key": "Warrior",
-            "value": "战士"
-        },
-        {
-            "key": "Rogue",
-            "value": "盗贼"
-        },
-        {
-            "key": "Mage",
-            "value": "法师"
-        },
-        {
-            "key": "WarriorDesc",
-            "value": "勇敢的战士无需花招就能击败敌人。一把简单的武器就是他们的生存之道。战士在鲜血和战斗中锻造而成。\n力量+2.5%\n体质+2.5%\n智力-5%"
-        },
-        {
-            "key": "RogueDesc",
-            "value": "在这个危险的世界中，聪明人知道不要鲁莽行事。匕首与毒药是盗贼的生活方式。\n敏捷+2.5%\n智慧+2.5%\n体质-5%"
-        },
-        {
-            "key": "MageDesc",
-            "value": "魔法是世界上最大的平衡器。每个生物都能使用魔法，但只有高智力者才能掌握它。\n智力+5%\n体质-5%\n力量-5%"
-        },
-        {
-            "key": "Race",
-            "value": "种族"
-        },
-        {
-            "key": "Wild One",
-            "value": "荒野者"
-        },
-        {
-            "key": "Westerner",
-            "value": "西方人"
-        },
-        {
-            "key": "Novun",
-            "value": "诺夫人"
-        },
-        {
-            "key": "Arenaen",
-            "value": "沙漠人"
-        },
-        {
-            "key": "Avition",
-            "value": "阿维特人"
-        },
-        {
-            "key": "Umbran",
-            "value": "暗影人"
-        },
-        {
-            "key": "Wild One Desc",
-            "value": "中部荒野的苍白人类居住在危险的森林中。他们比其他种族更狡猾。\n智慧+5%"
-        },
-        {
-            "key": "WesternerDesc",
-            "value": "曾经伟大的文明，西方首都被魔族侵略摧毁。所有出生于西方的人都服过兵役，因此更强壮。\n力量+5%"
-        },
-        {
-            "key": "NovunDesc",
-            "value": "东南部聪明的工程师，扩张主义的诺夫人因与其他国家不断冲突而更加有战略眼光。\n智力+2.5%\n智慧+2.5%"
-        },
-        {
-            "key": "ArenaenDesc",
-            "value": "沙漠的原住民长年生活在烈日下，皮肤变得黝黑，比其他种族更有韧性。\n体质+5%"
-        },
-        {
-            "key": "AvitionDesc",
-            "value": "东北部优雅的学者是魔法的忠实信徒。他们与诺夫人的冲突让他们的魔法技能达到新的高度。\n智力+5%"
-        },
-        {
-            "key": "UmbranDesc",
-            "value": "北方山脉的孤立种族，生活在寒冷无阳的土地上。传说有不朽的黑暗生物曾在此寻求庇护。\n敏捷+5%"
-        },
-        {
-            "key": "Continue",
-            "value": "继续"
-        },
-        {
-            "key": "Skin Color",
-            "value": "肤色"
-        },
-        {
-            "key": "Eyes",
-            "value": "眼睛"
-        },
-        {
-            "key": "Eye Color",
-            "value": "眼睛颜色"
-        },
-        {
-            "key": "Hair",
-            "value": "头发"
-        },
-        {
-            "key": "Hair Color",
-            "value": "头发颜色"
-        },
-        {
-            "key": "Eyebrow",
-            "value": "眉毛"
-        },
-        {
-            "key": "Eyebrow Color",
-            "value": "眉毛颜色"
-        },
-        {
-            "key": "Mouth",
-            "value": "嘴巴"
-        },
-        {
-            "key": "Nose",
-            "value": "鼻子"
-        },
-        {
-            "key": "Extra",
-            "value": "其他"
-        },
-        {
-            "key": "Extra Color",
-            "value": "其他颜色"
-        },
-        {
-            "key": "Stat",
-            "value": "属性"
-        },
-        {
-            "key": "Points",
-            "value": "点数"
-        },
-        {
-            "key": "Confirm",
-            "value": "确认"
-        },
-        {
-            "key": "Chinese",
-            "value": "中文"
-        },
-        {
-            "key": "Hindi",
-            "value": "印地语"
-        },
-        {
-            "key": "English",
-            "value": "英语"
-        },
-        {
-            "key": "Spanish",
-            "value": "西班牙语"
-        },
-        {
-            "key": "Arabic",
-            "value": "阿拉伯语"
-        },
-        {
-            "key": "Bengali",
-            "value": "孟加拉语"
-        },
-        {
-            "key": "Portuguese",
-            "value": "葡萄牙语"
-        },
-        {
-            "key": "Russian",
-            "value": "俄语"
-        },
-        {
-            "key": "Japanese",
-            "value": "日语"
-        },
-        {
-            "key": "Indonesian",
-            "value": "印尼语"
-        },
-        {
-            "key": "French",
-            "value": "法语"
-        },
-        {
-            "key": "Turkish",
-            "value": "土耳其语"
-        },
-        {
-            "key": "Vietnamese",
-            "value": "越南语"
-        },
-        {
-            "key": "Urdu",
-            "value": "乌尔都语"
-        },
-        {
-            "key": "Tamil",
-            "value": "泰米尔语"
-        },
-        {
-            "key": "Telugu",
-            "value": "泰卢固语"
-        },
-        {
-            "key": "Korean",
-            "value": "韩语"
-        },
-        {
-            "key": "Pashto",
-            "value": "普什图语"
-        },
-        {
-            "key": "Italian",
-            "value": "意大利语"
-        },
-        {
-            "key": "Thai",
-            "value": "泰语"
-        },
-        {
-            "key": "Persian",
-            "value": "波斯语"
-        },
-        {
-            "key": "German",
-            "value": "德语"
-        },
-        {
-            "key": "Swedish",
-            "value": "瑞典语"
-        },
-        {
-            "key": "Dutch",
-            "value": "荷兰语"
-        },
-        {
-            "key": "Greek",
-            "value": "希腊语"
-        },
-        {
-            "key": "Danish",
-            "value": "丹麦语"
-        },
-        {
-            "key": "Finnish",
-            "value": "芬兰语"
-        },
-        {
-            "key": "Norwegian",
-            "value": "挪威语"
-        },
-        {
-            "key": "Hebrew",
-            "value": "希伯来语"
-        },
-        {
-            "key": "Yiddish",
-            "value": "意第绪语"
-        },
-        {
-            "key": "Divehi",
-            "value": "迪维希语"
-        },
-        {
-            "key": "Syriac",
-            "value": "叙利亚语"
-        },
-        {
-            "key": "Difficulty",
-            "value": "难度"
-        },
-        {
-            "key": "Timed",
-            "value": "限时"
-        },
-        {
-            "key": "Classic",
-            "value": "经典"
-        },
-        {
-            "key": "TimedDesc",
-            "value": "在此难度下，你需要在10秒内作出战斗反应。反应越快，能力越强。未能及时作出反应，将面临严重后果。"
-        },
-        {
-            "key": "ClassicDesc",
-            "value": "一个更经典的回合制RPG，战斗行动完全由你掌控。不要着急，去拿个零食慢慢思考下一步行动。"
-        },
-        {
-            "key": "Skills",
-            "value": "技能"
-        },
-        {
-            "key": "Talents",
-            "value": "天赋"
-        },
-        {
-            "key": "Save",
-            "value": "保存"
-        },
-        {
-            "key": "Save and Exit",
-            "value": "保存并退出"
-        },
-        {
-            "key": "Paused",
-            "value": "暂停"
-        },
-        {
-            "key": "Equipment",
-            "value": "装备"
-        },
-        {
-            "key": "Magic Resistance",
-            "value": "魔法抗性"
-        },
-        {
-            "key": "Health",
-            "value": "生命值"
-        },
-        {
-            "key": "Stamina",
-            "value": "耐力"
-        },
-        {
-            "key": "Mana",
-            "value": "法力值"
-        },
-        {
-            "key": "Armor",
-            "value": "护甲"
-        },
-        {
-            "key": "TEST",
-            "value": "这是一个测试"
-        }
-    ]
-}
+    "Sandstorm": "沙暴",
+    "Options": "选项",
+    "Language": "语言",
+    "Voice Volume": "语音音量",
+    "Effects Volume": "效果音量",
+    "Music Volume": "音乐音量",
+    "Master Volume": "主音量",
+    "Fullscreen": "全屏",
+    "Resolution": "解决",
+    "Start": "开始",
+    "Exit": "出口",
+    "Character Select": "角色选择",
+    "Back": "后退",
+    "Create": "创造",
+    "Enter Name": "输入姓名",
+    "Are You Sure?": "你确定吗？",
+    "Yes": "是的",
+    "No": "不",
+    "Strength": "力量",
+    "Dexterity": "灵巧",
+    "Intellect": "智力",
+    "Wisdom": "智慧",
+    "Constitution": "宪法",
+    "StrengthDesc": "那些投资力量的人会发现自己更有能力用近战武器造成伤害",
+    "DexterityDesc": "灵巧的人使用远程武器造成更大的伤害，并轻松躲避攻击",
+    "IntellectDesc": "精神能力与法力池直接相关，并且会增加法术伤害",
+    "WisdomDesc": "知道何时何地击中将增加致命一击的机会",
+    "ConstitutionDesc": "调理将带来更大的生命值和更多的耐力",
+    "Gender?": "性别？",
+    "MaleDesc": "人类的男性往往比女性替代品更高、更强壮。",
+    "FemaleDesc": "两者中较小的一个，妇女利用智慧在土地的艰辛中生存。",
+    "Male": "男性",
+    "Female": "女性",
+    "Class": "班级",
+    "Warrior": "战士",
+    "Rogue": "流氓",
+    "key": "法师",
+    "WarriorDesc": "最勇敢的战士不需要廉价的技巧来击败他们的敌人。",
+    "RogueDesc": "这是一个危险的世界，聪明人知道不要鲁莽地开辟自己的人生道路。",
+    "MageDesc": "魔法，世界上最伟大的均衡器。",
+    "Race": "种族",
+    "Wild One": "狂野一号",
+    "Westerner": "西方人",
+    "Novun": "诺文",
+    "Arenaen": "阿雷宁",
+    "Avition": "航空",
+    "Umbran": "翁布兰",
+    "Wild One Desc": "中部荒野的苍白人类居住在危险的森林中。",
+    "WesternerDesc": "曾经是一个伟大文明的西方首都，却因肆虐西方土地的恶魔祸害而沦陷。",
+    "NovunDesc": "东南部的聪明工程师，诺文的扩张主义国家始终与其他国家发生冲突。",
+    "ArenaenDesc": "阿里恩人是南部沙漠的原住民。",
+    "AvitionDesc": "东北优雅的学者，阿维翁族是魔法的坚定信徒。",
+    "UmbranDesc": "看似与北部山脉隔绝。",
+    "Continue": "继续",
+    "Skin Color": "肤色",
+    "Eyes": "眼睛",
+    "Eye Color": "眼睛颜色",
+    "Hair": "头发",
+    "Hair Color": "头发颜色",
+    "Eyebrow": "眉",
+    "Eyebrow Color": "眉毛颜色",
+    "Mouth": "嘴",
+    "Nose": "鼻子",
+    "Extra": "额外的",
+    "Extra Color": "额外的颜色",
+    "Stat": "统计数据",
+    "Points": "积分",
+    "Confirm": "确认",
+    "Chinese": "中国人",
+    "Hindi": "印地语",
+    "English": "英语",
+    "Spanish": "西班牙语",
+    "Arabic": "阿拉伯",
+    "Bengali": "孟加拉",
+    "Portuguese": "葡萄牙语",
+    "Russian": "俄语",
+    "Japanese": "日本人",
+    "Indonesian": "印度尼西亚",
+    "French": "法语",
+    "Turkish": "土耳其",
+    "Vietnamese": "越南语",
+    "Urdu": "乌尔都语",
+    "Tamil": "泰米尔语",
+    "Telugu": "泰卢固语",
+    "Korean": "韩国人",
+    "Pashto": "普什图语",
+    "Italian": "意大利语",
+    "Thai": "泰国",
+    "Persian": "波斯语",
+    "German": "德语",
+    "Swedish": "瑞典",
+    "Dutch": "荷兰语",
+    "Greek": "希腊语",
+    "Danish": "丹麦语",
+    "Finnish": "芬兰",
+    "Norwegian": "挪威",
+    "Hebrew": "希伯来语",
+    "Yiddish": "意第绪语",
+    "Divehi": "迪维希语",
+    "Syriac": "叙利亚语",
+    "Difficulty": "困难",
+    "Timed": "定时",
+    "Classic": "经典的",
+    "TimedDesc": "在这个难度下，你必须在 10 秒内做出反应。",
+    "ClassicDesc": "更经典的回合制角色扮演游戏，战斗动作将由你自己决定。",
+    "Skills": "技能",
+    "Talents": "人才",
+    "Save": "节省",
+    "Save and Exit": "保存并退出",
+    "Paused": "已暂停",
+    "Equipment": "设备",
+    "Magic Resistance": "魔法抗性",
+    "Health": "健康",
+    "Stamina": "耐力",
+    "Mana": "法力",
+    "Armor": "盔甲",
+    "Flee": "逃跑",
+    "Consumable": "消耗品",
+    "Skill": "技能",
+    "Basic Attack": "基本攻击",
+    "Cancel": "取消",
+    "Fox": "狐狸",
+    "Fox Desc": "一只小狐狸",
+    "This is a test": "这是一个测试"
+  }

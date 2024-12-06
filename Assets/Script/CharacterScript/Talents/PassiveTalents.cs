@@ -5,36 +5,15 @@ public class PassiveTalents : Talents
 {
     public PASSIVETRIGGER trigger;
 
-    public SerializableDictionary<STATS, int> statboost = new SerializableDictionary<STATS, int>();
-    public SerializableDictionary<DamageType, int> defenseboost = new SerializableDictionary<DamageType, int>();
-    public SerializableDictionary<DamageSubType, float> resistanceboost = new SerializableDictionary<DamageSubType, float>();
-    public SerializableDictionary<DamageType, SerializableDictionary<DamageSubType, int>> damageboost = new SerializableDictionary<DamageType, SerializableDictionary<DamageSubType, int>>();
+    public Dictionary<STATS, int> statboost = new Dictionary<STATS, int>();
+    public Dictionary<DamageType, int> defenseboost = new Dictionary<DamageType, int>();
+    public Dictionary<DamageSubType, float> resistanceboost = new Dictionary<DamageSubType, float>();
+    public Dictionary<DamageType, Dictionary<DamageSubType, int>> damageboost = new Dictionary<DamageType, Dictionary<DamageSubType, int>>();
 
     public PassiveTalents() 
     {
-    
-    }
-
-    public PassiveTalents(string name, string description, int level, int maxlevel, bool refundable, int spriteid) : base(name, description, level, maxlevel, refundable, spriteid)
-    {
-        damageboost[DamageType.Physical] = new SerializableDictionary<DamageSubType, int>();
-        damageboost[DamageType.Magical] = new SerializableDictionary<DamageSubType, int>();
-    }
-
-    /// <summary>
-    /// Add talent to person
-    /// </summary>
-    public override void AddTalent(Humanoid person)
-    {
-        var copycat = person.PassiveTalents.Find(t => t.Name == this.Name);
-
-        if (copycat != null)    //  This talent already exists in our list of talents 
-        {
-            if(copycat.Level < copycat.MaxLevel) copycat.LevelUp();  //  Level up that talent
-            return;
-        }
-
-        person.PassiveTalents.Add(this);
+        damageboost[DamageType.Physical] = new Dictionary<DamageSubType, int>();
+        damageboost[DamageType.Magical] = new Dictionary<DamageSubType, int>();
     }
 
     public int GetStatBonus(STATS stat) => statboost.ContainsKey(stat) ? statboost[stat] : 0;
@@ -68,6 +47,44 @@ public class PassiveTalents : Talents
 
     }
 
+    /// <summary>
+    /// This will invoke the skill
+    /// </summary>
+    /// <param name="targets"></param>
+    public override void Invoke(List<Humanoid> targets, Humanoid owner)
+    {
+
+    }
+
+    /// <summary>
+    /// This invokation call takes a reference to some current instance of damage if necessary
+    /// </summary>
+    /// <param name="damage"></param>
+    public virtual void Invoke(ref Damage damage, Humanoid owner) { }
+
+
+    /// <summary>
+    /// Getter for any displaying text to use.
+    /// Should return a tranlstated string
+    /// </summary>
+    /// <returns></returns>
+    public virtual string GetCost() { return null; }
+    /// <summary>
+    /// Getter for any displaying text to use
+    /// Should return a tranlstated string
+    /// </summary>
+    /// <returns></returns>
+    public virtual string GetScaling() { return null; }
+    /// <summary>
+    /// Gets the translated name for this Talent
+    /// </summary>
+    /// <returns></returns>
+    public virtual string GetName() { return null; }
+    /// <summary>
+    /// Gets the translted description for this talent
+    /// </summary>
+    /// <returns></returns>
+    public virtual string GetDescription() { return null; }
 }
 
 public enum PASSIVETRIGGER { StartOfMatch, StartOfRound, EndOfRound, BeforeIAttack, BeforeImAttacked, Consistent } 

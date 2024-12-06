@@ -103,7 +103,7 @@ public class DataManager : MonoBehaviour
         SaveClass.Save<Roster>(roster, DataManager.SAVEPATH + @"\roster");
 
         SaveClass.SaveValue(1, DataManager.SAVEPATH + @"\ex.txt"); //Will save the existence of a character
-        SaveClass.SaveValue(playerCharacter.name, DataManager.SAVEPATH + @"\name.txt"); //Will save the characters name
+        SaveClass.SaveValue(playerCharacter.Name, DataManager.SAVEPATH + @"\name.txt"); //Will save the characters name
     }
 
     /// <summary>
@@ -137,7 +137,7 @@ public class DataManager : MonoBehaviour
         SaveGame(); //Overwrites the character using the new playerCharacter value
         
 
-        TransitionManager.Instance.FadeToBlack(3, ()=> { LoadGame(); GameManager.Instance.LoadScene("Game"); },2);
+        TransitionManager.Instance.FadeToBlack(1, ()=> { LoadGame(); GameManager.Instance.LoadScene("Game"); },2);
     }
 
     /// <summary>

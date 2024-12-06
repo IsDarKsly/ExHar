@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Humanoid //Will represent any character with a Name, Health, Etc
 {
-    public string name { get; set; } //The name of our Character
+    public string Name { get; set; } //The name of our Character
     public CLASS spec { get; set; } //The Class of our Character
 
     public RACE race { get; set; } //The race of the character
@@ -21,7 +21,9 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
 
     public int Stamina;
 
-    public Appearance appearance { get; set; } //The appearance of our character
+    public int Threat;
+
+    public Appearance appearance { get; set; } = new Appearance(); //The appearance of our character
 
     //these points have to do with the allocated points a character has chosen
     public int availablePoints { get; set; }
@@ -33,16 +35,27 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     //Conclusion of point allocated Stats
 
     //Equipment
-    public Armor Helmet { get; set; }
-    public Armor Chest { get; set; }
-    public Armor Leggings { get; set; }
-    public Armor Boots { get; set; }
-    public Armor Gloves { get; set; }
-    public Jewelry Amulet { get; set; }
-    public Jewelry Ring1 { get; set; }
-    public Jewelry Ring2 { get; set; }
-    public Weapon MainHand { get; set; }
-    public Weapon OffHand { get; set; }
+    private Armor _Helmet;
+    private Armor _Chest;
+    private Armor _Leggings;
+    private Armor _Boots;
+    private Armor _Gloves;
+    private Jewelry _Amulet;
+    private Jewelry _Ring1;
+    private Jewelry _Ring2;
+    private Weapon _MainHand;
+    private Weapon _OffHand;
+
+    public Armor Helmet { get => _Helmet; set => _Helmet = value; }
+    public Armor Chest { get => _Chest; set => _Chest = value; }
+    public Armor Leggings { get => _Leggings; set => _Leggings = value; }
+    public Armor Boots { get => _Boots; set => _Boots = value; }
+    public Armor Gloves { get => _Gloves; set => _Gloves = value; }
+    public Jewelry Amulet { get => _Amulet; set => _Amulet = value; }
+    public Jewelry Ring1 { get => _Ring1; set => _Ring1 = value; }
+    public Jewelry Ring2 { get => _Ring2; set => _Ring2 = value; }
+    public Weapon MainHand { get => _MainHand; set => _MainHand = value; }
+    public Weapon OffHand { get => _OffHand; set => _OffHand = value; }
     //End of Equipment
 
     /// <summary>
@@ -89,6 +102,11 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     public int tmp_int { get; set; } = 0;
 
     /// <summary>
+    /// A simple bool to be used in the battle manager, lets characters act
+    /// </summary>
+    public bool turn = false;
+
+    /// <summary>
     /// Default constructor
     /// </summary>
     public Humanoid() 
@@ -101,7 +119,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// </summary>
     public Humanoid(string _name, bool _gender, RACE _race, CLASS _spec, Appearance _appearance, int[] _stats )
     {
-        name = _name;
+        Name = _name;
         gender = _gender;
         race = _race;
         spec = _spec;
@@ -112,6 +130,41 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         SetStatPoint(STATS.Intellect, _stats[2]);
         SetStatPoint(STATS.Wisdom, _stats[3]);
         SetStatPoint(STATS.Constitution, _stats[4]);
+        AddActiveTalent(new BasicAttack());
+    }
+
+    /// <summary>
+    /// Adds a passive talent to this character,
+    /// If one already exists, the existin talent is leveled up
+    /// </summary>
+    public void AddPassiveTalent(PassiveTalents talent) 
+    {
+        var existingTalent = PassiveTalents.Find(t => t.Name == talent.Name);
+        if (existingTalent != null) //  This talent already exists in our talents
+        {
+            existingTalent.LevelUp();
+        }
+        else 
+        {
+            PassiveTalents.Add(talent);
+        }
+    }
+
+    /// <summary>
+    /// Adds an active talent to this character,
+    /// If one already exists, the existing talent is leveled up
+    /// </summary>
+    public void AddActiveTalent(ActiveTalents talent)
+    {
+        var existingTalent = ActiveTalents.Find(t => t.Name == talent.Name);
+        if (existingTalent != null) //  This talent already exists in our talents
+        {
+            existingTalent.LevelUp();
+        }
+        else
+        {
+            ActiveTalents.Add(talent);
+        }
     }
 
     /// <summary>
@@ -270,6 +323,29 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     }
 
     /// <summary>
+    /// Adds the diff to threat, use negative for threat loss
+    /// </summary>
+    public void ChangeThreat(int diff) 
+    {
+        Threat += diff;
+        Threat = GetThreat();
+    }
+
+    /// <summary>
+    /// Gets the threat this character has
+    /// </summary>
+    /// <returns></returns>
+    public int GetThreat()
+    {
+        if (Threat < 0)
+        {
+            Threat = 0;
+        }
+
+        return (Threat);
+    }
+
+    /// <summary>
     /// Gets the mana this character has
     /// </summary>
     /// <returns></returns>
@@ -338,7 +414,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <returns></returns>
     public int GetMaxHealth()
     {
-        return GetStat(STATS.Constitution) * 10;
+        return GetStat(STATS.Constitution) * 5;
     }
 
     /// <summary>
@@ -771,6 +847,8 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         if (Amulet != null) num += Amulet.GetResistance(type);
         if (Ring1 != null) num += Ring1.GetResistance(type);
         if (Ring2 != null) num += Ring2.GetResistance(type);
+        if (MainHand != null && MainHand.WeaponType == WeaponType.Shield) num += MainHand.GetResistance(type);
+        if (OffHand != null && MainHand.WeaponType == WeaponType.Shield) num += MainHand.GetResistance(type);
 
         foreach (var status in statuses) 
         {
@@ -783,6 +861,237 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         }
 
         return num;
+    }
+
+    /// <summary>
+    /// Uses a skill
+    /// </summary>
+    /// <param name="skill"></param>
+    public void UseSkill(string skillName, List<Humanoid> targets) 
+    {
+        var skill = ActiveTalents.Find(t=>t.Name==skillName);
+        if (skill != null) 
+        {
+            skill.Invoke(targets, this);
+        }
+    }
+
+    /// <summary>
+    /// Return a true value if the character has this skill, and can cast it
+    /// </summary>
+    /// <returns></returns>
+    public bool CanICast(string skillName) 
+    {
+        var skill = ActiveTalents.Find(t => t.Name == skillName);
+        if (skill != null && skill.OwnerCanCast(this))
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+
+
+    /// <summary>
+    /// This function will calculate the damage this character should take before actually taking that damage.
+    /// </summary>
+    public void CalculateDamageTaken(Damage damage) 
+    {
+        if (damage.damagePortion == null || damage.damagePercent == null) return;   //  No damage here
+
+        if (damage.IsDodgeable && DidIDodge())     //  if we dodged the attack
+        {
+            return;
+        }
+
+        foreach (var flat_dam in damage.damagePortion)  //  Calculate damage for this portion
+        {
+            damage.damagePortion[flat_dam.Key] -= CalculateFlatDefense(flat_dam.Key);   //  Simple flat reductions applied to the damage 
+            if (damage.damagePortion[flat_dam.Key] < 0) damage.damagePortion[flat_dam.Key] = 0; //  Dont let damage dip below zero
+        }
+
+        foreach (var perc_dam in damage.damagePercent) //   Calculate percentage for damages
+        {
+            float dam = 0;  //  Initialize a damage we will be taking
+
+            foreach (var flat_dam in damage.damagePortion) //  Add up the respective portions for this subtype
+            {
+                dam += damage.damagePortion[flat_dam.Key] * damage.damagePercent[perc_dam.Key]; 
+            }
+
+            dam *= (1f-CalculateResistance(perc_dam.Key));  //  Calculate player resistance (1-60% means new damage taken is 40% as effective)
+            if(dam < 0) dam = 0;
+
+
+            foreach (var p in PassiveTalents.FindAll(p => p.trigger == PASSIVETRIGGER.BeforeImAttacked))
+            {
+                p.Invoke(ref damage, this);
+            }
+
+            TakeDamage((int)dam, perc_dam.Key, damage.IsCritical);
+        }
+    }
+
+    /// <summary>
+    /// Calculates what this characters dodge chance is.
+    /// Scales with dexterity
+    /// </summary>
+    /// <returns></returns>
+    public float GetDodgeChance() 
+    {
+        return (40 * Mathf.Log10(GetStat(STATS.Dexterity) / 15) + 5)/100;
+    }
+
+    /// <summary>
+    /// Calculates whether or not this character dodged an attack
+    /// </summary>
+    /// <returns></returns>
+    public bool DidIDodge() 
+    {
+        float r = Random.Range(0f, 1f);
+        return (r <= GetDodgeChance());
+    }
+
+    /// <summary>
+    /// Gets the crit chance for this character
+    /// </summary>
+    /// <returns></returns>
+    public float GetCritChance() 
+    {
+        return GetStat(STATS.Wisdom)/200f;
+    }
+
+    /// <summary>
+    /// Returns true if the character crit
+    /// </summary>
+    /// <returns></returns>
+    public bool DidItCrit() 
+    {
+        float r = Random.Range(0f, 1f);
+        return (r <= GetCritChance());
+    }
+
+    /// <summary>
+    /// The actual code for taking damage, will tell the battle manager what to animate
+    /// </summary>
+    public void TakeDamage(int damage, DamageSubType type, bool crit) 
+    {
+        ChangeHealth(-1*damage);    //  Damage recieved should never be negative
+        
+        //Here would be where we tell Battle manager what to animate  
+    }
+
+    /// <summary>
+    /// The actual slot being equiped to
+    /// </summary>
+    public void Equip<T>(T equipmentslot, Equipment equipment) where T : Equipment
+    {
+        DataManager.Instance.inventory.RemoveItem(equipment);
+        equipmentslot = (T)equipment;
+    }
+
+    /// <summary>
+    /// This will add whatever is in our equipment slot at this location back to the inventory
+    /// before setting the slot to null
+    /// This needs to remove any talents that exist only because of this armor
+    /// </summary>
+    public void Unequip<T>(ref T equipmentslot) where T : Equipment
+    {
+        if (equipmentslot == null) return;  //  No need to unequip what already exists
+        DataManager.Instance.inventory.AddItem(equipmentslot);
+        equipmentslot = null;
+    }
+
+    /// <summary>
+    /// Here we equip a slot with an item
+    /// </summary>
+    public void EquipSlot(EQUIPMENTSLOT slot, Equipment equipment) 
+    {
+        switch (slot) 
+        {
+            case EQUIPMENTSLOT.MainHand:
+                if (MainHand != null) Unequip(ref _MainHand);
+                Equip(MainHand, equipment);
+                break;
+            case EQUIPMENTSLOT.OffHand:
+                if (OffHand != null) Unequip(ref _OffHand);
+                Equip(OffHand, equipment);
+                break;
+            case EQUIPMENTSLOT.Helm:
+                if (Helmet != null) Unequip(ref _Helmet);
+                Equip(Helmet, equipment);
+                break;
+            case EQUIPMENTSLOT.Chest:
+                if (Chest != null) Unequip(ref _Chest);
+                Equip(Chest, equipment);
+                break;
+            case EQUIPMENTSLOT.Legs:
+                if (Leggings != null) Unequip(ref _Leggings);
+                Equip(Leggings, equipment);
+                break;
+            case EQUIPMENTSLOT.Boots:
+                if (Boots != null) Unequip(ref _Boots);
+                Equip(Boots, equipment);
+                break;
+            case EQUIPMENTSLOT.Gloves:
+                if (Gloves != null) Unequip(ref _Gloves);
+                Equip(Gloves, equipment);
+                break;
+            case EQUIPMENTSLOT.Amulet:
+                if (Amulet != null) Unequip(ref _Amulet);
+                Equip(Amulet, equipment);
+                break;
+            case EQUIPMENTSLOT.Ring1:
+                if (Ring1 != null) Unequip(ref _Ring1);
+                Equip(Ring1, equipment);
+                break;
+            case EQUIPMENTSLOT.Ring2:
+                if (Ring2 != null) Unequip(ref _Ring2);
+                Equip(Ring2, equipment);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Here we unequip an equipment slot
+    /// </summary>
+    public void UnequipSlot(EQUIPMENTSLOT slot) 
+    {
+        switch (slot)
+        {
+            case EQUIPMENTSLOT.MainHand:
+                if (MainHand != null) Unequip(ref _MainHand);
+                break;
+            case EQUIPMENTSLOT.OffHand:
+                if (OffHand != null) Unequip(ref _OffHand);
+                break;
+            case EQUIPMENTSLOT.Helm:
+                if (Helmet != null) Unequip(ref _Helmet);
+                break;
+            case EQUIPMENTSLOT.Chest:
+                if (Chest != null) Unequip(ref _Chest);
+                break;
+            case EQUIPMENTSLOT.Legs:
+                if (Leggings != null) Unequip(ref _Leggings);
+                break;
+            case EQUIPMENTSLOT.Boots:
+                if (Boots != null) Unequip(ref _Boots);
+                break;
+            case EQUIPMENTSLOT.Gloves:
+                if (Gloves != null) Unequip(ref _Gloves);
+                break;
+            case EQUIPMENTSLOT.Amulet:
+                if (Amulet != null) Unequip(ref _Amulet);
+                break;
+            case EQUIPMENTSLOT.Ring1:
+                if (Ring1 != null) Unequip(ref _Ring1);
+                break;
+            case EQUIPMENTSLOT.Ring2:
+                if (Ring2 != null) Unequip(ref _Ring2);
+                break;
+        }
     }
 
 
@@ -870,7 +1179,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <param name="n"></param>
     public void SetName(string n) 
     {
-        name = n;
+        Name = n;
     }
 
     /// <summary>
@@ -884,9 +1193,31 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         gender = g;
     }
 
+    /// <summary>
+    /// Ticks this character, done at the start of their respective battle turn.
+    /// Causes Dots to proc, buffs and cooldowns to countdown
+    /// </summary>
+    public void Tick() 
+    {
+        foreach (var skill in ActiveTalents) 
+        {
+            skill.Tick();
+        }
+
+        foreach (var buff in statuses) 
+        {
+            buff.Tick(this);
+        }
+    }
+
 }
 
 public enum CLASS { MAGE, ROGUE, WARRIOR } //Our enums representing a characters class
 public enum RACE { Wild_One, Arenaen, Westerner, Avition, Novun, Umbran } //Our enums representing a characters race
 public enum STATS { Constitution, Strength, Dexterity, Intellect, Wisdom } //Our enum representing a stat, this simply helps with getting and setting
 public enum RESOURCES { Health, Stamina, Mana } //Enum representing resources
+
+/// <summary>
+/// This is used in the equiping/unequiping process
+/// </summary>
+public enum EQUIPMENTSLOT { Helm, Chest, Legs, Boots, Gloves, MainHand, OffHand, Amulet, Ring1, Ring2 }
