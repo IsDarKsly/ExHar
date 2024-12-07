@@ -46,12 +46,6 @@ public abstract class Talents
     /// </summary>
     public abstract void LevelUp();
 
-    /// <summary>
-    /// This will invoke the skill
-    /// </summary>
-    /// <param name="targets"></param>
-    public abstract void Invoke(List<Humanoid> targets, Humanoid owner);
-
 }
 
 public enum TARGETTYPE { SINGLE, MULTIPLE, ALLENEMIES, ALLALLIES, SELF }

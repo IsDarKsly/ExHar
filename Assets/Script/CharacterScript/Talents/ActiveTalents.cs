@@ -34,7 +34,9 @@ public class ActiveTalents : Talents
     /// Dependant on the skill
     /// </summary>
     /// <param name="targets"></param>
-    public override void Invoke(List<Humanoid> targets, Humanoid owner) { return; }
+    public virtual void Invoke(List<Humanoid> targets, Humanoid owner) { Debug.LogError("This skill is not programmed properly"); }
+
+
     /// <summary>
     /// Simple version of getting mana cost
     /// </summary>

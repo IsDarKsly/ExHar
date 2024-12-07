@@ -25,7 +25,7 @@ public static class LoadClass
             }
 
             string json = File.ReadAllText(path); // Reads the JSON file
-            return JsonConvert.DeserializeObject<T>(json); // Converts JSON string back to object
+            return JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All }); // Converts JSON string back to object
         }
         catch (Exception e)
         {
@@ -58,7 +58,7 @@ public static class LoadClass
             // Convert the value from JSON based on its type
             if (typeof(T) == typeof(string))
             {
-                loadValue = JsonConvert.DeserializeObject<T>(json); // Deserialize string
+                loadValue = JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All }); // Deserialize string
             }
             else if (typeof(T) == typeof(int))
             {

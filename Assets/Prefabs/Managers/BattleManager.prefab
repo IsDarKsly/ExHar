@@ -185,10 +185,10 @@ RectTransform:
   - {fileID: 6699633560211546246}
   m_Father: {fileID: 6326574699548371747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 514.41, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 257.61356, y: -343.75}
+  m_SizeDelta: {x: 514.41, y: 137.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3705242037015538187
 CanvasRenderer:
@@ -306,10 +306,10 @@ RectTransform:
   - {fileID: 1863665022613223646}
   m_Father: {fileID: 6326574699548371747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 514.41, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 257.61356, y: -206.25}
+  m_SizeDelta: {x: 514.41, y: 137.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5172062482191137607
 CanvasRenderer:
@@ -954,6 +954,7 @@ MonoBehaviour:
   Phase: 0
   PreviousPhase: 0
   battleUI: {fileID: 1968092815034289242}
+  animationManager: {fileID: 6158221835184714578}
   OnPhaseChange:
     m_PersistentCalls:
       m_Calls: []
@@ -997,10 +998,10 @@ RectTransform:
   - {fileID: 7973654270659549639}
   m_Father: {fileID: 6326574699548371747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 514.41, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 257.61356, y: -68.75}
+  m_SizeDelta: {x: 514.41, y: 137.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6850518306232067187
 CanvasRenderer:
@@ -1185,13 +1186,14 @@ GameObject:
   - component: {fileID: 938746338780293853}
   - component: {fileID: 6373506727321314219}
   - component: {fileID: 1968092815034289242}
+  - component: {fileID: 6158221835184714578}
   m_Layer: 5
   m_Name: BattleCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5998034572150326856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1308,6 +1310,19 @@ MonoBehaviour:
   BattleHumanoidPrefab: {fileID: 7093210676161337640, guid: 564d34ce817e54d4b8791d2e62b725c5, type: 3}
   EnemyPartyParent: {fileID: 7930650958581729627}
   PlayerPartyParent: {fileID: 3406463987847085235}
+--- !u!114 &6158221835184714578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6010212748839343706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84274f26948c70f45a26a9b219355aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResourceNumberPrefab: {fileID: 3053578394629083484, guid: af8930e9fbf6ef24eaec120bb6e064eb, type: 3}
 --- !u!1 &6306856881404672576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,10 +1807,10 @@ RectTransform:
   - {fileID: 4399937906740791548}
   m_Father: {fileID: 6326574699548371747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 514.41, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 257.61356, y: -481.25}
+  m_SizeDelta: {x: 514.41, y: 137.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2433046602279772931
 CanvasRenderer:

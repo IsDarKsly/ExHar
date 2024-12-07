@@ -44,6 +44,11 @@ public class BattleManager : MonoBehaviour
     public BattleUI battleUI;
 
     /// <summary>
+    /// Animation component
+    /// </summary>
+    public BattleAnimationManager animationManager;
+
+    /// <summary>
     /// Unity event for phase changes
     /// </summary>
     public UnityEvent<BATTLEPHASE> OnPhaseChange = new UnityEvent<BATTLEPHASE>();
@@ -84,13 +89,6 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets up any listeners at the stat of the match
-    /// </summary>
-    private void SetListeners() 
-    {
-        OnPhaseChange.AddListener(CheckPlayerPhase);
-    }
-    /// <summary>
     /// Destroys any listeners
     /// </summary>
     private void DestroyListeners() 
@@ -105,7 +103,7 @@ public class BattleManager : MonoBehaviour
     /// <param name="humanoid"></param>
     public void SetActive(Humanoid humanoid) 
     {
-        Debug.Log($"Setting Active {humanoid.Name}");
+        Debug.Log($"Setting Active {humanoid?.Name}");
         activeCharacter = humanoid;
         OnActiveSelect?.Invoke(humanoid);
     }
@@ -116,8 +114,8 @@ public class BattleManager : MonoBehaviour
     /// <param name="phase"></param>
     public void SetPhase(BATTLEPHASE phase) 
     {
-        Debug.Log($"Setting Phase {phase.ToString()}");
-        if (PreviousPhase == BATTLEPHASE.PLAYERTURN && Phase != BATTLEPHASE.PAUSE && phase == BATTLEPHASE.PLAYERTURN) //    We are changing the phase to the player phase after either an enemy turn or player animation
+        Debug.Log($"Setting Phase {phase.ToString()}, Previous: {PreviousPhase}, current {Phase}");
+        if ((PreviousPhase == BATTLEPHASE.PLAYERTURN || PreviousPhase == BATTLEPHASE.ENEMYTURN) && Phase != BATTLEPHASE.PAUSE && phase == BATTLEPHASE.PLAYERTURN) //    We are changing the phase to the player phase after either an enemy turn or player animation
         { 
             ResetTimer();
         }
@@ -167,7 +165,6 @@ public class BattleManager : MonoBehaviour
 
         battleUI.SetActive(true);
         battleUI.Initiate();
-        SetActive(party[0]);    //  Sets the player active
         StartPlayerTurn();  //  Player should be ready
     }
 
@@ -176,6 +173,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void StartEnemyTurn() 
     {
+        Debug.Log("Starting enemy turn!");
         SetPhase(BATTLEPHASE.ENEMYTURN);
         SetActive(null);
 
@@ -186,6 +184,7 @@ public class BattleManager : MonoBehaviour
         }
 
         SetEnemyPartyTurns();
+
         foreach (var enemy in enemyParty) 
         {
             if(enemy.turn) enemyTurnQueue.Enqueue(enemy);
@@ -204,7 +203,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void StartPlayerTurn() 
     {
-        
+        Debug.Log("Starting player turn!");
         
         if (!IsPartyAlive() || !IsEnemyPartyAlive())
         {
@@ -212,15 +211,12 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        SetPartyTurns();
+        SetPartyTurns();    //  Set turns for everyone not stunned or dead
 
-        foreach (var member in party)   //  Set the first available character as active
+        if (!SetNextActive())   //  We have no turns 
         {
-            if (member.turn) 
-            {
-                SetActive(member);
-                return;
-            }
+            StartEnemyTurn();
+            return;
         }
 
         SetPhase(BATTLEPHASE.PLAYERTURN);
@@ -231,20 +227,23 @@ public class BattleManager : MonoBehaviour
     /// Certain strange conditions, like all the enemies or players dying
     /// during the player phase should be taken account of
     /// </summary>
-    public void CheckPlayerPhase(BATTLEPHASE phase) 
+    public void AfterAnimation() 
     {
-        if (phase == BATTLEPHASE.PLAYERTURN)
+        Debug.Log($"Checking Phase, Previous: {PreviousPhase}, current {Phase}");
+        if (!SetNextActive() && PreviousPhase == BATTLEPHASE.TARGETSELECTION)   //  If the previous phase was us targeting but we have no turns left
         {
-            if (!IsPartyAlive() || !IsEnemyPartyAlive())
-            {
-                EndGame();
-                return;
-            }
-
-            if (!GetPartyTurns()) //    Player has no moves left, start enemy turn
-            {
-                StartEnemyTurn();
-            }
+            Debug.Log("Assumption, previous phase was our phase but no active found");
+            StartEnemyTurn();
+        }
+        else if (PreviousPhase == BATTLEPHASE.ENEMYTURN) //  Done animating the enemy turn phase
+        {
+            Debug.Log("Assumption, Previous phase was enemy phase");
+            StartPlayerTurn();
+        }
+        else // We still have a turn left, but don't reset the turns
+        {
+            Debug.Log("Assumption, Previous phase was the player phase and we have turns");
+            SetPhase(BATTLEPHASE.PLAYERTURN);
         }
     }
     
@@ -254,9 +253,12 @@ public class BattleManager : MonoBehaviour
     public void EndGame() 
     {
         SetPhase(BATTLEPHASE.END);
-        if (!IsPartyAlive() || IsEnemyPartyAlive())
+        if (!IsEnemyPartyAlive())   //  The enemies died
         {
-            SetPhase(BATTLEPHASE.END);
+            return;
+        }
+        else if (!IsPartyAlive())   //  We lost
+        {
             return;
         }
     }
@@ -292,18 +294,20 @@ public class BattleManager : MonoBehaviour
     /// <param name="target"></param>
     public void GetTarget(Humanoid target) 
     {
+        Debug.Log($"Getting target! {target.Name}! Targets left: {targets}");
         if (target.GetHealth() <= 0) return;    //  No targeting dead people
 
-
+        Debug.Log($"Adding target to list");
         selectedTargets.Add(target);
         targets--;
         OnTargetSelect.Invoke(target);  //  Invokes listeners
         if (targets <= 0) //    We have selected all as necessary and not canceled
         {
+            Debug.Log($"Target count reached, casting skill");
             CastSkill(LoadedSkill);
             SetPhase(BATTLEPHASE.ANIMATING);
+            selectedTargets.Clear();    //  Clear targets after usage
         }
-        selectedTargets.Clear();    //  Clear targets after usage
     }
 
     /// <summary>
@@ -319,7 +323,11 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        if (!activeCharacter.CanICast(name)) return;  //  Only allow if character has resource required
+        if (!activeCharacter.CanICast(name)) //  Only allow if character has resource required
+        {
+            Debug.LogError($"{activeCharacter.Name} cant cast {name}, not enough resource!");
+            return;
+        }  
 
         if (skill.TargetType == TARGETTYPE.SINGLE || skill.TargetType == TARGETTYPE.MULTIPLE) //    If our skill can target a character
         {
@@ -336,6 +344,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void CastSkill(string name) 
     {
+        Debug.Log($"Battle Manager: {activeCharacter.Name} is casting {name}");
         activeCharacter.turn = false;
         activeCharacter.UseSkill(name, GetTargets());
     }
@@ -410,17 +419,24 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets whether anyone in the party has any turns left
+    /// GThis function will search for the first valid member on the party
+    /// and set them as the active character
+    /// It returns true only if that was successful
     /// </summary>
-    public bool GetPartyTurns()
+    public bool SetNextActive()
     {
-        bool turn = false;
         foreach (var member in party)
         {
-            if (member.IsStunned() || member.GetHealth() == 0) continue;
-            turn = true;
+            if (!member.IsStunned() && member.GetHealth() > 0 && member.turn)   //  You arent stunned, have health, and a turn
+            {
+                Debug.Log("Found valid member");
+                SetActive(member);
+                return true;
+            }
         }
-        return turn;
+        Debug.Log("Did not find valid member");
+        SetActive(null);
+        return false;
     }
 
     /// <summary>
@@ -447,6 +463,7 @@ public class BattleManager : MonoBehaviour
         }
         return null;
     }
+
 
     /// <summary>
     /// Returns the person with the highest threat in the party

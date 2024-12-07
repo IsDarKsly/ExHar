@@ -12,8 +12,8 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
 
     public bool gender { get; set; } //The Gender of our Character, true if male
 
-    public string they { get => gender ? "he" : "she"; } //Sets the Pronoun for they
-    public string their { get => gender ? "his" : "her"; } //Sets the Pronoun for their
+    public string he_she { get => gender ? "he" : "she"; } //Sets the Pronoun
+    public string his_her { get => gender ? "his" : "her"; } //Sets the Pronoun
 
     public int Hp;
 
@@ -869,11 +869,15 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <param name="skill"></param>
     public void UseSkill(string skillName, List<Humanoid> targets) 
     {
+        Debug.Log($"Using skill {skillName}");
         var skill = ActiveTalents.Find(t=>t.Name==skillName);
         if (skill != null) 
         {
+            Debug.Log($"Skill is of type {skill.GetType().Name}");
             skill.Invoke(targets, this);
+            return;
         }
+        Debug.LogError($"{Name} attempted to use {skillName}, which {he_she} doesnt have");
     }
 
     /// <summary>
@@ -897,19 +901,27 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <summary>
     /// This function will calculate the damage this character should take before actually taking that damage.
     /// </summary>
-    public void CalculateDamageTaken(Damage damage) 
+    public virtual void CalculateDamageTaken(Damage damage) 
     {
+        Debug.Log($"{Name} is under attack!");
         if (damage.damagePortion == null || damage.damagePercent == null) return;   //  No damage here
 
-        if (damage.IsDodgeable && DidIDodge())     //  if we dodged the attack
+        if (damage.IsDodgeable && DidIDodge())     //  if we dodged the attack (Not for any enemies)
         {
             return;
         }
 
-        foreach (var flat_dam in damage.damagePortion)  //  Calculate damage for this portion
+
+        var keys = new List<DamageType>(damage.damagePortion.Keys);
+        foreach (var key in keys)  //  Calculate damage for this portion
         {
-            damage.damagePortion[flat_dam.Key] -= CalculateFlatDefense(flat_dam.Key);   //  Simple flat reductions applied to the damage 
-            if (damage.damagePortion[flat_dam.Key] < 0) damage.damagePortion[flat_dam.Key] = 0; //  Dont let damage dip below zero
+            damage.damagePortion[key] -= CalculateFlatDefense(key);   //  Simple flat reductions applied to the damage 
+            if (damage.damagePortion[key] < 0) damage.damagePortion[key] = 0; //  Dont let damage dip below zero
+        }
+
+        foreach (var p in PassiveTalents.FindAll(p => p.trigger == PASSIVETRIGGER.BeforeImAttacked))    //  Passive talent calculation
+        {
+            p.Invoke(ref damage, this);
         }
 
         foreach (var perc_dam in damage.damagePercent) //   Calculate percentage for damages
@@ -925,13 +937,20 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
             if(dam < 0) dam = 0;
 
 
-            foreach (var p in PassiveTalents.FindAll(p => p.trigger == PASSIVETRIGGER.BeforeImAttacked))
-            {
-                p.Invoke(ref damage, this);
-            }
-
-            TakeDamage((int)dam, perc_dam.Key, damage.IsCritical);
+            ChangeResourceBattle((int)(-1*dam), perc_dam.Key, RESOURCES.Health,damage.IsCritical);
         }
+    }
+
+    /// <summary>
+    /// This function will calculate the healing a character recieves, those resistant to a values given healing component resist a portion of it
+    /// </summary>
+    public void CalculateHealingTaken(int value, DamageSubType subType, RESOURCES resource)
+    {
+
+        float newvalue = value * (1f - CalculateResistance(subType));
+
+        ChangeResourceBattle((int)newvalue, subType, RESOURCES.Health, false);
+        
     }
 
     /// <summary>
@@ -974,13 +993,34 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     }
 
     /// <summary>
-    /// The actual code for taking damage, will tell the battle manager what to animate
+    /// The actual code for taking damage during battle, triggers animations for battle manager
     /// </summary>
-    public void TakeDamage(int damage, DamageSubType type, bool crit) 
+    public void ChangeResourceBattle(int value, DamageSubType type, RESOURCES resourceType, bool crit) 
     {
-        ChangeHealth(-1*damage);    //  Damage recieved should never be negative
-        
+        Debug.Log($"{Name} is having resource changed");
+        switch (resourceType) 
+        {
+            case RESOURCES.Health:
+                ChangeHealth(value);
+                break;
+            case RESOURCES.Stamina:
+                ChangeStamina(value);
+                break;
+            case RESOURCES.Mana:
+                ChangeMana(value);
+                break;
+        }
+
         //Here would be where we tell Battle manager what to animate  
+        BattleManager.Instance.animationManager.QueueAnimationResourceChange(new AnimatableResourceChange(value, type, resourceType, crit, this));
+    }
+
+    /// <summary>
+    /// This will change our resource during battle, this triggers animations for the battle manager
+    /// </summary>
+    public void ResourceChangeBattle(int value) 
+    {
+    
     }
 
     /// <summary>

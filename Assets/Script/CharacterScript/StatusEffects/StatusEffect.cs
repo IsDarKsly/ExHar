@@ -13,7 +13,7 @@ public class StatusEffect
     public Dictionary<DamageType, Dictionary<DamageSubType, int>> damage_change = new Dictionary<DamageType, Dictionary<DamageSubType, int>>();
     public Dictionary<DamageType, int> defense_change = new Dictionary<DamageType, int>();
     public Dictionary<DamageSubType, float> resistance_change = new Dictionary<DamageSubType, float>();
-    public Dictionary<RESOURCES, int> resource_change = new Dictionary<RESOURCES, int>();
+    public Dictionary<RESOURCES, Dictionary<DamageSubType, int>> resource_change = new Dictionary<RESOURCES, Dictionary<DamageSubType, int>>();
 
     /// <summary>
     /// Defines whether this stat needs to offset a resource each turn
@@ -134,17 +134,9 @@ public class StatusEffect
     {
         foreach (var res in resource_change) 
         {
-            switch (res.Key) 
+            foreach (var type in resource_change[res.Key]) 
             {
-                case RESOURCES.Health:
-                    human.ChangeHealth(res.Value);
-                    break;
-                case RESOURCES.Stamina:
-                    human.ChangeStamina(res.Value);
-                    break;
-                case RESOURCES.Mana:
-                    human.ChangeMana(res.Value);
-                    break;
+                human.CalculateHealingTaken(resource_change[res.Key][type.Key], type.Key, res.Key);
             }
         }
     }

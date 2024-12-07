@@ -51,16 +51,19 @@ public class PassiveTalents : Talents
     /// This will invoke the skill
     /// </summary>
     /// <param name="targets"></param>
-    public override void Invoke(List<Humanoid> targets, Humanoid owner)
+    public virtual void Invoke(List<Humanoid> targets, Humanoid owner)
     {
-
+        Debug.LogError("This skill is not programmed properly");
     }
 
     /// <summary>
     /// This invokation call takes a reference to some current instance of damage if necessary
     /// </summary>
     /// <param name="damage"></param>
-    public virtual void Invoke(ref Damage damage, Humanoid owner) { }
+    public virtual void Invoke(ref Damage damage, Humanoid owner) 
+    {
+        Debug.LogError("This skill is not programmed properly");
+    }
 
 
     /// <summary>

@@ -25,9 +25,10 @@ public class Weapon : Equipment
     /// <returns></returns>
     public void GetDamageRange(ref Damage damage) 
     {
-        foreach (var kvp in damage.damagePortion) 
+        var Keys = new List<DamageType>(damage.damagePortion.Keys);
+        foreach (var key in Keys) 
         {
-            damage.damagePortion[kvp.Key] = (int)(damage.damagePortion[kvp.Key]*Random.Range(0.7f, 1f));
+            damage.damagePortion[key] = (int)(damage.damagePortion[key] *Random.Range(0.7f, 1f));
         }
     }
 
@@ -52,6 +53,18 @@ public class Weapon : Equipment
     }
 
     /// <summary>
+    /// Constructor for weapons that enemies possess
+    /// </summary>
+    public Weapon(WeaponType wType, WeaponWeight wWeight)
+    {
+        WeaponScaling[DamageType.Physical] = new Dictionary<STATS, float>();
+        WeaponScaling[DamageType.Magical] = new Dictionary<STATS, float>();
+
+        WeaponType = wType;
+        WeaponWeight = wWeight;
+    }
+
+    /// <summary>
     /// Calculates the damage dealt by the weapon.
     /// </summary>
     /// <param name="humanoid">The character wielding the weapon</param>
@@ -62,17 +75,20 @@ public class Weapon : Equipment
         // No damage for shields or general equipment
         if (WeaponType == WeaponType.Shield) return new Damage(null, null);
 
+        //Our temporary new dictionary that will copy all necessary values for the new damage
+        Dictionary<DamageType, int> tempDic = new Dictionary<DamageType, int>();
 
-        foreach (var flatdam in EquipmentValue) //  For every Damage type we have
+        foreach (var damagetype in EquipmentValue)  //  For every damage type this weapon has
         {
-            foreach (var scalingMultiplier in WeaponScaling[flatdam.Key])    //  For every scaling type that 
+            tempDic[damagetype.Key] = damagetype.Value; //  Assign new value to the Temporary Dictionary
+            foreach (var damagescaling in WeaponScaling[damagetype.Key])    //  For every stat scaling that this weapon has
             {
-                EquipmentValue[flatdam.Key] += (int)(humanoid.GetStat(scalingMultiplier.Key) * scalingMultiplier.Value); //  set new value to scaled value
+                tempDic[damagetype.Key] += (int)(tempDic[damagetype.Key] * WeaponScaling[damagetype.Key][damagescaling.Key]);   //  Append temporary dictionary balue
             }
-            EquipmentValue[flatdam.Key] = (int)(EquipmentValue[flatdam.Key]*(WeaponWeight == WeaponWeight.TwoHand ? 1.75f : 1.0f));
+            tempDic[damagetype.Key] = (int)(tempDic[damagetype.Key] * (WeaponWeight == WeaponWeight.TwoHand ? 1.75f : 1.0f));   //  Add bonus for two handed
         }
 
-        var dam = new Damage(EquipmentValue, EquipmentPercent);
+        var dam = new Damage(tempDic, EquipmentPercent);
 
         if (!raw) GetDamageRange(ref dam);
 

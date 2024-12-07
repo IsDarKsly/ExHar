@@ -22,12 +22,14 @@ public class BasicAttack : ActiveTalents
 
     public override void Invoke(List<Humanoid> targets, Humanoid owner)
     {
+        Debug.Log($"{owner.Name} is using a basic attack!");
         var target = targets[0];    //  Realistically only one target
 
         int targHealth = target.GetHealth();
 
         if (owner.MainHand == null && owner.OffHand == null)
         {
+            Debug.Log($"Unarmed basic attack");
             Dictionary<DamageType, int> damagePortion = new Dictionary<DamageType, int>();
             Dictionary<DamageSubType, float> damagePercent = new Dictionary<DamageSubType, float>();
             damagePortion[DamageType.Physical] = owner.GetStat(STATS.Strength);
@@ -38,9 +40,10 @@ public class BasicAttack : ActiveTalents
             if (owner.DidItCrit())
             {
                 damage.IsCritical = true;
-                foreach (var keyvalpair in damage.damagePortion)
+                var Keys = new List<DamageType>(damage.damagePortion.Keys);
+                foreach (var key in Keys)
                 {
-                    damage.damagePortion[keyvalpair.Key] *= 2;
+                    damage.damagePortion[key] *= 2;
                 }
             }
 
@@ -55,13 +58,15 @@ public class BasicAttack : ActiveTalents
         // Same logic for MainHand and OffHand
         if (owner.MainHand != null && owner.MainHand.WeaponType != WeaponType.Shield)
         {
+            Debug.Log($"MainHand basic attack");
             Damage damage = owner.MainHand.GetWeaponDamage(owner);
             if (owner.DidItCrit())
             {
                 damage.IsCritical = true;
-                foreach (var keyvalpair in damage.damagePortion)
+                var Keys = new List<DamageType>(damage.damagePortion.Keys);
+                foreach (var key in Keys)
                 {
-                    damage.damagePortion[keyvalpair.Key] *= 2;
+                    damage.damagePortion[key] *= 2;
                 }
             }
 
@@ -75,13 +80,15 @@ public class BasicAttack : ActiveTalents
 
         if (owner.OffHand != null && owner.OffHand.WeaponType != WeaponType.Shield)
         {
+            Debug.Log($"Offhand basic attack");
             Damage damage = owner.OffHand.GetWeaponDamage(owner);
             if (owner.DidItCrit())
             {
                 damage.IsCritical = true;
-                foreach (var keyvalpair in damage.damagePortion)
+                var Keys = new List<DamageType>(damage.damagePortion.Keys);
+                foreach (var key in Keys)
                 {
-                    damage.damagePortion[keyvalpair.Key] *= 2;
+                    damage.damagePortion[key] *= 2;
                 }
             }
 

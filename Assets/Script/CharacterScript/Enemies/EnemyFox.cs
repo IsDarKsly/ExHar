@@ -9,8 +9,10 @@ public class EnemyFox : Enemy
 
         pointConstitution = 5;  //  50 health
 
-        MainHand = new Weapon();
+        MainHand = new Weapon(WeaponType.Sword, WeaponWeight.OneHand);
         MainHand.EquipmentValue[DamageType.Physical] = 5;
+        MainHand.EquipmentPercent[DamageSubType.Slashing] = 1f;
+        
 
         Chest = new Armor();
         Chest.EquipmentValue[DamageType.Physical] = 5;

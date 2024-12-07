@@ -17,7 +17,7 @@ public static class SaveClass //This class will take on the duty of saving any d
     public static void Save<T>(T saveObj, string path) where T : class
     {
         // Convert the object to JSON
-        string json = JsonConvert.SerializeObject(saveObj, Formatting.Indented);
+        string json = JsonConvert.SerializeObject(saveObj, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting=Formatting.Indented });
 
         // Write the JSON string to the file
         using (var writer = new StreamWriter(path))
@@ -34,7 +34,7 @@ public static class SaveClass //This class will take on the duty of saving any d
     public static void SaveValue(object saveObj, string path)
     {
         // Convert the value to JSON
-        string json = JsonConvert.SerializeObject(saveObj, Formatting.Indented);
+        string json = JsonConvert.SerializeObject(saveObj, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented });
 
         // Write the JSON string to the file
         using (var writer = new StreamWriter(path))

@@ -131,12 +131,12 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (BattleManager.Instance.Phase == BATTLEPHASE.PLAYERTURN)  //  This battle phase lets us set active
         {
-            if (character.GetType() == typeof(Enemy))  //  Enemy cannot be active
+            if (character.GetType().IsSubclassOf(typeof(Enemy)))  //  Enemy cannot be active
             {
                 return;
             }
 
-            BattleManager.Instance.SetActive(character);
+            if(character.turn)  BattleManager.Instance.SetActive(character);
 
         }
         else if (BattleManager.Instance.Phase == BATTLEPHASE.TARGETSELECTION)
@@ -156,7 +156,7 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         string title = "";
         string desc = "";
 
-        if (character.GetType() == typeof(Enemy))
+        if (character.GetType().IsSubclassOf(typeof(Enemy)))
         {
             var c = (Enemy)character;
             title = c.GetName();
