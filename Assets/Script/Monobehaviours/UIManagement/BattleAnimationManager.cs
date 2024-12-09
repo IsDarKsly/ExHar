@@ -29,6 +29,7 @@ public class BattleAnimationManager : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
+        if (BattleManager.Instance == null) return;
         BattleManager.Instance.OnPhaseChange.AddListener(AnimationPhase);
     }
 

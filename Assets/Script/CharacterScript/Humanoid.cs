@@ -901,14 +901,29 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <summary>
     /// This function will calculate the damage this character should take before actually taking that damage.
     /// </summary>
-    public virtual void CalculateDamageTaken(Damage damage) 
+    public virtual void CalculateDamageTaken(Damage damageStruct) 
     {
-        Debug.Log($"{Name} is under attack!");
-        if (damage.damagePortion == null || damage.damagePercent == null) return;   //  No damage here
-
-        if (damage.IsDodgeable && DidIDodge())     //  if we dodged the attack (Not for any enemies)
+        if (damageStruct.damagePortion == null || damageStruct.damagePercent == null) 
         {
+            Debug.Log("The damage struct had null proportions");
+        } 
+
+        if (damageStruct.IsDodgeable && DidIDodge() && !this.GetType().IsSubclassOf(typeof(Enemy)))     //  if we dodged the attack (Not for any enemies)
+        {
+            Debug.Log("We dodged the attack");
             return;
+        }
+
+        var damage = new Damage(new Dictionary<DamageType, int>(), new Dictionary<DamageSubType, float>()); //  We wont to make sure that no reference is being edited, as other enemies will take different damage if it does
+
+        foreach (var damKVP in damageStruct.damagePortion) // We copy the flat values
+        {
+            damage.damagePortion[damKVP.Key] = damKVP.Value;
+        }
+
+        foreach (var perKVP in damageStruct.damagePercent) // We copy the percent values
+        {
+            damage.damagePercent[perKVP.Key] = perKVP.Value;
         }
 
 
@@ -936,7 +951,6 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
             dam *= (1f-CalculateResistance(perc_dam.Key));  //  Calculate player resistance (1-60% means new damage taken is 40% as effective)
             if(dam < 0) dam = 0;
 
-
             ChangeResourceBattle((int)(-1*dam), perc_dam.Key, RESOURCES.Health,damage.IsCritical);
         }
     }
@@ -951,6 +965,33 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
 
         ChangeResourceBattle((int)newvalue, subType, RESOURCES.Health, false);
         
+    }
+
+    /// <summary>
+    /// Set's all the cooldowns back to zero for this character
+    /// </summary>
+    public void RestoreCooldowns() 
+    {
+        foreach (var skill in ActiveTalents) 
+        {
+            skill.CooldownCounter = 0;
+        }
+
+        foreach (var skill in PassiveTalents)
+        {
+            skill.CooldownCounter = 0;
+        }
+    }
+
+    /// <summary>
+    /// Removes all status effects from this character
+    /// </summary>
+    public void RemoveEffects() 
+    {
+        foreach (var status in statuses) 
+        {
+            statuses.Remove(status);
+        }
     }
 
     /// <summary>
@@ -997,6 +1038,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// </summary>
     public void ChangeResourceBattle(int value, DamageSubType type, RESOURCES resourceType, bool crit) 
     {
+        if (value == 0) return; // No need to do anything if nothing occurs
         Debug.Log($"{Name} is having resource changed");
         switch (resourceType) 
         {
@@ -1016,17 +1058,21 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     }
 
     /// <summary>
-    /// This will change our resource during battle, this triggers animations for the battle manager
+    /// The full restore function fully restores the resources of this character.
+    /// It is not meant to be used during combat unless to fully instantiate characters
     /// </summary>
-    public void ResourceChangeBattle(int value) 
+    /// <param name="resourceType"></param>
+    public void FullRestore() 
     {
-    
+        Hp = GetMaxHealth();
+        Stamina = GetMaxStamina();
+        Mana = GetMaxMana();
     }
 
     /// <summary>
     /// The actual slot being equiped to
     /// </summary>
-    public void Equip<T>(T equipmentslot, Equipment equipment) where T : Equipment
+    public void Equip<T>(ref T equipmentslot, Equipment equipment) where T : Equipment
     {
         DataManager.Instance.inventory.RemoveItem(equipment);
         equipmentslot = (T)equipment;
@@ -1053,43 +1099,43 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         {
             case EQUIPMENTSLOT.MainHand:
                 if (MainHand != null) Unequip(ref _MainHand);
-                Equip(MainHand, equipment);
+                Equip(ref _MainHand, equipment);
                 break;
             case EQUIPMENTSLOT.OffHand:
                 if (OffHand != null) Unequip(ref _OffHand);
-                Equip(OffHand, equipment);
+                Equip(ref _OffHand, equipment);
                 break;
             case EQUIPMENTSLOT.Helm:
                 if (Helmet != null) Unequip(ref _Helmet);
-                Equip(Helmet, equipment);
+                Equip(ref _Helmet, equipment);
                 break;
             case EQUIPMENTSLOT.Chest:
                 if (Chest != null) Unequip(ref _Chest);
-                Equip(Chest, equipment);
+                Equip(ref _Chest, equipment);
                 break;
             case EQUIPMENTSLOT.Legs:
                 if (Leggings != null) Unequip(ref _Leggings);
-                Equip(Leggings, equipment);
+                Equip(ref _Leggings, equipment);
                 break;
             case EQUIPMENTSLOT.Boots:
                 if (Boots != null) Unequip(ref _Boots);
-                Equip(Boots, equipment);
+                Equip(ref _Boots, equipment);
                 break;
             case EQUIPMENTSLOT.Gloves:
                 if (Gloves != null) Unequip(ref _Gloves);
-                Equip(Gloves, equipment);
+                Equip(ref _Gloves, equipment);
                 break;
             case EQUIPMENTSLOT.Amulet:
                 if (Amulet != null) Unequip(ref _Amulet);
-                Equip(Amulet, equipment);
+                Equip(ref _Amulet, equipment);
                 break;
             case EQUIPMENTSLOT.Ring1:
                 if (Ring1 != null) Unequip(ref _Ring1);
-                Equip(Ring1, equipment);
+                Equip(ref _Ring1, equipment);
                 break;
             case EQUIPMENTSLOT.Ring2:
                 if (Ring2 != null) Unequip(ref _Ring2);
-                Equip(Ring2, equipment);
+                Equip(ref _Ring2, equipment);
                 break;
         }
     }
@@ -1239,7 +1285,20 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// </summary>
     public void Tick() 
     {
+        if (GetHealth() <= 0)   //  If this character is dead, remove buffs, reset cooldowns
+        {
+            ClearStatusList();
+            RestoreCooldowns();
+            return;
+        }
+
+
         foreach (var skill in ActiveTalents) 
+        {
+            skill.Tick();
+        }
+
+        foreach (var skill in PassiveTalents)
         {
             skill.Tick();
         }

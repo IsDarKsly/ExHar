@@ -11,7 +11,6 @@ public class BasicAttack : ActiveTalents
     {
         Name = "Basic Attack";
         Description = "Basic Attack Desc";
-        SpriteID = 0;
         Level = 1;
         MaxLevel = 1;
         Refundable = false;

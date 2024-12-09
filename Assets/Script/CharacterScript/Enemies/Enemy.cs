@@ -27,7 +27,6 @@ public class Enemy : Humanoid
         switch (type) 
         {
             case ENEMYTYPE.NORMAL:
-
                 break;
             case ENEMYTYPE.SUPPORT:
                 break;
@@ -36,43 +35,6 @@ public class Enemy : Humanoid
         }
     }
 
-    /// <summary>
-    /// Functionally no different from the Humanoid version save for the lost ability to DODGE
-    /// </summary>
-    public override void CalculateDamageTaken(Damage damage)
-    {
-        Debug.Log($"{Name} is under attack!");
-        if (damage.damagePortion == null || damage.damagePercent == null) return;   //  No damage here
-
-
-        var keys = new List<DamageType>(damage.damagePortion.Keys);
-        foreach (var key in keys)  //  Calculate damage for this portion
-        {
-            damage.damagePortion[key] -= CalculateFlatDefense(key);   //  Simple flat reductions applied to the damage 
-            if (damage.damagePortion[key] < 0) damage.damagePortion[key] = 0; //  Dont let damage dip below zero
-        }
-
-        foreach (var p in PassiveTalents.FindAll(p => p.trigger == PASSIVETRIGGER.BeforeImAttacked))    //  Passive talent calculation
-        {
-            p.Invoke(ref damage, this);
-        }
-
-        foreach (var perc_dam in damage.damagePercent) //   Calculate percentage for damages
-        {
-            float dam = 0;  //  Initialize a damage we will be taking
-
-            foreach (var flat_dam in damage.damagePortion) //  Add up the respective portions for this subtype
-            {
-                dam += damage.damagePortion[flat_dam.Key] * damage.damagePercent[perc_dam.Key];
-            }
-
-            dam *= (1f - CalculateResistance(perc_dam.Key));  //  Calculate player resistance (1-60% means new damage taken is 40% as effective)
-            if (dam < 0) dam = 0;
-
-
-            ChangeResourceBattle((int)(-1 * dam), perc_dam.Key, RESOURCES.Health, damage.IsCritical);
-        }
-    }
 
 }
 

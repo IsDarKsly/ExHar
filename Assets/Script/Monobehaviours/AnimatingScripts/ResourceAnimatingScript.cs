@@ -126,36 +126,7 @@ public class ResourceAnimatingScript : MonoBehaviour, AnimationController
                 break;
         }
 
-        switch (resourceValues.type)    //  Setting the image of the element type 
-        {
-            case DamageSubType.Crushing:
-                image.sprite = SpriteManager.Instance.GetSprite("Crushing");
-                break;
-            case DamageSubType.Slashing:
-                image.sprite = SpriteManager.Instance.GetSprite("Slashing");
-                break;
-            case DamageSubType.Stabbing:
-                image.sprite = SpriteManager.Instance.GetSprite("Stabbing");
-                break;
-            case DamageSubType.Fire:
-                image.sprite = SpriteManager.Instance.GetSprite("Fire");
-                break;
-            case DamageSubType.Water:
-                image.sprite = SpriteManager.Instance.GetSprite("Water");
-                break;
-            case DamageSubType.Ice:
-                image.sprite = SpriteManager.Instance.GetSprite("Ice");
-                break;
-            case DamageSubType.Lightning:
-                image.sprite = SpriteManager.Instance.GetSprite("Lightning");
-                break;
-            case DamageSubType.Light:
-                image.sprite = SpriteManager.Instance.GetSprite("Light");
-                break;
-            case DamageSubType.Dark:
-                image.sprite = SpriteManager.Instance.GetSprite("Dark");
-                break;
-        }
+        image.sprite = SpriteManager.Instance.GetSubtypeSprite(subType);
 
         gameObject.SetActive(false);
     }

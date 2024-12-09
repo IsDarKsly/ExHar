@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142124846690437513}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -286,6 +286,32 @@ MonoBehaviour:
     - {r: 0.4481132, g: 1, b: 0.9519797, a: 1}
     - {r: 1, g: 1, b: 1, a: 1}
   premadeSprites: []
+  MonsterSprites:
+  - {fileID: 21300000, guid: c9b609e9085dcd046a0b2fa41b13698b, type: 3}
   ItemSprites: []
   EquipmentSprites: []
+  AnimationPrefabs: []
+  spriteDicts:
+  - Key: Crushing
+    Value: {fileID: -417064688979900798, guid: 47886d80e491d0849b186aea2fd59059, type: 3}
+  - Key: Slashing
+    Value: {fileID: 4176362632249098406, guid: 3aa701a32665e5d4d863883c95445b01, type: 3}
+  - Key: Stabbing
+    Value: {fileID: -5312497963641247122, guid: bfebb365755dcee45ac643f911a900a5, type: 3}
+  - Key: Fire
+    Value: {fileID: 1098286324429101383, guid: 5578b1c097dde2444a4d0013f9b20619, type: 3}
+  - Key: Water
+    Value: {fileID: 6049605792901559095, guid: f8e4423c2e091d0489fb19f9500b0140, type: 3}
+  - Key: Ice
+    Value: {fileID: -7560284153744367771, guid: 18cc6774a0739e140b9551f77568c942, type: 3}
+  - Key: Lightning
+    Value: {fileID: -894095381526335850, guid: 37d99f3ba9e2da440a2d3c09cc72f67a, type: 3}
+  - Key: Light
+    Value: {fileID: 9212275650587600386, guid: 74c31e4959b00dd4880686f8984a60c9, type: 3}
+  - Key: Dark
+    Value: {fileID: -2456337592447410214, guid: 3e691d0eced8b474e9e13c222bf54177, type: 3}
+  - Key: Blood
+    Value: {fileID: 5684327315910396547, guid: 47b917284052c154cbc1661f31d2b08e, type: 3}
+  - Key: Poison
+    Value: {fileID: -4347532159779508366, guid: dd2c828fb91ece34d9983f9a8f4ce39c, type: 3}
   blankSprite: {fileID: 21300000, guid: 53a861e1bf6f8e7428403b3e3e9e8215, type: 3}

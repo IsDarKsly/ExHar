@@ -122,5 +122,9 @@
     "Cancel" : "Cancel",
     "Fox" : "Fox",
     "Fox Desc" : "A small fox",
+    "Fireball" : "Fireball",
+    "Fireball Desc" : "Cast a Fireball at a target, dealing fire damage",
+    "Basic Attack Desc" : "Use your weapon on the enemy!",
+    "Damage" : "Damage",
     "This is a test" : "This is a test"
 }

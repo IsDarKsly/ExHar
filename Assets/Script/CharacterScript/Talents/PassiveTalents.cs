@@ -1,7 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+/// <summary>
+/// The Passive Talent represents any number of talents that are not meant to be activated manually by the player
+/// this talents can be persistent, always having their intended effect (IE resistance booster). Or
+/// 
+/// No Object of type ActiveTalents should ever be declared. This class should always be
+/// inherited by any talent class meant to be activated
+/// </summary>
 [System.Serializable]
-public class PassiveTalents : Talents
+public abstract class PassiveTalents : Talents
 {
     public PASSIVETRIGGER trigger;
 
@@ -44,16 +51,16 @@ public class PassiveTalents : Talents
     /// </summary>
     public override void LevelUp()
     {
-
+        Debug.LogError($"This passive skill {Name} is not programmed properly");
     }
 
     /// <summary>
     /// This will invoke the skill
     /// </summary>
     /// <param name="targets"></param>
-    public virtual void Invoke(List<Humanoid> targets, Humanoid owner)
+    public override void Invoke(List<Humanoid> targets, Humanoid owner)
     {
-        Debug.LogError("This skill is not programmed properly");
+        Debug.LogError($"This passive skill {Name} is not programmed properly");
     }
 
     /// <summary>
@@ -62,32 +69,9 @@ public class PassiveTalents : Talents
     /// <param name="damage"></param>
     public virtual void Invoke(ref Damage damage, Humanoid owner) 
     {
-        Debug.LogError("This skill is not programmed properly");
+        Debug.LogError($"This passive skill {Name} is not programmed properly");
     }
 
-
-    /// <summary>
-    /// Getter for any displaying text to use.
-    /// Should return a tranlstated string
-    /// </summary>
-    /// <returns></returns>
-    public virtual string GetCost() { return null; }
-    /// <summary>
-    /// Getter for any displaying text to use
-    /// Should return a tranlstated string
-    /// </summary>
-    /// <returns></returns>
-    public virtual string GetScaling() { return null; }
-    /// <summary>
-    /// Gets the translated name for this Talent
-    /// </summary>
-    /// <returns></returns>
-    public virtual string GetName() { return null; }
-    /// <summary>
-    /// Gets the translted description for this talent
-    /// </summary>
-    /// <returns></returns>
-    public virtual string GetDescription() { return null; }
 }
 
 public enum PASSIVETRIGGER { StartOfMatch, StartOfRound, EndOfRound, BeforeIAttack, BeforeImAttacked, Consistent } 

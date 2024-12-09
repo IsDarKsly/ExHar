@@ -19,19 +19,6 @@ public class Weapon : Equipment
     public Dictionary<DamageType, Dictionary<STATS, float>> WeaponScaling = new Dictionary<DamageType, Dictionary<STATS, float>>();
 
 
-    /// <summary>
-    /// Takes a damage reference and randomly calculates its damage between 70% and 100%
-    /// </summary>
-    /// <returns></returns>
-    public void GetDamageRange(ref Damage damage) 
-    {
-        var Keys = new List<DamageType>(damage.damagePortion.Keys);
-        foreach (var key in Keys) 
-        {
-            damage.damagePortion[key] = (int)(damage.damagePortion[key] *Random.Range(0.7f, 1f));
-        }
-    }
-
     public Weapon() { }
 
     /// <summary>
@@ -68,9 +55,8 @@ public class Weapon : Equipment
     /// Calculates the damage dealt by the weapon.
     /// </summary>
     /// <param name="humanoid">The character wielding the weapon</param>
-    /// <param name="raw">If you want the true max damage, no randomization, set this to true</param>
     /// <returns>The calculated damage</returns>
-    public Damage GetWeaponDamage(in Humanoid humanoid, bool raw = false)
+    public Damage GetWeaponDamage(in Humanoid humanoid)
     {
         // No damage for shields or general equipment
         if (WeaponType == WeaponType.Shield) return new Damage(null, null);
@@ -89,8 +75,6 @@ public class Weapon : Equipment
         }
 
         var dam = new Damage(tempDic, EquipmentPercent);
-
-        if (!raw) GetDamageRange(ref dam);
 
         // Calculate final damage
         return dam;

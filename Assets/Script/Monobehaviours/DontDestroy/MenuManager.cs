@@ -21,6 +21,8 @@ public class MenuManager : MonoBehaviour
     public SkillMenu SkillMenuObj;
 
     public TalentMenu TalentMenuObj;
+
+    public SkillDetailsMenu SkillDetailsMenuObj;
     /// <summary>
     /// The Instance that serves as our interface into this object
     /// </summary>
@@ -120,6 +122,24 @@ public class MenuManager : MonoBehaviour
     public void ShowDetails(string title, string details, UnityAction action)
     {
         DetailsMenuObj.ActiveDetails(title, details, action);
+    }
+
+    /// <summary>
+    /// Shows relevant details of a skill
+    /// </summary>
+    /// <param name="person"></param>
+    /// <param name="skill"></param>
+    public void ShowSkillDetails(ActiveTalents skill, Humanoid person)
+    {  
+        SkillDetailsMenuObj.ActivateDetails(skill, person);
+    }
+
+    /// <summary>
+    /// Hides skill details
+    /// </summary>
+    public void HideSkillDetails() 
+    {
+        SkillDetailsMenuObj.HideDetails();
     }
 
     /// <summary>

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f8e4423c2e091d0489fb19f9500b0140
+guid: 47b917284052c154cbc1661f31d2b08e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6049605792901559095
-    second: Water_0
+      213: 5684327315910396547
+    second: Blood_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Water_0
+      name: Blood_0
       rect:
         serializedVersion: 2
         x: 11
         y: 1
-        width: 29
-        height: 47
+        width: 30
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 733fa0d9a6484f350800000000000000
-      internalID: 6049605792901559095
+      spriteID: 38a83e3b399c2ee40800000000000000
+      internalID: 5684327315910396547
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Water_0: 6049605792901559095
+      Blood_0: 5684327315910396547
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

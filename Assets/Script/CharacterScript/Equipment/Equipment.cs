@@ -155,7 +155,7 @@ public struct Damage
     public Dictionary<DamageSubType, float> damagePercent;
 
     /// <summary>
-    /// Constructor for this 
+    /// The constructor takes a Dictionary of flat damages and a dictionary of percentages. It can also take whether this damage is dodgeable (for players only) or if this damage is a critical strike (for use by the animator)
     /// </summary>
     /// <param name="t_dam"></param>
     /// <param name="t_per"></param>
@@ -177,5 +177,5 @@ public enum DamageType { Physical, Magical }
 /// <summary>
 /// The different subtypes types of damage a weapon or spell can deal percentages of
 /// </summary>
-public enum DamageSubType { Crushing, Slashing, Stabbing, Fire, Water, Ice, Lightning, Light, Dark }
+public enum DamageSubType { Crushing, Slashing, Stabbing, Fire, Water, Ice, Lightning, Light, Dark, Bleeding, Poison }
 

@@ -151,7 +151,7 @@ public class BattleManager : MonoBehaviour
         enemyParty = enemies;
         foreach (var enemy in enemyParty) //    Setting health for all enemies
         {
-            enemy.ChangeHealth(enemy.GetMaxHealth());
+            enemy.FullRestore();
         }
 
         party.Add(DataManager.Instance.playerCharacter);
@@ -176,6 +176,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Starting enemy turn!");
         SetPhase(BATTLEPHASE.ENEMYTURN);
         SetActive(null);
+        TickEnemyParty();
 
         if (!IsPartyAlive() || !IsEnemyPartyAlive())
         {
@@ -204,6 +205,7 @@ public class BattleManager : MonoBehaviour
     public void StartPlayerTurn() 
     {
         Debug.Log("Starting player turn!");
+        TickParty();
         
         if (!IsPartyAlive() || !IsEnemyPartyAlive())
         {
@@ -220,6 +222,28 @@ public class BattleManager : MonoBehaviour
         }
 
         SetPhase(BATTLEPHASE.PLAYERTURN);
+    }
+
+    /// <summary>
+    /// Ticks the entire player party
+    /// </summary>
+    public void TickParty() 
+    {
+        foreach (var member in party) 
+        {
+            member.Tick();
+        }
+    }
+
+    /// <summary>
+    /// Ticks the entire enemy party
+    /// </summary>
+    public void TickEnemyParty() 
+    {
+        foreach (var member in enemyParty)
+        {
+            member.Tick();
+        }
     }
 
     /// <summary>

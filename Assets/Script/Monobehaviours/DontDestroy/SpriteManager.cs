@@ -86,6 +86,41 @@ public class SpriteManager : MonoBehaviour
         return (SpriteDictionary.ContainsKey(key)) ? SpriteDictionary[key] : null;
     }
 
+    /// <summary>
+    /// Quickly gets the sprite for a given damage subtype
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public Sprite GetSubtypeSprite(DamageSubType type) 
+    {
+        switch (type)    //  Setting the image of the element type 
+        {
+            case DamageSubType.Crushing:
+                return GetSprite("Crushing");
+            case DamageSubType.Slashing:
+                return GetSprite("Slashing");
+            case DamageSubType.Stabbing:
+                return GetSprite("Stabbing");
+            case DamageSubType.Fire:
+                return GetSprite("Fire");
+            case DamageSubType.Water:
+                return GetSprite("Water");
+            case DamageSubType.Ice:
+                return GetSprite("Ice");
+            case DamageSubType.Lightning:
+                return GetSprite("Lightning");
+            case DamageSubType.Light:
+                return GetSprite("Light");
+            case DamageSubType.Dark:
+                return GetSprite("Dark");
+            case DamageSubType.Bleeding:
+                return GetSprite("Blood");
+            case DamageSubType.Poison:
+                return GetSprite("Poison");
+        }
+        return null;
+    }
+
     //  Public Methods
     /// <summary>
     /// Get animation Prefab searches the animation prefab dictionary and returns a corresponding gameobject value if it exists.

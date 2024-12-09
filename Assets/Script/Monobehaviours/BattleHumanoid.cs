@@ -10,6 +10,24 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public Humanoid character;
 
     /// <summary>
+    /// The Resource Bars for this group
+    /// </summary>
+    public GameObject ResourceBars;
+
+    /// <summary>
+    /// HealthBar will be updated each player and enemy phase
+    /// </summary>
+    public RectTransform HealthBar;
+    /// <summary>
+    /// StaminaBar will be updated each player and enemy phase
+    /// </summary>
+    public RectTransform StaminaBar;
+    /// <summary>
+    /// ManaBar will be updated each player and enemy phase
+    /// </summary>
+    public RectTransform ManaBar;
+
+    /// <summary>
     /// The appearance object representing this character
     /// </summary>
     public AppearanceObj appearanceObj;
@@ -64,9 +82,24 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         button = GetComponent<Button>();
         button.onClick.AddListener(ClickCharacter);
 
+        if (character.GetType().IsSubclassOf(typeof(Enemy))) 
+        {
+            ResourceBars.transform.localPosition = new Vector2(0, -222);
+        }
+
         BattleManager.Instance.OnPhaseChange.AddListener(OnPhaseChange);
         BattleManager.Instance.OnActiveSelect.AddListener(OnActiveSelect);
         BattleManager.Instance.OnTargetSelect.AddListener(OnTargetSelect);
+    }
+
+    /// <summary>
+    /// Updates each of the resources relative to the character
+    /// </summary>
+    private void UpdateResourceVisuals()
+    {
+        HealthBar.sizeDelta = new Vector2((int)(200 * (character.GetHealth()/(float)character.GetMaxHealth())), 5);
+        StaminaBar.sizeDelta = new Vector2((int)(200 * (character.GetStamina() / (float)character.GetMaxStamina())), 5);
+        ManaBar.sizeDelta = new Vector2((int)(200 * (character.GetMana() / (float)character.GetMaxMana())), 5);
     }
 
     /// <summary>
@@ -92,6 +125,7 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     }
 
+
     /// <summary>
     /// When this is called, if the active character isnt the one attached to this object, our base color reverts back to the natural color
     /// </summary>
@@ -110,7 +144,8 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
 
     /// <summary>
-    /// When this is called, all baseboards are set to the default base board color except the active character
+    /// When this is called, all baseboards are set to the default base board color except the active character.
+    /// Also, each resource for this character is set relative to the max resource
     /// </summary>
     /// <param name="phase"></param>
     public void OnPhaseChange(BATTLEPHASE phase) 
@@ -120,6 +155,15 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (BattleManager.Instance.activeCharacter != character)
         {
             base_col.color = BaseColor;
+        }
+
+        if (phase == BATTLEPHASE.PLAYERTURN)
+        {
+            UpdateResourceVisuals();
+        }
+        else if (phase == BATTLEPHASE.ENEMYTURN) 
+        {
+            UpdateResourceVisuals();
         }
     }
 
