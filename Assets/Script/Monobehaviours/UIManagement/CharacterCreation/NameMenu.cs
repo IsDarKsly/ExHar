@@ -4,7 +4,7 @@ public class NameMenu : MonoBehaviour
 {
     //  Public Variables
     public TMPro.TMP_Text name_Text;
-    public StatsMenu stats;
+    public ClassMenu classmenu;
     //  Private Variables
 
     //  Private Functions
@@ -19,7 +19,7 @@ public class NameMenu : MonoBehaviour
         if (name_Text.text.Length > 1) 
         {
             CharacterCreator.Instance.charName = name_Text.text;
-            MenuManager.Instance.ActivateConfirmMenu(() => { SetActive(false); stats.SetActive(true); });
+            MenuManager.Instance.ActivateConfirmMenu(() => { SetActive(false); classmenu.SetActive(true); });
         }
     }
 

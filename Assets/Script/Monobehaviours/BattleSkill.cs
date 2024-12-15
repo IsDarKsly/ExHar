@@ -16,7 +16,8 @@ public class BattleSkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         var obj = Instantiate(gameObject, parent);
         obj.GetComponent<BattleSkill>().Skill = skill;
-        obj.GetComponentInChildren<Image>().sprite = SpriteManager.Instance.GetSprite(skill.Name);
+        var image = obj.transform.Find("SkillImage").GetComponent<Image>();
+        image.sprite = SpriteManager.Instance.GetSprite(skill.Name);
         if (!skill.OffCooldown()) obj.GetComponent<Button>().interactable = false;  // Disable button if not off cooldown
     }
 

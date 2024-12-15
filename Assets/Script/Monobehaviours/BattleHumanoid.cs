@@ -197,20 +197,7 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <exception cref="System.NotImplementedException"></exception>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        string title = "";
-        string desc = "";
-
-        if (character.GetType().IsSubclassOf(typeof(Enemy)))
-        {
-            var c = (Enemy)character;
-            title = c.GetName();
-            desc = c.GetDescription();
-        }
-        else 
-        {
-            title = character.Name;
-        }
-        MenuManager.Instance.ShowDetails(title, desc);
+        MenuManager.Instance.ShowHumanoidDetails(character);
     }
 
     /// <summary>
@@ -220,6 +207,6 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <exception cref="System.NotImplementedException"></exception>
     public void OnPointerExit(PointerEventData eventData)
     {
-        MenuManager.Instance.HideDetails();
+        MenuManager.Instance.HideHumanoidDetails();
     }
 }

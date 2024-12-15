@@ -3,7 +3,7 @@ using UnityEngine;
 public class ClassMenu : MonoBehaviour
 {
     //  Public Variables
-    public RaceMenu raceMenu;
+    public StatsMenu statsMenu;
     //  Private Variables
 
     //  Private Functions
@@ -47,7 +47,7 @@ public class ClassMenu : MonoBehaviour
                 break;
         }
 
-        MenuManager.Instance.ShowDetails(title, desc, () => { SetActive(false); raceMenu.SetActive(true); });
+        MenuManager.Instance.ShowDetails(title, desc, () => { SetActive(false); statsMenu.SetActive(true); });
 
 
     }

@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 97b6b7edf9914a847856b0d86e6afbc5
+guid: e7d177fc504e4224697c395da2d00b28
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6358611911217185599
+    second: warriorhelmet_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -65,7 +68,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -95,7 +98,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: warriorhelmet_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 9
+        width: 150
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f330ba808d35e3850800000000000000
+      internalID: 6358611911217185599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -109,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      warriorhelmet_0: 6358611911217185599
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,7 +1,13 @@
 fileFormatVersion: 2
-guid: 97b6b7edf9914a847856b0d86e6afbc5
+guid: 502bb9b421973094ba4232fc94b84f7a
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -3890638882915524782
+    second: RogueHelmet_0
+  - first:
+      213: -1975036146294797617
+    second: RogueHelmet_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -65,7 +71,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -95,7 +101,51 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RogueHelmet_0
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 24
+        width: 132
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25f5f7aac8ca10ac0800000000000000
+      internalID: -3890638882915524782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RogueHelmet_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 29
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcaca81d6134794e0800000000000000
+      internalID: -1975036146294797617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -109,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RogueHelmet_0: -3890638882915524782
+      RogueHelmet_1: -1975036146294797617
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

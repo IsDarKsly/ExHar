@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 97b6b7edf9914a847856b0d86e6afbc5
+guid: 3ef081ae3a936264698a9deff9bd6bb7
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 1980375423881769832
+    second: Wisdom_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -65,7 +68,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -95,7 +98,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Wisdom_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 136
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 863f26e94f4bb7b10800000000000000
+      internalID: 1980375423881769832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -109,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Wisdom_0: 1980375423881769832
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

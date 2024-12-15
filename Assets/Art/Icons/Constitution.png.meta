@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 97b6b7edf9914a847856b0d86e6afbc5
+guid: 19ae07e5efe89eb468958868294b23bf
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 780864354476868150
+    second: Constitution_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -65,7 +68,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -95,7 +98,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Constitution_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 0
+        width: 179
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 632cb524eff26da00800000000000000
+      internalID: 780864354476868150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -109,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Constitution_0: 780864354476868150
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

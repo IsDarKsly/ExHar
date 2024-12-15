@@ -314,4 +314,16 @@ MonoBehaviour:
     Value: {fileID: 5684327315910396547, guid: 47b917284052c154cbc1661f31d2b08e, type: 3}
   - Key: Poison
     Value: {fileID: -4347532159779508366, guid: dd2c828fb91ece34d9983f9a8f4ce39c, type: 3}
+  - Key: Fireball
+    Value: {fileID: 1098286324429101383, guid: 5578b1c097dde2444a4d0013f9b20619, type: 3}
+  - Key: Magical
+    Value: {fileID: -2256524004051076624, guid: 72330c98a83eaff4781c48c5ecdacc3b, type: 3}
+  - Key: Physical
+    Value: {fileID: 21300000, guid: 53a861e1bf6f8e7428403b3e3e9e8215, type: 3}
+  - Key: MAGE
+    Value: {fileID: 21300000, guid: 18c2ee1aff1c64b4c998f486fc0169a8, type: 3}
+  - Key: ROGUE
+    Value: {fileID: 21300000, guid: 502bb9b421973094ba4232fc94b84f7a, type: 3}
+  - Key: WARRIOR
+    Value: {fileID: 21300000, guid: e7d177fc504e4224697c395da2d00b28, type: 3}
   blankSprite: {fileID: 21300000, guid: 53a861e1bf6f8e7428403b3e3e9e8215, type: 3}

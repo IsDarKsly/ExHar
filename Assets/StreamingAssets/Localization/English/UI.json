@@ -35,6 +35,7 @@
     "Class" : "Class",
     "Warrior" : "Warrior",
     "Rogue" : "Rogue",
+    "Mage" : "Mage",
     "key" : "Mage",
     "WarriorDesc" : "The bravest warriors need not cheap tricks to best their foes. A simple weapon is all these few need to make their living. Warriors are forged in blood and battle.\nStr +2.5%\nCon +2.5%\nInt -5%",
     "RogueDesc" : "It's a dangerous world, the clever know not to recklessly cleave your way through life. A dagger here, some poison there. Rogues live their life away from prying eyes.\nDex +2.5%\nWis +2.5%\nCon -5%",

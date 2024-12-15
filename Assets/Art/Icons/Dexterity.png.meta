@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 97b6b7edf9914a847856b0d86e6afbc5
+guid: f29141e73ab3d914282d847b9f9f0214
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -341932676665991959
+    second: Dexterity_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -65,7 +68,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -95,7 +98,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Dexterity_0
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 0
+        width: 104
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ec993eca06314bf0800000000000000
+      internalID: -341932676665991959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -109,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Dexterity_0: -341932676665991959
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

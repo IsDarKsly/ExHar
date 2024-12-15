@@ -3,7 +3,7 @@ using UnityEngine;
 public class GenderMenu : MonoBehaviour
 {
     //  Public Variables
-    public ClassMenu classmenu;
+    public RaceMenu racemenu;
     //  Private Variables
 
     //  Private Functions
@@ -28,7 +28,7 @@ public class GenderMenu : MonoBehaviour
         string gen = g ? LocalizationManager.Instance.ReadUIDictionary("Male") : LocalizationManager.Instance.ReadUIDictionary("Female");
         string details = g ? LocalizationManager.Instance.ReadUIDictionary("MaleDesc") : LocalizationManager.Instance.ReadUIDictionary("FemaleDesc");
 
-        MenuManager.Instance.ShowDetails( gen, details, () => {SetActive(false); classmenu.SetActive(true); });
+        MenuManager.Instance.ShowDetails( gen, details, () => {SetActive(false); racemenu.SetActive(true); });
     }
 
 }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class SkillDetailsMenu : MonoBehaviour
 {
+    public GameObject DetailPanel;
     /// <summary>
     /// Displays the name of the skill
     /// </summary>
@@ -34,6 +35,11 @@ public class SkillDetailsMenu : MonoBehaviour
     /// </summary>
     public Image SubTypeImage;
 
+    /// <summary>
+    /// The Image telling the user what type of damage this skill has
+    /// </summary>
+    public Image TypeImage;
+
     public TMP_Text StrengthScalingText;
     public TMP_Text DexScalingText;
     public TMP_Text IntScalingText;
@@ -46,6 +52,8 @@ public class SkillDetailsMenu : MonoBehaviour
     /// </summary>
     public void ActivateDetails(Talents skill, Humanoid humanoid) 
     {
+        DetailPanel.transform.localPosition = MenuManager.Instance.mouse_is_left ? new Vector2(500, 18) : new Vector2(-500, 18);
+
         NameText.text = skill.GetNameText();
         DescriptionText.text = skill.GetDescriptionText();
         DamageText.text = skill.GetDamageText(humanoid);
@@ -57,6 +65,7 @@ public class SkillDetailsMenu : MonoBehaviour
         else CooldownText.color = Color.red;
 
         SubTypeImage.sprite = SpriteManager.Instance.GetSubtypeSprite(skill.SubType);
+        SubTypeImage.sprite = SpriteManager.Instance.GetSprite(skill.PrimaryType.ToString());
 
         StrengthScalingText.transform.parent.gameObject.SetActive(skill.GetAttributeScalingText(STATS.Strength) != null);
         DexScalingText.transform.parent.gameObject.SetActive(skill.GetAttributeScalingText(STATS.Dexterity) != null);
