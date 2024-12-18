@@ -6,6 +6,8 @@ public class EnemyFox : Enemy
     {
         Name = "Fox";
         Description = "Fox Desc";
+        Level = 1;
+        spec = CLASS.ROGUE;
 
         pointConstitution = 5;  //  50 health
 
@@ -21,7 +23,7 @@ public class EnemyFox : Enemy
 
         appearance = new Appearance();
         appearance.PRESET = PRESETAPPEARANCE.MONSTER;
-        appearance.SpriteID = 0;
+        appearance.Name = Name;
         
     }
 

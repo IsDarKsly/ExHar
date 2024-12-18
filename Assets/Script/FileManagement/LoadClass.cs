@@ -20,7 +20,7 @@ public static class LoadClass
         {
             if (!File.Exists(path))
             {
-                Debug.LogError($"File not found at path: {path}");
+               //Debug.LogError($"File not found at path: {path}");
                 return null;
             }
 
@@ -29,8 +29,8 @@ public static class LoadClass
         }
         catch (Exception e)
         {
-            Debug.LogError(path);
-            Debug.LogException(e);
+           Debug.LogError(path);
+           Debug.LogException(e);
             return null;
         }
     }
@@ -49,7 +49,7 @@ public static class LoadClass
         {
             if (!File.Exists(path))
             {
-                Debug.LogError($"File not found at path: {path}");
+               //Debug.LogError($"File not found at path: {path}");
                 return;
             }
 
@@ -66,13 +66,13 @@ public static class LoadClass
             }
             else
             {
-                Debug.LogError($"Unsupported type: {typeof(T)}. Only string and int are supported.");
+               //Debug.LogError($"Unsupported type: {typeof(T)}. Only string and int are supported.");
             }
         }
         catch (Exception e)
         {
-            Debug.LogError(path);
-            Debug.LogException(e);
+           Debug.LogError(path);
+           Debug.LogException(e);
         }
     }
 

@@ -9,7 +9,14 @@ using UnityEngine;
 [System.Serializable]
 public class Equipment : Item
 {
+    /// <summary>
+    /// Flat Bonuses applied to the equipped characters stats
+    /// </summary>
     public Dictionary<STATS, int> StatBonuses { get; set; } = new Dictionary<STATS, int>();
+
+    /// <summary>
+    /// Multiplicative Bonuses applied to the equipped characters stats
+    /// </summary>
     public Dictionary<STATS, float> StatMultipliers { get; set; } = new Dictionary<STATS, float>();
 
     /// <summary>
@@ -23,13 +30,18 @@ public class Equipment : Item
     public Dictionary<DamageSubType, float> EquipmentPercent { get; set; } = new Dictionary<DamageSubType, float>();
 
     /// <summary>
+    /// The equipment slot this item will occupy
+    /// </summary>
+    public EQUIPMENTSLOT equipmentslot;
+
+    /// <summary>
     /// The passives on this piece of equipment
     /// </summary>
     public List<PassiveTalents> passives { get; set; } = new List<PassiveTalents>();
 
     public int GetStatBonus(STATS stat) => StatBonuses.ContainsKey(stat) ? StatBonuses[stat] : 0;
 
-    public float GetMultiplier(STATS stat) => StatMultipliers.ContainsKey(stat) ? StatMultipliers[stat] : 1f;
+    public float GetMultiplier(STATS stat) => StatMultipliers.ContainsKey(stat) ? StatMultipliers[stat] : 0f;
 
     /// <summary>
     /// Whether a piece of equipment is currently equipped or not
@@ -38,89 +50,33 @@ public class Equipment : Item
 
     public Equipment() { }
 
-    public Equipment(string name, string description, int id)
-        : base(name, description, id)
+    public Equipment(string name, string description)
+        : base(name, description)
     {
 
     }
 
     /// <summary>
-    /// When this equipment is custom generated, it will randomize its existing fields
+    /// This should equip or unequip this item
     /// </summary>
-    public virtual void Randomize() 
+    /// <param name="target"></param>
+    /// <exception cref="System.NotImplementedException"></exception>
+    public override bool Use(Humanoid target)
     {
-        foreach (var bonus in StatBonuses) 
+        var tup = target.IsEquipped(this);
+        if (tup.Item1)  //  This item is equipped, so we unequip
         {
-            StatBonuses[bonus.Key] = (int)(StatBonuses[bonus.Key] * Random.Range(0.75f, 1.25f));
-        }
-        foreach (var bonus in StatMultipliers)
-        {
-            StatMultipliers[bonus.Key] = (StatMultipliers[bonus.Key] * Random.Range(0.75f, 1.25f));
-        }
-        foreach (var bonus in EquipmentValue)
-        {
-            EquipmentValue[bonus.Key] = (int)(EquipmentValue[bonus.Key] * Random.Range(0.75f, 1.25f));
-        }
-        foreach (var bonus in EquipmentPercent)
-        {
-            EquipmentPercent[bonus.Key] = (EquipmentPercent[bonus.Key] * Random.Range(0.75f, 1.25f));
-        }
-    }
-
-    /// <summary>
-    /// Gets the corresponding multiplier for a rarity
-    /// </summary>
-    /// <param name="_rarity"></param>
-    /// <returns></returns>
-    public float GetRarityMultiplier(RARITY _rarity) 
-    {
-        if (_rarity == RARITY.Legendary) _rarity = RARITY.Epic;
-
-        float multiplier = 1f;
-
-        switch (RARITY)
-        {
-            case RARITY.Epic:
-                multiplier = 1.5f;
-                break;
-            case RARITY.Rare:
-                multiplier = 1.25f;
-                break;
-            case RARITY.Uncommon:
-                multiplier = 1.1f;
-                break;
+            target.UnequipSlot(tup.Item2);
+            return true;
         }
 
-        return multiplier;
-    }
-
-    /// <summary>
-    /// Applies a rarity to an item, which boosts its stats.
-    /// Generated items cannot be legendary, and are demoted to epic
-    /// </summary>
-    public virtual void SetRarity(RARITY _rarity) 
-    {
-        if (_rarity == RARITY.Legendary) _rarity = RARITY.Epic;
-
-        RARITY = _rarity;
-
-        foreach (var bonus in StatBonuses)
+        if (target.HasAvailableSlot(this))  //  If the character has an available slot to equip this to 
         {
-            StatBonuses[bonus.Key] = (int)(StatBonuses[bonus.Key] * GetRarityMultiplier(RARITY));
-        }
-        foreach (var bonus in StatMultipliers)
-        {
-            StatMultipliers[bonus.Key] = (StatMultipliers[bonus.Key] * GetRarityMultiplier(RARITY));
-        }
-        foreach (var bonus in EquipmentValue)
-        {
-            EquipmentValue[bonus.Key] = (int)(EquipmentValue[bonus.Key] * GetRarityMultiplier(RARITY));
-        }
-        foreach (var bonus in EquipmentPercent)
-        {
-            EquipmentPercent[bonus.Key] = (EquipmentPercent[bonus.Key] * GetRarityMultiplier(RARITY));
+            target.EquipSlot(equipmentslot, this);  //  This item is not equipped, so we equip
+            return true;
         }
 
+        return false;
     }
 
 }

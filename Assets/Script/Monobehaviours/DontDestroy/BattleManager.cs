@@ -103,7 +103,7 @@ public class BattleManager : MonoBehaviour
     /// <param name="humanoid"></param>
     public void SetActive(Humanoid humanoid) 
     {
-        Debug.Log($"Setting Active {humanoid?.Name}");
+        //Debug.Log($"Setting Active {humanoid?.Name}");
         activeCharacter = humanoid;
         OnActiveSelect?.Invoke(humanoid);
     }
@@ -114,7 +114,7 @@ public class BattleManager : MonoBehaviour
     /// <param name="phase"></param>
     public void SetPhase(BATTLEPHASE phase) 
     {
-        Debug.Log($"Setting Phase {phase.ToString()}, Previous: {PreviousPhase}, current {Phase}");
+        //Debug.Log($"Setting Phase {phase.ToString()}, Previous: {PreviousPhase}, current {Phase}");
         if ((PreviousPhase == BATTLEPHASE.PLAYERTURN || PreviousPhase == BATTLEPHASE.ENEMYTURN) && Phase != BATTLEPHASE.PAUSE && phase == BATTLEPHASE.PLAYERTURN) //    We are changing the phase to the player phase after either an enemy turn or player animation
         { 
             ResetTimer();
@@ -173,7 +173,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void StartEnemyTurn() 
     {
-        Debug.Log("Starting enemy turn!");
+        //Debug.Log("Starting enemy turn!");
         SetPhase(BATTLEPHASE.ENEMYTURN);
         SetActive(null);
         TickEnemyParty();
@@ -204,7 +204,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void StartPlayerTurn() 
     {
-        Debug.Log("Starting player turn!");
+       //Debug.Log("Starting player turn!");
         TickParty();
         
         if (!IsPartyAlive() || !IsEnemyPartyAlive())
@@ -253,20 +253,20 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void AfterAnimation() 
     {
-        Debug.Log($"Checking Phase, Previous: {PreviousPhase}, current {Phase}");
+        //Debug.Log($"Checking Phase, Previous: {PreviousPhase}, current {Phase}");
         if (!SetNextActive() && PreviousPhase == BATTLEPHASE.TARGETSELECTION)   //  If the previous phase was us targeting but we have no turns left
         {
-            Debug.Log("Assumption, previous phase was our phase but no active found");
+            //Debug.Log("Assumption, previous phase was our phase but no active found");
             StartEnemyTurn();
         }
         else if (PreviousPhase == BATTLEPHASE.ENEMYTURN) //  Done animating the enemy turn phase
         {
-            Debug.Log("Assumption, Previous phase was enemy phase");
+            //Debug.Log("Assumption, Previous phase was enemy phase");
             StartPlayerTurn();
         }
         else // We still have a turn left, but don't reset the turns
         {
-            Debug.Log("Assumption, Previous phase was the player phase and we have turns");
+            //Debug.Log("Assumption, Previous phase was the player phase and we have turns");
             SetPhase(BATTLEPHASE.PLAYERTURN);
         }
     }
@@ -318,16 +318,16 @@ public class BattleManager : MonoBehaviour
     /// <param name="target"></param>
     public void GetTarget(Humanoid target) 
     {
-        Debug.Log($"Getting target! {target.Name}! Targets left: {targets}");
+       //Debug.Log($"Getting target! {target.Name}! Targets left: {targets}");
         if (target.GetHealth() <= 0) return;    //  No targeting dead people
 
-        Debug.Log($"Adding target to list");
+       //Debug.Log($"Adding target to list");
         selectedTargets.Add(target);
         targets--;
         OnTargetSelect.Invoke(target);  //  Invokes listeners
         if (targets <= 0) //    We have selected all as necessary and not canceled
         {
-            Debug.Log($"Target count reached, casting skill");
+           //Debug.Log($"Target count reached, casting skill");
             CastSkill(LoadedSkill);
             SetPhase(BATTLEPHASE.ANIMATING);
             selectedTargets.Clear();    //  Clear targets after usage
@@ -339,17 +339,17 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void StartSkillCast(string name)
     {
-        Debug.Log("Starting skill cast");
+       //Debug.Log("Starting skill cast");
         var skill = activeCharacter.ActiveTalents.Find(x => x.Name == name); //  Gets the skill if it exists (it should)
         if (skill == null)
         {
-            Debug.LogError($"The skill {name} was null!");
+           //Debug.LogError($"The skill {name} was null!");
             return;
         }
 
         if (!activeCharacter.CanICast(name)) //  Only allow if character has resource required
         {
-            Debug.LogError($"{activeCharacter.Name} cant cast {name}, not enough resource!");
+           //Debug.LogError($"{activeCharacter.Name} cant cast {name}, not enough resource!");
             return;
         }  
 
@@ -368,7 +368,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void CastSkill(string name) 
     {
-        Debug.Log($"Battle Manager: {activeCharacter.Name} is casting {name}");
+       //Debug.Log($"Battle Manager: {activeCharacter.Name} is casting {name}");
         activeCharacter.turn = false;
         activeCharacter.UseSkill(name, GetTargets());
     }
@@ -453,12 +453,12 @@ public class BattleManager : MonoBehaviour
         {
             if (!member.IsStunned() && member.GetHealth() > 0 && member.turn)   //  You arent stunned, have health, and a turn
             {
-                Debug.Log("Found valid member");
+               //Debug.Log("Found valid member");
                 SetActive(member);
                 return true;
             }
         }
-        Debug.Log("Did not find valid member");
+       //Debug.Log("Did not find valid member");
         SetActive(null);
         return false;
     }

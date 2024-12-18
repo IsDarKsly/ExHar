@@ -27,7 +27,7 @@ public abstract class ActiveTalents : Talents
     /// </summary>
     public override void LevelUp() 
     {
-        Debug.LogError($"This passive skill {Name} is not programmed properly");
+       //Debug.LogError($"This passive skill {Name} is not programmed properly");
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public abstract class ActiveTalents : Talents
     /// <param name="targets"></param>
     public override void Invoke(List<Humanoid> targets, Humanoid owner) 
     {
-        Debug.LogError($"This passive skill {Name} is not programmed properly");
+       //Debug.LogError($"This passive skill {Name} is not programmed properly");
     }
 
 

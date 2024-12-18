@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 /// <summary>
 /// The Party menu will show the players active party, and will allow the player to select from the entire roster
@@ -10,23 +11,11 @@ using UnityEngine.UI;
 /// </summary>
 public class PartyMenu : MonoBehaviour
 {
-    public CharacterInfoMenu characterinfo;
 
     /// <summary>
-    /// This is a list containing texts for the current characters display info
-    /// [0] Name text
-    /// [1] Health text
-    /// [2] Stamina text
-    /// [3] Mana text
-    /// [4] Constitution text
-    /// [5] Strength text
-    /// [6] Dexterity text
-    /// [7] Intellect text
-    /// [8] Wisdom text
-    /// [9] Armor text
-    /// [10] Resistance text
+    /// The name of the current character
     /// </summary>
-    public List<TMP_Text> infoList = new List<TMP_Text>();
+    public TMP_Text NameText;
 
     public GameObject[] partyslot = new GameObject[4];
     public GameObject rosterParent;
@@ -34,10 +23,23 @@ public class PartyMenu : MonoBehaviour
 
     public int SelectedSlot { get; private set; } = 4;
 
-
-    private CharacterObject[] party = new CharacterObject[4];
-    private List<CharacterObject> roster = new List<CharacterObject>();
     private Humanoid current_character;
+
+    /// <summary>
+    /// The remove from roster button allows player to permanenty remove a character from the party
+    /// </summary>
+    public GameObject RemoveFromRosterButton;
+
+    /// <summary>
+    /// The SelectPlayerButton will be displayed whenever a character that is not the main character is selected
+    /// </summary>
+    public GameObject SelectPlayerButton;
+
+    /// <summary>
+    /// The sorting roster is specifically for when a character is added to the Datamanagers roster. We use it
+    /// to sort through our characters based on relevant data.
+    /// </summary>
+    public List<CharacterObject> SortingRoster = new List<CharacterObject>();
 
     /// <summary>
     /// The prefab for creating new character objects
@@ -55,7 +57,7 @@ public class PartyMenu : MonoBehaviour
     /// <param name="person"></param>
     private void DefaultHoverEnter(Humanoid person) 
     {
-        characterinfo.Activate(person);
+        MenuManager.Instance.ShowHumanoidDetails(person);
     }
 
     /// <summary>
@@ -64,7 +66,7 @@ public class PartyMenu : MonoBehaviour
     /// <param name="person"></param>
     private void DefaultHoverExit()
     {
-        characterinfo.DeActivate();
+        MenuManager.Instance.HideHumanoidDetails();
     }
 
     /// <summary>
@@ -73,53 +75,79 @@ public class PartyMenu : MonoBehaviour
     /// <param name="person"></param>
     private void UnSet(CharacterObject characterButton)
     {
-        DataManager.Instance.roster.rosterlist.Add(characterButton.character);  //Add character back into roster
+        Debug.Log($"Attempting to unset {characterButton.character.Name}");
+
+        DataManager.Instance.roster.rosterlist.Add(characterButton.character);  //Add character data back into the rosterlist
+        SortingRoster.Add(characterButton); //  We add the characterButton back into the sorting roster, so that it may be sorted
 
         for (int i = 0; i < 4; i++)  //  Find character in party list 
         {
-            if (DataManager.Instance.roster.playerparty[i] == characterButton.character)    //  This is our guy
+            if (DataManager.Instance.roster.playerparty[i] == characterButton.character)    //  This is our guy, we remove them from this data slot
             {
                 DataManager.Instance.roster.playerparty[i] = null;
             }
         }
         
-        characterButton.gameObject.transform.SetParent(rosterParent.transform);
-        characterButton.SetButtonEvent(() => Set(characterButton));
+        characterButton.gameObject.transform.SetParent(rosterParent.transform); //  Set the gameobject to the corresponding
+        if (GetCurrentCharacter() == characterButton.character) SetCurrentCharacter(characterButton.character);  //  We re-set the current character to update any changes to the character
     }
 
     /// <summary>
-    /// set this character int the party, from the roster
+    /// When the set function is called, is adds the corresponding character into the relevant slot in the players party.
     /// </summary>
     /// <param name="person"></param>
     private void Set(CharacterObject characterButton)
     {
-        //If a slot hasnt been selected, one will attempt to be found
-        if (SelectedSlot == 4)
+        //Debug.Log($"Attempting to set {characterButton.character.Name}, Slot: {SelectedSlot}");
+        
+        if (SelectedSlot == 4)  //  Should a player be clicked before selected slot is set, we attempt to find a relevant slot to add them to
         {
+            //Debug.Log("There was no selected slot");
             for (int i = 0; i < 4; i++)
             {
-                if (DataManager.Instance.roster.playerparty[i] == null && party[i] == null) //    This slot is free
+                if (DataManager.Instance.roster.playerparty[i] == null) //    This slot is free
                 {
+                    //Debug.Log($"First open slot at {i}");
                     DataManager.Instance.roster.playerparty[i] = characterButton.character;
-                    party[i] = characterButton;
                     characterButton.gameObject.transform.SetParent(partyslot[i].transform);
-                    characterButton.SetButtonEvent(()=>UnSet(characterButton));
+                    break;
                 }
             }
         }
         else 
         {
-            if (DataManager.Instance.roster.playerparty[SelectedSlot] == null && party[SelectedSlot] == null) //    This slot is free
+            if (DataManager.Instance.roster.playerparty[SelectedSlot] == null) //    This slot is free
             {
+                //Debug.Log($"Adding character to slot {SelectedSlot}");
                 DataManager.Instance.roster.playerparty[SelectedSlot] = characterButton.character;
-                party[SelectedSlot] = characterButton;
                 characterButton.gameObject.transform.SetParent(partyslot[SelectedSlot].transform);
-                characterButton.SetButtonEvent(() => UnSet(characterButton));
             }
+
+            RemoveSelectionOutline(SelectedSlot);   //  We remove the selection outline and reset the selected slot
             SelectedSlot = 4;
         }
+        DataManager.Instance.roster.rosterlist.Remove(characterButton.character);   //  Remove the character from the roster list
+        SortingRoster.Remove(characterButton);  //  We remove this character button from the sorting list, as it is in the party
+        if(GetCurrentCharacter() == characterButton.character) SetCurrentCharacter(characterButton.character);  //  We re-set the current character to update any changes to the character
     }
 
+    /// <summary>
+    /// When a character object is pressed, we check to see if the character is already withing the party.
+    /// If they are, we place them back in the Roster, otherwise, we attempt to add them into the party.
+    /// </summary>
+    public void Click(CharacterObject characterButton) 
+    {
+
+        if (DataManager.Instance.IsWithinParty(characterButton.character))   //  The character this button represents is already within the party. We will add them back into the roster
+        {
+            UnSet(characterButton);
+        }
+        else    //  The character is not within the party, we attempt to add them
+        {
+            Set(characterButton);
+        }
+
+    }
 
     /// <summary>
     /// Sets the gameobject to either active or not
@@ -143,24 +171,40 @@ public class PartyMenu : MonoBehaviour
     /// Will mark a party slot as the next slot to be filled
     /// if this slot is already selected, deselect
     /// </summary>
+    /// <param name="i">Valid numbers are 0 through 3, represent a party slot</param>
     public void SelectSlot(int i)
     {
         if (i >= partyslot.Length) return;
 
-        foreach (GameObject obj in partyslot)
+        if (SelectedSlot == i)  //  We selected the already selected slot
         {
-            obj.GetComponent<Image>().color = new Color(0.44f, 0.32f, 0.2f, 1f);
-        }
-
-        if (SelectedSlot == i)
-        {
-            SelectedSlot = 4;   //  Set to out of bounds number
+            RemoveSelectionOutline(SelectedSlot);   //  Remove selection outline
+            SelectedSlot = 4;   //  Set to out of bounds number (effectively cancels selection)
         }
         else // otherwise
         {
+            if (SelectedSlot != 4) RemoveSelectionOutline(SelectedSlot);    //  Remove the selection outline around the last valid selected slot
             SelectedSlot = i;
-            partyslot[i].GetComponent<Image>().color = new Color(0.44f, 0.32f, 0.2f, 0.25f);
+            AddSelectionOutline(i);
         }
+    }
+
+    /// <summary>
+    /// Removes selection outline around the i'th party slot object
+    /// </summary>
+    public void RemoveSelectionOutline(int i) 
+    {
+        var color = partyslot[i].GetComponent<Outline>().effectColor;
+        partyslot[i].GetComponent<Outline>().effectColor = new Color(color.r, color.g, color.b, 0f);
+    }
+
+    /// <summary>
+    /// Shows selection outline around the i'th party slot object
+    /// </summary>
+    public void AddSelectionOutline(int i)
+    {
+        var color = partyslot[i].GetComponent<Outline>().effectColor;
+        partyslot[i].GetComponent<Outline>().effectColor = new Color(color.r, color.g, color.b, 1f);
     }
 
     /// <summary>
@@ -173,10 +217,10 @@ public class PartyMenu : MonoBehaviour
             Unsort();
             return;
         }
-        foreach (CharacterObject obj in roster)
+        foreach (CharacterObject obj in SortingRoster)
         {
             obj.gameObject.SetActive(false);
-            if (obj.character.Name.Contains(input.text))
+            if (obj.character.GetName().ToLower().Contains(input.text.ToLower()))
             {
                 obj.gameObject.SetActive(true);
             }
@@ -184,11 +228,27 @@ public class PartyMenu : MonoBehaviour
     }
 
     /// <summary>
+    /// When a character is hovered over, this shows important information about them
+    /// </summary>
+    public void ShowCharacterDetails()
+    {
+        MenuManager.Instance.ShowHumanoidDetails(current_character);
+    }
+
+    /// <summary>
+    /// When a pointer leaves the character portrait, we no longer show pertanent information (whatever that means)
+    /// </summary>
+    public void HideCharacterDetails()
+    {
+        MenuManager.Instance.HideHumanoidDetails();
+    }
+
+    /// <summary>
     /// Sorts the roster list based on class
     /// </summary>
     public void SortByClass(int i)
     {
-        foreach (CharacterObject obj in roster)
+        foreach (CharacterObject obj in SortingRoster)
         {
             obj.gameObject.SetActive(false);
             if (obj.character.spec == (CLASS)i)
@@ -203,7 +263,7 @@ public class PartyMenu : MonoBehaviour
     /// </summary>
     public void Unsort()
     {
-        foreach (CharacterObject obj in roster)
+        foreach (CharacterObject obj in SortingRoster)
         {
             obj.gameObject.SetActive(true);
         }
@@ -215,30 +275,81 @@ public class PartyMenu : MonoBehaviour
     /// </summary>
     public void Load()
     {
-        current_character = DataManager.Instance.playerCharacter;
+        
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) //  We set every existing party member
         {
             if (DataManager.Instance.roster.playerparty[i] != null)
             {
-                GameObject clone = Instantiate(characterPrefab, partyslot[i].transform);
-                clone.GetComponent<CharacterObject>().Initiate(DataManager.Instance.roster.playerparty[i],
-                    () => { DefaultHoverEnter(DataManager.Instance.roster.playerparty[i]); },
-                    () => { DefaultHoverExit(); },
-                    () => { UnSet(clone.GetComponent<CharacterObject>()); });
+                CreateCharacterObject(DataManager.Instance.roster.playerparty[i], partyslot[i].transform);
             }
         }
 
-        foreach (Humanoid person in DataManager.Instance.roster.rosterlist) 
+        foreach (Humanoid person in DataManager.Instance.roster.rosterlist)     //  We set every existing roster member
         {
-            GameObject clone = Instantiate(characterPrefab, rosterParent.transform);
-            clone.GetComponent<CharacterObject>().Initiate(person,
-                    () => { DefaultHoverEnter(person); },
-                    () => { DefaultHoverExit(); },
-                    () => { Set(clone.GetComponent<CharacterObject>()); });
+            var clone = CreateCharacterObject(person, rosterParent.transform);
+            SortingRoster.Add(clone.GetComponent<CharacterObject>());   //  This includes adding them to the sorting list
         }
 
+        SelectPlayerButton.GetComponentInChildren<TMP_Text>().text = DataManager.Instance.playerCharacter.GetName();
+
+        SetCurrentCharacter(DataManager.Instance.playerCharacter);
+    }
+
+    /// <summary>
+    /// This function creates a character object from the prefab. It returns the corresponding gameobject after it finishes
+    /// </summary>
+    /// <param name="person"></param>
+    /// <param name="parent"></param>
+    public GameObject CreateCharacterObject(Humanoid person, Transform parent) 
+    {
+        GameObject clone = Instantiate(characterPrefab, parent);
+        clone.GetComponent<CharacterObject>().Initiate(person,
+                () => Click(clone.GetComponent<CharacterObject>()),
+                () => SetCurrentCharacter(person),
+                () => DefaultHoverEnter(person),
+                () => DefaultHoverExit()
+                );
+        return clone;
+    }
+
+    /// <summary>
+    /// When a new character is added to the party, This function should be called to create this characters object
+    /// </summary>
+    public void AddRosterMember(Humanoid person) 
+    {
+        var clone = CreateCharacterObject(person, rosterParent.transform);
+        SortingRoster.Add(clone.GetComponent<CharacterObject>());
+    }
+
+    /// <summary>
+    /// Should the player click the permanent remove button. We remove all references of the character, and we set the current character to the player, as we know they exist.
+    /// </summary>
+    public void ClickPermanentRemove() 
+    {
+        MenuManager.Instance.ActivateConfirmMenu(() => { DataManager.Instance.PermanentlyRemove(current_character); SetCurrentCharacter(DataManager.Instance.playerCharacter); });
+    }
+
+    /// <summary>
+    /// Sets the current character that the party manager should be focusing on
+    /// </summary>
+    /// <param name="person"></param>
+    public void SetCurrentCharacter(Humanoid person) 
+    {
+        RemoveFromRosterButton.SetActive(false);
+        SelectPlayerButton.SetActive(false);
+        current_character = person;
         UpdateCurrentCharacter();
+        if (person != DataManager.Instance.playerCharacter) SelectPlayerButton.SetActive(true);
+        if (!person.IsCustom && !DataManager.Instance.IsWithinParty(person) && person != DataManager.Instance.playerCharacter) RemoveFromRosterButton.SetActive(true);
+    }
+
+    /// <summary>
+    /// This simply sets the current character to the maincharacter
+    /// </summary>
+    public void SelectPlayerClick() 
+    {
+        SetCurrentCharacter(DataManager.Instance.playerCharacter);
     }
 
     /// <summary>
@@ -247,19 +358,19 @@ public class PartyMenu : MonoBehaviour
     public void UpdateCurrentCharacter() 
     {
         appearnceObj.SetAppearance(current_character.appearance);
-        appearnceObj.updateLooks();
 
-        infoList[0].text = current_character.Name;
-        infoList[1].text = LocalizationManager.Instance.ReadUIDictionary("Health") + $": {current_character.GetHealth()} / {current_character.GetMaxHealth()}";
-        infoList[2].text = LocalizationManager.Instance.ReadUIDictionary("Stamina") + $": {current_character.GetStamina()} / {current_character.GetMaxStamina()}";
-        infoList[3].text = LocalizationManager.Instance.ReadUIDictionary("Mana") + $": {current_character.GetMana()} / {current_character.GetMaxMana()}";
-        infoList[4].text = LocalizationManager.Instance.ReadUIDictionary("Constitution") + $": {current_character.GetStat(STATS.Constitution)}";
-        infoList[5].text = LocalizationManager.Instance.ReadUIDictionary("Strength") + $": {current_character.GetStat(STATS.Strength)}";
-        infoList[6].text = LocalizationManager.Instance.ReadUIDictionary("Dexterity") + $": {current_character.GetStat(STATS.Dexterity)}";
-        infoList[7].text = LocalizationManager.Instance.ReadUIDictionary("Intellect") + $": {current_character.GetStat(STATS.Intellect)}";
-        infoList[8].text = LocalizationManager.Instance.ReadUIDictionary("Wisdom") + $": {current_character.GetStat(STATS.Wisdom)}";
-        infoList[9].text = LocalizationManager.Instance.ReadUIDictionary("Armor") + $": {current_character.CalculateFlatDefense(DamageType.Physical)}";
-        infoList[10].text = LocalizationManager.Instance.ReadUIDictionary("Magic Resistance") + $": {current_character.CalculateFlatDefense(DamageType.Magical)}";
+        NameText.text = current_character.GetName();
+    }
+
+    /// <summary>
+    /// Destroys a roster character gameobject
+    /// </summary>
+    /// <param name="person"></param>
+    public void DestroyRosterObject(Humanoid person) 
+    {
+        var CharacterObject = SortingRoster.Find(c=>c.character==person);
+        SortingRoster.Remove(CharacterObject);
+        Destroy(CharacterObject.gameObject);
     }
 
 }

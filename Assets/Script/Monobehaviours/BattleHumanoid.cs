@@ -28,25 +28,30 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public RectTransform ManaBar;
 
     /// <summary>
+    /// The outline around the active character
+    /// </summary>
+    public Outline outline;
+
+    /// <summary>
     /// The appearance object representing this character
     /// </summary>
     public AppearanceObj appearanceObj;
 
     private Button button;
     /// <summary>
-    /// The color for the base board
+    /// The inactive color for the outline
     /// </summary>
-    private Color BaseColor = new Color(0.528f, 0.456f, 0.306f, 1f);
+    private Color BaseColor = new Color(0f, 0f, 0f, 0f);
 
     /// <summary>
-    /// The color for the active character board
+    /// The color for the active character outline
     /// </summary>
-    private Color ActiveColor = new Color(0.386f, 0.332f, 0.224f, 1f);
+    private Color ActiveColor = Color.yellow;
 
     /// <summary>
-    /// The color for the selected target board
+    /// The color for the selected target outline
     /// </summary>
-    private Color SelectedColor = new Color(0.858f, 0.733f, 0.482f, 1f);
+    private Color SelectedColor = Color.red;
 
     /// <summary>
     /// This function is called when the BattleUI is cleaning up after a battle. Will remove all listeners relative to this object
@@ -116,13 +121,10 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// </summary>
     public void OnTargetSelect(Humanoid person) 
     {
-        var base_col = transform.Find("Base").GetComponent<Image>();
-
         if (person == character) 
         {
-            base_col.color = SelectedColor;
+            outline.effectColor = SelectedColor;
         }
-
     }
 
 
@@ -131,15 +133,13 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// </summary>
     public void OnActiveSelect(Humanoid person) 
     {
-        var base_col = transform.Find("Base").GetComponent<Image>();
-
         if (person != character)
         {
-            base_col.color = BaseColor;
+            outline.effectColor = BaseColor;
         }
         else 
         {
-            base_col.color = ActiveColor;
+            outline.effectColor = ActiveColor;
         }
     }
 
@@ -150,11 +150,9 @@ public class BattleHumanoid : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="phase"></param>
     public void OnPhaseChange(BATTLEPHASE phase) 
     {
-        var base_col = transform.Find("Base").GetComponent<Image>();
-
         if (BattleManager.Instance.activeCharacter != character)
         {
-            base_col.color = BaseColor;
+            outline.effectColor = BaseColor;
         }
 
         if (phase == BATTLEPHASE.PLAYERTURN)

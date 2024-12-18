@@ -149,4 +149,102 @@ public class DataManager : MonoBehaviour
         saveSlot = i;
         File.Delete(SAVEPATH+@"\ex.txt");
     }
+
+    /// <summary>
+    /// This function checks for a person within the player party.
+    /// </summary>
+    /// <param name="person"></param>
+    /// <returns></returns>
+    public bool IsWithinParty(Humanoid person) 
+    {
+        for (int i = 0; i < roster.playerparty.Length; i++) 
+        {
+            if (roster.playerparty[i] != null && roster.playerparty[i] == person) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Adds a character to the roster, upon success returns true.
+    /// </summary>
+    /// <returns></returns>
+    public bool AddToRoster(Humanoid person) 
+    {
+        if (person == null) return false;
+        roster.rosterlist.Add(person);
+        MenuManager.Instance.AddRosterMember(person);
+        return true;
+    }
+
+    /// <summary>
+    /// Permanently removes a non-custom character from the roster
+    /// </summary>
+    /// <returns></returns>
+    public bool PermanentlyRemove(Humanoid person) 
+    {
+        if (person.IsCustom || IsWithinParty(person)) //    Cannot remove a custom or partied character
+        {
+            return false;
+        }
+        else 
+        {
+            roster.rosterlist.Remove(person);
+            MenuManager.Instance.DestroyRosterObject(person);
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// This is the point of which an item is always added to the inventory from.
+    /// It automatically takes stackability and armor into account
+    /// </summary>
+    /// <returns></returns>
+    public bool AddToInventory(Item item) 
+    {
+        Debug.Log("Adding item to inventory");
+        var foundItem = inventory.GetInventory().Find(i=>i.Name == item.Name);  //  Attempt to find similar item in inventory
+        
+        if (foundItem != null && foundItem.Stackable)   //  This item exists in our inventory and is stackable
+        {
+            foundItem.StackCount += item.StackCount;    //  Just add one to the stack count, no need to make new object
+            return true;
+        }
+        else    //  Any other scenario, whether we have this item and its not stackable, or we dont have this item at all
+        {
+            inventory.AddItem(item);    //  Add item to inventory
+            MenuManager.Instance.CreateObjectForInventory(item);
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// This function is the point of which any item should be removed from the inventory. It also removes
+    /// Any lingering 
+    /// </summary>
+    /// <returns></returns>
+    public bool RemoveFromInventory(Item item)
+    {
+        Debug.Log("Removing item from inventory");
+        var foundItem = inventory.GetInventory().Find(i => i.Name == item.Name);  //  Find item
+
+        if (foundItem != null)   //  This item exists in our inventory and is stackable
+        {
+            if (foundItem.Stackable)    //  Item is stackable
+            {
+                foundItem.StackCount--; //  Remove stack
+                if (foundItem.StackCount > 0) return true;  //  We still have stacks, no need to remove
+            }
+            //  Item isnt stackable, or it doesnt have any stack counts left
+            inventory.RemoveItem(foundItem);
+            MenuManager.Instance.RemoveObjectFromInventory(foundItem);
+            return true;    //  We removed fully
+        }
+
+        return false;   //  We dont have this item to remove
+
+    }
+
 }

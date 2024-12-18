@@ -12,6 +12,8 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
 
     public bool gender { get; set; } //The Gender of our Character, true if male
 
+    public bool IsCustom { get; set; } = false; //Whether the given character is a custom character
+
     public string he_she { get => gender ? "he" : "she"; } //Sets the Pronoun
     public string his_her { get => gender ? "his" : "her"; } //Sets the Pronoun
 
@@ -196,16 +198,16 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     {
         if (status.stun && statuses.Exists(t => t.stun || t.stunres)) //    If this is a stun, and we are already stunned or have stun resistance
         {
-            Debug.Log("Character is already stunned or has stun resistance");
+           //Debug.Log("Character is already stunned or has stun resistance");
             return;
         }
 
-        var existingstatus = statuses.Find(t => t.identifier == status.identifier); // See if this status already exists
+        var existingstatus = statuses.Find(t => t.Name == status.Name); // See if this status already exists
         if (existingstatus != null) 
         {
             if (existingstatus.resourceboost)   //  This status effects a resource 
             {
-                statuses.Find(t => t.identifier == status.identifier).Duration = status.Duration;   //  Refresh the duration
+                statuses.Find(t => t.Name == status.Name).Duration = status.Duration;   //  Refresh the duration
                 existingstatus.stacks++;    //  Add a stack
             }
             else    //  This effect is meant to be replaced, like an aura
@@ -405,7 +407,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <returns></returns>
     public int GetMaxMana()
     {
-        return GetStat(STATS.Intellect) * 5;
+        return GetStat(STATS.Wisdom) * 5;
     }
 
     /// <summary>
@@ -419,11 +421,12 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
 
     /// <summary>
     /// Gets the maximum stamina this character can have
+    /// Baseline character has 100
     /// </summary>
     /// <returns></returns>
     public int GetMaxStamina()
     {
-        return GetStat(STATS.Intellect) * 5;
+        return 80 + GetStat(STATS.Constitution) * 2;
     }
 
     /// <summary>
@@ -462,10 +465,13 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
                 _stat = pointWisdom;
                 break;
         }
-
+        //Debug.Log($"{Name} {stat.ToString()}: After Point addition: {_stat}");
         _stat += GetFlatEquipmentBonus(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: After Equipment addition: {_stat}");
         _stat += GetFlatStatusEffect(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: After Buff addition: {_stat}");
         _stat += GetFlatPassiveEffect(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: After Passive addition: {_stat}");
         return _stat;
     }
 
@@ -508,6 +514,10 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <returns></returns>
     public float GetStatMultipliers(STATS stat) 
     {
+        //Debug.Log($"{Name} {stat.ToString()}: equip multipliers: {(GetEquipmentMult(stat))}");
+        //Debug.Log($"{Name} {stat.ToString()}: race multipliers: {(GetRacialMultiplier(stat))}");
+        //Debug.Log($"{Name} {stat.ToString()}: class multipliers: {(GetClassMultiplier(stat))}");
+        //Debug.Log($"{Name} {stat.ToString()}: gender multipliers: {(GetGenderMultiplier(stat))}");
         return (1 * GetGenderMultiplier(stat) * GetClassMultiplier(stat) * GetRacialMultiplier(stat) * GetEquipmentMult(stat));
     }
 
@@ -724,7 +734,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     {
         if ((points) < 0 || (points) > 89) 
         {
-            Debug.Log("Invalid Point num");
+           //Debug.Log("Invalid Point num");
             return;
         } 
 
@@ -749,7 +759,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
 
         if ((pointConstitution+pointStrength+pointIntellect+pointWisdom+pointDexterity) > (10 + ((Level-1)*4))) 
         {
-            Debug.LogError($"Nu-uh {stat}, {points}, {(10 + (Level * 4))}");
+           //Debug.LogError($"Nu-uh {stat}, {points}, {(10 + (Level * 4))}");
             Application.Quit();
         }
     }
@@ -788,15 +798,25 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         float bonus = 1f;
 
         if (Helmet != null) bonus += Helmet.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: Helmet multipliers: {Helmet?.GetMultiplier(stat)}");
         if (Chest != null) bonus += Chest.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: Chest multipliers: {Chest?.GetMultiplier(stat)}");
         if (Leggings != null) bonus += Leggings.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: Leggings multipliers: {Leggings?.GetMultiplier(stat)}");
         if (Boots != null) bonus += Boots.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: Boots multipliers: {Boots?.GetMultiplier(stat)}");
         if (Gloves != null) bonus += Gloves.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: Gloves multipliers: {Gloves?.GetMultiplier(stat)}");
         if (Amulet != null) bonus += Amulet.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: Amulet multipliers: {Amulet?.GetMultiplier(stat)}");
         if (Ring1 != null) bonus += Ring1.GetMultiplier(stat);
-        if (Ring2 != null) bonus += Ring1.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: Ring1 multipliers: {Ring1?.GetMultiplier(stat)}");
+        if (Ring2 != null) bonus += Ring2.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: Ring2 multipliers: {Ring2?.GetMultiplier(stat)}");
         if (MainHand != null) bonus += MainHand.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: MainHand multipliers: {MainHand?.GetMultiplier(stat)}");
         if (OffHand != null) bonus += OffHand.GetMultiplier(stat);
+        //Debug.Log($"{Name} {stat.ToString()}: OffHand multipliers: {OffHand?.GetMultiplier(stat)}");
 
         return bonus;
     }
@@ -869,15 +889,15 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <param name="skill"></param>
     public void UseSkill(string skillName, List<Humanoid> targets) 
     {
-        Debug.Log($"Using skill {skillName}");
+        //Debug.Log($"Using skill {skillName}");
         var skill = ActiveTalents.Find(t=>t.Name==skillName);
-        if (skill != null) 
+        if (CanICast(skillName)) 
         {
-            Debug.Log($"Skill is of type {skill.GetType().Name}");
+            //Debug.Log($"Skill is of type {skill.GetType().Name}");
             skill.Invoke(targets, this);
             return;
         }
-        Debug.LogError($"{Name} attempted to use {skillName}, which {he_she} doesnt have");
+        //Debug.LogError($"{Name} attempted to use {skillName}, which {he_she} doesnt have");
     }
 
     /// <summary>
@@ -905,12 +925,12 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     {
         if (damageStruct.damagePortion == null || damageStruct.damagePercent == null) 
         {
-            Debug.Log("The damage struct had null proportions");
+           //Debug.Log("The damage struct had null proportions");
         } 
 
         if (damageStruct.IsDodgeable && DidIDodge() && !this.GetType().IsSubclassOf(typeof(Enemy)))     //  if we dodged the attack (Not for any enemies)
         {
-            Debug.Log("We dodged the attack");
+           //Debug.Log("We dodged the attack");
             return;
         }
 
@@ -951,7 +971,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
             dam *= (1f-CalculateResistance(perc_dam.Key));  //  Calculate player resistance (1-60% means new damage taken is 40% as effective)
             if(dam < 0) dam = 0;
 
-            ChangeResourceBattle((int)(-1*dam), perc_dam.Key, RESOURCES.Health,damage.IsCritical);
+            ChangeResourceBattle((int)(-1*dam), perc_dam.Key, RESOURCES.Health,damage.IsCritical, true);
         }
     }
 
@@ -963,7 +983,7 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
 
         float newvalue = value * (1f - CalculateResistance(subType));
 
-        ChangeResourceBattle((int)newvalue, subType, RESOURCES.Health, false);
+        ChangeResourceBattle((int)newvalue, subType, RESOURCES.Health, false, true);
         
     }
 
@@ -1036,10 +1056,10 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// <summary>
     /// The actual code for taking damage during battle, triggers animations for battle manager
     /// </summary>
-    public void ChangeResourceBattle(int value, DamageSubType type, RESOURCES resourceType, bool crit) 
+    public void ChangeResourceBattle(int value, DamageSubType type, RESOURCES resourceType, bool crit, bool animate) 
     {
         if (value == 0) return; // No need to do anything if nothing occurs
-        Debug.Log($"{Name} is having resource changed");
+       //Debug.Log($"{Name} is having resource changed");
         switch (resourceType) 
         {
             case RESOURCES.Health:
@@ -1047,14 +1067,14 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
                 break;
             case RESOURCES.Stamina:
                 ChangeStamina(value);
-                break;
+                return;
             case RESOURCES.Mana:
                 ChangeMana(value);
-                break;
+                return;
         }
 
         //Here would be where we tell Battle manager what to animate  
-        BattleManager.Instance.animationManager.QueueAnimationResourceChange(new AnimatableResourceChange(value, type, resourceType, crit, this));
+        if(animate) BattleManager.Instance.animationManager.QueueAnimationResourceChange(new AnimatableResourceChange(value, type, resourceType, crit, this));
     }
 
     /// <summary>
@@ -1070,11 +1090,13 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     }
 
     /// <summary>
-    /// The actual slot being equiped to
+    /// The actual slot being equiped to, this should add any passive talents on an item
+    /// to the player equipping it
     /// </summary>
     public void Equip<T>(ref T equipmentslot, Equipment equipment) where T : Equipment
     {
-        DataManager.Instance.inventory.RemoveItem(equipment);
+        Debug.Log("Equipping item");
+        DataManager.Instance.RemoveFromInventory(equipment);
         equipmentslot = (T)equipment;
     }
 
@@ -1085,57 +1107,71 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
     /// </summary>
     public void Unequip<T>(ref T equipmentslot) where T : Equipment
     {
+        Debug.Log("Unequiping item");
         if (equipmentslot == null) return;  //  No need to unequip what already exists
-        DataManager.Instance.inventory.AddItem(equipmentslot);
+        DataManager.Instance.AddToInventory(equipmentslot);
         equipmentslot = null;
     }
 
     /// <summary>
-    /// Here we equip a slot with an item
+    /// Here we equip a slot with an item.
+    /// Logically, we should attempt to equip to the first available slot
+    /// IE Ring1, but if that spot is occupied and Ring 2 is not, we should equip to Ring 2
+    /// Same applies to main hand and offhand, except we ignore this for Two-Handed items
     /// </summary>
     public void EquipSlot(EQUIPMENTSLOT slot, Equipment equipment) 
     {
         switch (slot) 
         {
             case EQUIPMENTSLOT.MainHand:
-                if (MainHand != null) Unequip(ref _MainHand);
-                Equip(ref _MainHand, equipment);
+                if (MainHand != null && OffHand == null && ((Weapon)equipment).WeaponWeight != WeaponWeight.TwoHand)    //  If Mainhand is occupied and offhand isnt and this isnt a twohanded weapon
+                {
+                    Equip(ref _OffHand, equipment); //  Equip this weapon to offhand
+                    return;
+                }
+                Equip(ref _MainHand, equipment);    //  Otherwise equip this as intended
                 break;
             case EQUIPMENTSLOT.OffHand:
-                if (OffHand != null) Unequip(ref _OffHand);
-                Equip(ref _OffHand, equipment);
+                if (OffHand != null && MainHand == null && ((Weapon)equipment).WeaponWeight != WeaponWeight.TwoHand)    //  If Offhand is occupied and mainhand isnt and this isnt a twohanded weapon
+                {
+                    Equip(ref _MainHand, equipment); //  Equip this weapon to mainhand
+                    return;
+                }
+                Equip(ref _OffHand, equipment);    //  Otherwise equip this as intended
                 break;
             case EQUIPMENTSLOT.Helm:
-                if (Helmet != null) Unequip(ref _Helmet);
                 Equip(ref _Helmet, equipment);
                 break;
             case EQUIPMENTSLOT.Chest:
-                if (Chest != null) Unequip(ref _Chest);
                 Equip(ref _Chest, equipment);
                 break;
             case EQUIPMENTSLOT.Legs:
-                if (Leggings != null) Unequip(ref _Leggings);
                 Equip(ref _Leggings, equipment);
                 break;
             case EQUIPMENTSLOT.Boots:
-                if (Boots != null) Unequip(ref _Boots);
                 Equip(ref _Boots, equipment);
                 break;
             case EQUIPMENTSLOT.Gloves:
-                if (Gloves != null) Unequip(ref _Gloves);
                 Equip(ref _Gloves, equipment);
                 break;
             case EQUIPMENTSLOT.Amulet:
-                if (Amulet != null) Unequip(ref _Amulet);
                 Equip(ref _Amulet, equipment);
                 break;
             case EQUIPMENTSLOT.Ring1:
-                if (Ring1 != null) Unequip(ref _Ring1);
-                Equip(ref _Ring1, equipment);
+                if (Ring1 != null && Ring2 == null) 
+                {
+                    Equip(ref _Ring2, equipment); //  Equip this weapon to ring2 slot if available
+                    return;
+                }
+                Equip(ref _Ring1, equipment);   //  Equip as intended
                 break;
             case EQUIPMENTSLOT.Ring2:
-                if (Ring2 != null) Unequip(ref _Ring2);
-                Equip(ref _Ring2, equipment);
+                if (Ring2 != null && Ring1 == null)
+                {
+                    Equip(ref _Ring1, equipment); //  Equip this weapon to ring2 slot if available
+                    return;
+                }
+                Equip(ref _Ring2, equipment);   //  Equip as intended
                 break;
         }
     }
@@ -1180,6 +1216,56 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         }
     }
 
+    /// <summary>
+    /// Checks each equipment slot to see if it matches the given item
+    /// </summary>
+    /// <param name="equipment"></param>
+    /// <returns>Returns true if the item is equipped and the exact equipment slot</returns>
+    public (bool, EQUIPMENTSLOT) IsEquipped(Equipment equipment) 
+    {
+        if (Helmet != null && Helmet == equipment) return (true, EQUIPMENTSLOT.Helm);
+        if (Chest != null && Chest == equipment) return (true, EQUIPMENTSLOT.Chest);
+        if (Leggings != null && Leggings == equipment) return (true, EQUIPMENTSLOT.Legs);
+        if (Boots != null && Boots == equipment) return (true, EQUIPMENTSLOT.Boots);
+        if (Gloves != null && Gloves == equipment) return (true, EQUIPMENTSLOT.Gloves);
+        if (Amulet != null && Amulet == equipment) return (true, EQUIPMENTSLOT.Amulet);
+        if (Ring1 != null && Ring1 == equipment) return (true, EQUIPMENTSLOT.Ring1);
+        if (Ring2 != null && Ring2 == equipment) return (true, EQUIPMENTSLOT.Ring2);
+        if (MainHand != null && MainHand == equipment) return (true, EQUIPMENTSLOT.MainHand);
+        if (OffHand != null && OffHand == equipment) return (true, EQUIPMENTSLOT.OffHand);
+        return (false, EQUIPMENTSLOT.Helm);
+    }
+
+    /// <summary>
+    /// We check if the character has a slot viable for this equipment
+    /// </summary>
+    public bool HasAvailableSlot(Equipment equipment)
+    {
+        switch (equipment.equipmentslot)
+        {
+            case EQUIPMENTSLOT.MainHand:
+                return (MainHand == null || (MainHand != null && OffHand == null && ((Weapon)equipment).WeaponWeight != WeaponWeight.TwoHand));
+            case EQUIPMENTSLOT.OffHand:
+                return (OffHand == null || (OffHand != null && MainHand == null && ((Weapon)equipment).WeaponWeight != WeaponWeight.TwoHand));
+            case EQUIPMENTSLOT.Helm:
+                return (Helmet == null);
+            case EQUIPMENTSLOT.Chest:
+                return (Chest == null);
+            case EQUIPMENTSLOT.Legs:
+                return (Leggings == null);
+            case EQUIPMENTSLOT.Boots:
+                return (Boots == null);
+            case EQUIPMENTSLOT.Gloves:
+                return (Gloves == null);
+            case EQUIPMENTSLOT.Amulet:
+                return (Amulet == null);
+            case EQUIPMENTSLOT.Ring1:
+                return (Ring1 == null || (Ring1 != null && Ring2 == null));
+            case EQUIPMENTSLOT.Ring2:
+                return (Ring2 == null || (Ring2 != null && Ring1 == null));
+        }
+        return true;
+    }
 
     /// <summary>
     /// A variation of SetStatPoints for when a player levels up. We don't want the player reducing a given stat to before the level. So we restrict
@@ -1292,6 +1378,8 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
             return;
         }
 
+        //Restore 20% of stamina naturally per turn
+        ChangeResourceBattle((int)(GetMaxStamina()*.2f), DamageSubType.Lightning, RESOURCES.Stamina, false, false);
 
         foreach (var skill in ActiveTalents) 
         {
@@ -1307,6 +1395,25 @@ public class Humanoid //Will represent any character with a Name, Health, Etc
         {
             buff.Tick(this);
         }
+    }
+
+    /// <summary>
+    /// Returns the translated name of a character
+    /// </summary>
+    /// <returns></returns>
+    public virtual string GetName() 
+    {
+        return LocalizationManager.Instance.ReadName(Name);
+    }
+
+    /// <summary>
+    /// GetDescription returns a translated variation of a characters race then gender.
+    /// This is to be used by UI.
+    /// </summary>
+    /// <returns></returns>
+    public virtual string GetDescription() 
+    {
+        return (LocalizationManager.Instance.ReadUIDictionary(race.ToString()) + "\n" + (gender ? LocalizationManager.Instance.ReadUIDictionary("Male") : LocalizationManager.Instance.ReadUIDictionary("Female")));
     }
 
 }

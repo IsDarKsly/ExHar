@@ -11,12 +11,12 @@ public class Enemy : Humanoid
     /// Gets the translated name for this Talent
     /// </summary>
     /// <returns></returns>
-    public virtual string GetName() { return LocalizationManager.Instance.ReadUIDictionary(Name); }
+    public override string GetName() { return LocalizationManager.Instance.ReadUIDictionary(Name); }
     /// <summary>
     /// Gets the translted description for this talent
     /// </summary>
     /// <returns></returns>
-    public virtual string GetDescription() { return LocalizationManager.Instance.ReadUIDictionary(Description); }
+    public override string GetDescription() { return LocalizationManager.Instance.ReadUIDictionary(Description); }
 
     /// <summary>
     /// The enemy will take action dependant on its defined type.

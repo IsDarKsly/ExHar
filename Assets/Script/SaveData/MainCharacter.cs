@@ -27,8 +27,12 @@ public class MainCharacter : Humanoid {
     public MainCharacter(string _name, bool _gender, RACE _race, CLASS _spec, Appearance _appearance, int[] _stats, DIFFICULTY _gamemode) : base(_name, _gender, _race, _spec,  _appearance, _stats)
     {
         gamemode = _gamemode;
+
+        // Experimental part
         AddActiveTalent(new FireBall());
         AddActiveTalent(new FireBall());
+        //End of experimental
+
         ChangeHealth(GetMaxHealth());
         ChangeMana(GetMaxMana());
         ChangeStamina(GetMaxStamina());

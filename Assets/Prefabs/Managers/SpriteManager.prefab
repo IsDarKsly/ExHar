@@ -97,6 +97,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b1ce41e102d9e274788565338b8d58b7, type: 3}
     - {fileID: 21300000, guid: 771fad18019333d449d6063739ce4390, type: 3}
     - {fileID: 21300000, guid: ac873b1353344d84ea5e83cd80cd6146, type: 3}
+    injuries: []
   maleSprites:
     eyebrow:
     - {fileID: 21300000, guid: 862591a8d456db94bac8f30edab4a26c, type: 3}
@@ -147,6 +148,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 95e128c3b6ab35a439da107adf6285bd, type: 3}
     - {fileID: 21300000, guid: 5c0db0352a7e6e74e80005f89695e043, type: 3}
     - {fileID: 21300000, guid: 46ce44af502e85a4e954c57dcf6f79d2, type: 3}
+    injuries: []
   raceColor:
   - race: 0
     skincolors:
@@ -285,11 +287,7 @@ MonoBehaviour:
     - {r: 0.4339623, g: 0, b: 0, a: 1}
     - {r: 0.4481132, g: 1, b: 0.9519797, a: 1}
     - {r: 1, g: 1, b: 1, a: 1}
-  premadeSprites: []
-  MonsterSprites:
-  - {fileID: 21300000, guid: c9b609e9085dcd046a0b2fa41b13698b, type: 3}
-  ItemSprites: []
-  EquipmentSprites: []
+  blankSprite: {fileID: 21300000, guid: 53a861e1bf6f8e7428403b3e3e9e8215, type: 3}
   AnimationPrefabs: []
   spriteDicts:
   - Key: Crushing
@@ -326,4 +324,13 @@ MonoBehaviour:
     Value: {fileID: 21300000, guid: 502bb9b421973094ba4232fc94b84f7a, type: 3}
   - Key: WARRIOR
     Value: {fileID: 21300000, guid: e7d177fc504e4224697c395da2d00b28, type: 3}
-  blankSprite: {fileID: 21300000, guid: 53a861e1bf6f8e7428403b3e3e9e8215, type: 3}
+  - Key: WARRIOR
+    Value: {fileID: 21300000, guid: e7d177fc504e4224697c395da2d00b28, type: 3}
+  MaleEquipmentSprites: []
+  FemaleEquipmentSprites: []
+  MonsterSprites:
+  - name: Fox
+    injuredSprites:
+    - injuredstatus: 0
+      injuredSprite: {fileID: 21300000, guid: 19ae07e5efe89eb468958868294b23bf, type: 3}
+  premadeSprites: []

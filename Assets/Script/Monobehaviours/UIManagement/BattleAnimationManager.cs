@@ -46,18 +46,18 @@ public class BattleAnimationManager : MonoBehaviour
     /// </summary>
     public void QueueAnimationResourceChange(AnimatableResourceChange resourceValue) 
     {
-        Debug.Log($"An animation is being added to the Queue!");
+       //Debug.Log($"An animation is being added to the Queue!");
         var obj = Instantiate(ResourceNumberPrefab);
         var script = obj.GetComponent<AnimationController>();
         if (script != null)
         {
-            Debug.Log($"{script.GetType().Name}");
+           //Debug.Log($"{script.GetType().Name}");
             script.SetUp(resourceValue);
             Animations.Enqueue(obj);
         }
         else
         {
-            Debug.LogError("The instantiated prefab does not implement the AnimationController interface.");
+           //Debug.LogError("The instantiated prefab does not implement the AnimationController interface.");
             Destroy(obj); // Clean up the instantiated object if it doesn’t have the correct interface
         }
     }
@@ -65,9 +65,9 @@ public class BattleAnimationManager : MonoBehaviour
     /// <summary>
     /// This function will create a new animation and place it into the Animations Queue
     /// </summary>
-    public void QueueAnimation(int skillID, Humanoid caster, Humanoid target = null) 
+    public void QueueAnimation(string skill, Humanoid caster,  List<Humanoid> target = null) 
     {
-        var obj = SpriteManager.Instance.GetAnimationPrefab(skillID);
+        var obj = SpriteManager.Instance.GetAnimationPrefab(skill);
         if (obj == null) return;
         var script = obj.GetComponent<MonoBehaviour>() as AnimationController;
 
@@ -78,7 +78,7 @@ public class BattleAnimationManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("The instantiated prefab does not implement the AnimationController interface.");
+           //Debug.LogError("The instantiated prefab does not implement the AnimationController interface.");
             Destroy(obj); // Clean up the instantiated object if it doesn’t have the correct interface
         }
     }
@@ -90,7 +90,7 @@ public class BattleAnimationManager : MonoBehaviour
     public void AnimationPhase(BATTLEPHASE phase)
     {
         if (phase != BATTLEPHASE.ANIMATING) return;
-        Debug.Log($"Animation phase trigger: {Animations.Count}");
+       //Debug.Log($"Animation phase trigger: {Animations.Count}");
         StartCoroutine(PlayAnimations());
     }
 
@@ -103,11 +103,11 @@ public class BattleAnimationManager : MonoBehaviour
         while (Animations.Count > 0)
         {
             GameObject animationObject = Animations.Dequeue();
-            Debug.Log("Animating object");
+           //Debug.Log("Animating object");
             // Assume animations have an "AnimationController" script that plays them
             if (animationObject.TryGetComponent<AnimationController>(out var controller))
             {
-                Debug.Log("Controller component obtained");
+               //Debug.Log("Controller component obtained");
                 controller.PlayAnimation();
                 yield return new WaitUntil(() => controller.IsComplete() || animationObject == null);
             }

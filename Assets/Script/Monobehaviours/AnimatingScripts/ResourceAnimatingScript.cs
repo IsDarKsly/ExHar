@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,12 @@ public class ResourceAnimatingScript : MonoBehaviour, AnimationController
     public DamageSubType subType;
     public RESOURCES resourceType;
 
-    bool isComplete = false;
+    public GameObject CriticalIcon;
+
+    /// <summary>
+    /// I will set this to true a short while after it starts. This is to support multiple target animations
+    /// </summary>
+    bool isComplete = true;
 
     TMP_Text text;
     Image image;
@@ -101,6 +107,9 @@ public class ResourceAnimatingScript : MonoBehaviour, AnimationController
         text = GetComponent<TMP_Text>();
         if(value > 0) text.text = "+" + value.ToString();
         else text.text = value.ToString();
+
+        if(!resourceValues.isCrit) CriticalIcon.SetActive(false);
+
         image = GetComponentInChildren<Image>();
         transform.position = Owner.transform.position;
 
@@ -131,7 +140,7 @@ public class ResourceAnimatingScript : MonoBehaviour, AnimationController
         gameObject.SetActive(false);
     }
 
-    public void SetUp(Humanoid caster, Humanoid target)
+    public void SetUp(Humanoid caster, List<Humanoid> target)
     {
         return;
     }

@@ -63,6 +63,51 @@ public class MenuManager : MonoBehaviour
     //  Public Methods
 
     /// <summary>
+    /// Get current character simply returns the current character denoted by the partymanager
+    /// </summary>
+    /// <returns></returns>
+    public Humanoid GetCurrentCharacter() 
+    {
+        return PartyMenuObj.GetCurrentCharacter();
+    }
+
+    /// <summary>
+    /// This will add a visual roster member object to the roster list
+    /// </summary>
+    /// <param name="person"></param>
+    public void AddRosterMember(Humanoid person) 
+    {
+        PartyMenuObj.AddRosterMember(person);
+    }
+
+    /// <summary>
+    /// Destroys a characters roster gameobject
+    /// </summary>
+    /// <param name="person"></param>
+    public void DestroyRosterObject(Humanoid person) 
+    {
+        PartyMenuObj.DestroyRosterObject(person);
+    }
+
+    /// <summary>
+    /// The create object for inventory function serves to create the visual component for
+    /// any object added to the inventory through the datamanager
+    /// </summary>
+    public void CreateObjectForInventory(Item item)
+    {
+        InventoryMenuObj.CreateObjectForInventory(item);
+    }
+
+    /// <summary>
+    /// This function should really only be called from the datamanager to remind
+    /// the inventory menu what should not be displayed
+    /// </summary>
+    public void RemoveObjectFromInventory(Item item)
+    {
+        InventoryMenuObj.RemoveObjectFromInventory(item);
+    }
+
+    /// <summary>
     /// Causes Options to update its data to reflect the users
     /// </summary>
     public void SetUpOptions() 
@@ -186,4 +231,65 @@ public class MenuManager : MonoBehaviour
         PartyMenuObj.Load();
         InventoryMenuObj.Load();
     }
+
+    /// <summary>
+    /// Toggles the partymenu state
+    /// </summary>
+    public void TogglePartyMenu() 
+    {
+        PartyMenuObj.SetActive(!PartyMenuObj.gameObject.activeSelf);
+    }
+
+    /// <summary>
+    /// Toggles the inventory state
+    /// </summary>
+    public void ToggleInventoryMenu()
+    {
+        InventoryMenuObj.SetActive(!InventoryMenuObj.gameObject.activeSelf);
+    }
+
+    /// <summary>
+    /// Toggles the skill menu state
+    /// The skill menu is for displaying skills the user has
+    /// </summary>
+    public void ToggleSkillMenu()
+    {
+        SkillMenuObj.SetActive(!SkillMenuObj.gameObject.activeSelf);
+    }
+
+    /// <summary>
+    /// Toggles the Talent menu state
+    /// The talent menu shows the talent tree
+    /// </summary>
+    public void ToggleTalentMenu()
+    {
+        TalentMenuObj.SetActive(!TalentMenuObj.gameObject.activeSelf);
+    }
+
+    /// <summary>
+    /// Simply turns off each menu, should be used right before an event like battle starting or dialogue
+    /// </summary>
+    public void TurnOffAllMenus() 
+    {
+        OptionMenuObj.gameObject.SetActive(false);
+
+        ConfirmMenuObj.gameObject.SetActive(false);
+
+        DetailsMenuObj.gameObject.SetActive(false);
+
+        PauseMenuObj.gameObject.SetActive(false);
+
+        PartyMenuObj.gameObject.SetActive(false);
+
+        InventoryMenuObj.gameObject.SetActive(false);
+
+        SkillMenuObj.gameObject.SetActive(false);
+
+        TalentMenuObj.gameObject.SetActive(false);
+
+        SkillDetailsMenuObj.gameObject.SetActive(false);
+
+        CharacterDetailsMenuObj.gameObject.SetActive(false);
+    }
+
 }

@@ -29,7 +29,11 @@ public class Appearance //Will control the Appearance of a character
     private int skincolor = 0;
 
     public PRESETAPPEARANCE PRESET = PRESETAPPEARANCE.CUSTOM; //Will assume custom character
-    public int SpriteID = 0; // Sprite ID, only used by the monster sprites
+
+    /// <summary>
+    /// The name of the character this appearance belongs to. This will be used by sprite dictionaries to quickly assign Custom characters their sprites
+    /// </summary>
+    public string Name = "";
 
 
     //Using get and set to determ an varying value
@@ -171,21 +175,21 @@ public class Appearance //Will control the Appearance of a character
 
     public int getValueUsingList<T>(int i, List<T> l) //This function will allow us get the variables more easily by checking to see if we are within range before using them
     {
-        if (i >= l.Count || i < 0)
+        if (i >= l.Count || i < 0)  //  If our value somehow ended up outside of the bounds, return 0
             return 0;
         return i;
     }
 
     public int setValueUsingList<T>( int v, List<T> l) //This function will allow us to set the variables more easily while looping nicely around the list
     {
-        if (v < l.Count && v >= 0)
+        if (v < l.Count && v >= 0)  //  If this new value is within the bounds of this list, return the value as valid
         {
             return v;
         }
-        else if (v >= l.Count)
+        else if (v >= l.Count)  //  If this new value is greater than its corresponding list, return to the first item in the list
             return 0;
         else
-            return l.Count - 1;
+            return l.Count - 1; //  If this new value is less than zero, return the last item in the list
     }
 
 }
@@ -193,5 +197,18 @@ public class Appearance //Will control the Appearance of a character
 /// <summary>
 /// This will determine whether a character is just an entire preset sprite
 /// </summary>
-public enum PRESETAPPEARANCE { CUSTOM, MONSTER, Deterion, Yuki}
+public enum PRESETAPPEARANCE { CUSTOM, PRESET, MONSTER}
+
+/// <summary>
+/// The emotion enum can be used to represent what a character is feeling.
+/// </summary>
+public enum Emotion { NEUTRAL, HAPPY, SAD, ANGRY };
+
+/// <summary>
+/// A characters Injured status can be used to visibly represent how worn they are from battle
+/// Healthy characters are above 80%
+/// HalfHealth characters are above 40%, below 80%
+/// Near Death characters are Below 40%
+/// </summary>
+public enum InjuredStatus { HEALTHY, HALFHEALTH, NEARDEATH};
 

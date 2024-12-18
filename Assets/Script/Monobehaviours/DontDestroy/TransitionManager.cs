@@ -130,7 +130,7 @@ public class TransitionManager : MonoBehaviour
                 IMMEDIATE_FadeFromBlack(time, action, wait_time);
                 break;
             default:
-                Debug.LogError($"{type.ToString()} not implemented");
+               //Debug.LogError($"{type.ToString()} not implemented");
                 break;
         }
     }

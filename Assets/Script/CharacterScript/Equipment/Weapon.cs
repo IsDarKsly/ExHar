@@ -26,11 +26,9 @@ public class Weapon : Equipment
     /// </summary>
     /// <param name="name"></param>
     /// <param name="description"></param>
-    /// <param name="id"></param>
-    /// <param name="eType"></param>
     /// <param name="wType"></param>
     /// <param name="wWeight"></param>
-    public Weapon(string name, string description, int id, WeaponType wType, WeaponWeight wWeight) : base(name, description, id)
+    public Weapon(string name, string description, WeaponType wType, WeaponWeight wWeight) : base(name, description)
     {
         WeaponScaling[DamageType.Physical] = new Dictionary<STATS, float>();
         WeaponScaling[DamageType.Magical] = new Dictionary<STATS, float>();
@@ -78,22 +76,6 @@ public class Weapon : Equipment
 
         // Calculate final damage
         return dam;
-    }
-
-    /// <summary>
-    /// Randomizes the properties of the weapon
-    /// </summary>
-    public override void Randomize()
-    {
-        base.Randomize();
-
-        foreach (var flatdam in EquipmentValue) //  For every Damage type we have
-        {
-            foreach (var scalingMultiplier in WeaponScaling[flatdam.Key])    //  For every scaling type that 
-            {
-                WeaponScaling[flatdam.Key][scalingMultiplier.Key] = WeaponScaling[flatdam.Key][scalingMultiplier.Key] * Random.Range(0.75f, 1.25f); //  set new value to scaled value
-            }
-        }
     }
 
     /// <summary>

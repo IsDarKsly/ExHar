@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -11,5 +12,5 @@ public interface AnimationController
 
     public void SetUp(AnimatableResourceChange resourceValues);
 
-    public void SetUp(Humanoid caster, Humanoid target);
+    public void SetUp(Humanoid caster,  List<Humanoid> target);
 }

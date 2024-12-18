@@ -33,7 +33,7 @@ public class Armor : Equipment
 
     public Armor() { }
 
-    public Armor(string name, string description, int id, ArmorType armortype) : base(name, description, id)
+    public Armor(string name, string description, ArmorType armortype) : base(name, description)
     {
         ArmorType = armortype;
     }

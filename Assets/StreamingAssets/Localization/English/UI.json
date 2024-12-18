@@ -127,5 +127,7 @@
     "Fireball Desc" : "Cast a Fireball at a target, dealing fire damage",
     "Basic Attack Desc" : "Use your weapon on the enemy!",
     "Damage" : "Damage",
+    "Remove" : "Remove",
+    "PartyInstructions" : "Right click a character to display them! Left Click to assign them to the party",
     "This is a test" : "This is a test"
 }

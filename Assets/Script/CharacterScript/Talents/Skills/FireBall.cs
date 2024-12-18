@@ -34,6 +34,8 @@ public class FireBall : ActiveTalents
 
     public override void Invoke(List<Humanoid> targets, Humanoid owner)
     {
+        BattleManager.Instance.animationManager.QueueAnimation(Name, owner, targets);
+
         CooldownCounter = Cooldown;
         Damage damage = GetDamageCalculation(owner);
 

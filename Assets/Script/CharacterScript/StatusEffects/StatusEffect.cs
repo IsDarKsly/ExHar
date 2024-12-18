@@ -32,15 +32,18 @@ public class StatusEffect
     public bool stunres = false;
 
     /// <summary>
-    /// The identifier is used to detect multiple same buffs
-    /// </summary>
-    public int identifier;
-
-    /// <summary>
     /// Identifier for the number of stacks, really only applicable to 
     /// </summary>
     public int stacks = 1;
 
+    /// <summary>
+    /// The name of the stat, can be used as an identifier
+    /// </summary>
+    public string Name;
+
+    /// <summary>
+    /// How long this Stat is meant to last
+    /// </summary>
     public int Duration;
 
 
@@ -65,7 +68,7 @@ public class StatusEffect
             {
                 var stunRes = new StatusEffect()
                 {
-                    identifier = 1,
+                    Name = "Stun Resistance",
                     stunres = true,
                     Duration = 2
                 };

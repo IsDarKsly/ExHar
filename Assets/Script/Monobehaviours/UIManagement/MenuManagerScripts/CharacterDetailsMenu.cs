@@ -52,9 +52,9 @@ public class CharacterDetailsMenu : MonoBehaviour
         DetailPanel.transform.localPosition = MenuManager.Instance.mouse_is_left ? new Vector2(500, 18) : new Vector2(-500, 18);
 
         //Top of descriptions
-        NameText.text = person.Name;
+        NameText.text = person.GetName();
         LevelText.text = person.Level.ToString();
-        DescriptionText.text = (person.GetType().IsSubclassOf(typeof(Enemy)) ? ((Enemy)person).GetDescription() : (person.race.ToString() + "\n" + (person.gender?"Male":"Female")));
+        DescriptionText.text = person.GetDescription();
         ClassImage.sprite = SpriteManager.Instance.GetSprite(person.spec.ToString());
 
         //Resources

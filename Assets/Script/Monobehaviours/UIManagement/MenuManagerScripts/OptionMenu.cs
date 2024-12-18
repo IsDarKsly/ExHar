@@ -167,7 +167,7 @@ public class OptionMenu : MonoBehaviour
                 lan.value = 31;
                 break;
             default:
-                Debug.LogWarning($"Language '{DataManager.Instance.options.language}' not recognized.");
+               //Debug.LogWarning($"Language '{DataManager.Instance.options.language}' not recognized.");
                 break;
 
         }
@@ -317,7 +317,7 @@ public class OptionMenu : MonoBehaviour
                 DataManager.Instance.options.language = "Syriac";
                 break;
             default:
-                Debug.LogWarning("Invalid language index.");
+               //Debug.LogWarning("Invalid language index.");
                 break;
         }
         MenuManager.Instance.UpdateFromOptions();

@@ -12,7 +12,7 @@ public class Jewelry : Equipment
 
     public Jewelry() { }
 
-    public Jewelry(string name, string description, int id, JeweleryType jeweleryType) : base(name, description, id)
+    public Jewelry(string name, string description, JeweleryType jeweleryType) : base(name, description)
     {
         JeweleryType = jeweleryType;
     }

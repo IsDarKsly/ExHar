@@ -65,7 +65,7 @@ public class SkillDetailsMenu : MonoBehaviour
         else CooldownText.color = Color.red;
 
         SubTypeImage.sprite = SpriteManager.Instance.GetSubtypeSprite(skill.SubType);
-        SubTypeImage.sprite = SpriteManager.Instance.GetSprite(skill.PrimaryType.ToString());
+        TypeImage.sprite = SpriteManager.Instance.GetSprite(skill.PrimaryType.ToString());
 
         StrengthScalingText.transform.parent.gameObject.SetActive(skill.GetAttributeScalingText(STATS.Strength) != null);
         DexScalingText.transform.parent.gameObject.SetActive(skill.GetAttributeScalingText(STATS.Dexterity) != null);

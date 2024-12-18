@@ -5,64 +5,56 @@ public abstract class Item
     public string Name { get; set; }
     public string Description { get; set; }
 
+    public bool Stackable { get; set; } = false;    //  Whether this item is stackable. Defaults to false
+
+    public int StackCount { get; set; } = 1;    //  How many of this item exists in this stack, also defaults to one
+
     public RARITY RARITY { get; set; }
 
-    /// <summary>
-    /// The spriteID determines the appearance of the object
-    /// </summary>
-    public int spriteID { get; set; }
+    public ItemType ItemType { get; set; }
 
     public Item() { }
 
-    public Item(string name, string description, int id)
+    public Item(string name, string description)
     {
         Name = name;
         Description = description;
-        spriteID = id;
     }
 
+    /// <summary>
+    /// This should really only be used for debugging
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return $"{Name}: {Description}";
     }
 
+    /// <summary>
+    /// The usage of an item is determined by each individual item.
+    /// </summary>
+    public abstract bool Use(Humanoid target);
+    
+    
 
     /// <summary>
-    /// Given a character with a level, typically the main charater,
-    /// Calculates and returns a Rarity
+    /// Returns the translated name for an item
     /// </summary>
     /// <returns></returns>
-    public static RARITY GenerateRarity(Humanoid target) 
-    {
-        float common_chance = (0.7f - ((target.Level - 1) * 0.012245f));
-        float uncommon_chance = (0.2f);
-        float rare_chance = (0.06f - ((target.Level - 1) * 0.00693f));
-        float epic_chance = (0.03f - ((target.Level - 1) * 0.00448f));
-        float legendary_chance = (0.01f - ((target.Level - 1) * 0.00081f));
+    public string GetName() { return LocalizationManager.Instance.ReadUIDictionary(Name); }
 
-        float RandomFloat = Random.Range(0, 1f);
+    /// <summary>
+    /// Returns the translated name for an item
+    /// </summary>
+    /// <returns></returns>
+    public string GetDescription() { return LocalizationManager.Instance.ReadUIDictionary(Description); }
 
-        if (RandomFloat <= legendary_chance)    //  Legendary 
-        {
-            return RARITY.Legendary;
-        }
-        else if (RandomFloat <= legendary_chance + epic_chance)  //  Epic 
-        {
-            return RARITY.Epic;
-        }
-        else if (RandomFloat <= legendary_chance + epic_chance + rare_chance)  //  Rare 
-        {
-            return RARITY.Rare;
-        }
-        else if (RandomFloat <= legendary_chance + epic_chance + rare_chance + uncommon_chance)  //  Uncommon 
-        {
-            return RARITY.Uncommon;
-        }
-
-        return RARITY.Common;
-    }
 }
 
+/// <summary>
+/// The item type of an item helps defines what should happen when it is used
+/// </summary>
+public enum ItemType { EQUIPMENT, CONSUMABLE, REUSABLE }
 
 /// <summary>
 /// The different rarities associated with the Item

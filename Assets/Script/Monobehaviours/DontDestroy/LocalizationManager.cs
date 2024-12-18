@@ -215,6 +215,17 @@ public class LocalizationManager : MonoBehaviour
             localizabletext.UpdateText();
         }
     }
+
+    /// <summary>
+    /// The readname function attempts to read a name from the Name dictionary, if one does not exist. It simply returns the already existing name
+    /// </summary>
+    /// <param name="Key"></param>
+    /// <returns></returns>
+    public string ReadName(string Key) 
+    {
+        return (Name_Dictionary.ContainsKey(Key)) ? Name_Dictionary[Key] : Key;
+    }
+
     /// <summary>
     /// This function checks if a given language is printed right to left
     /// </summary>
@@ -264,7 +275,7 @@ public class LocalizationManager : MonoBehaviour
 
             // Default to LTR if the language is not explicitly listed
             default:
-                Debug.LogWarning($"Language '{DataManager.Instance.options.language}' not recognized. Assuming LTR.");
+               //Debug.LogWarning($"Language '{DataManager.Instance.options.language}' not recognized. Assuming LTR.");
                 return false;
         }
     }

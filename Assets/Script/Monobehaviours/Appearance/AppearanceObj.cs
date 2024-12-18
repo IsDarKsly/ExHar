@@ -59,11 +59,11 @@ public class AppearanceObj : MonoBehaviour
         {
             if (appearance.PRESET == PRESETAPPEARANCE.MONSTER) 
             {
-                PremadeI.sprite = SpriteManager.Instance.MonsterSprites[appearance.SpriteID];
+                PremadeI.sprite = SpriteManager.Instance.GetMonsterSprite(appearance.Name, InjuredStatus.HEALTHY);
                 return;
             }
 
-            PremadeI.sprite = SpriteManager.Instance.premadeSprites[((int)appearance.PRESET) - 2].characterSprites[0];
+            PremadeI.sprite = SpriteManager.Instance.GetPremadeSprite(appearance.Name, Emotion.NEUTRAL);
             return;
         }
 
@@ -115,20 +115,20 @@ public class AppearanceObj : MonoBehaviour
         var Armor_ColorI = transform.Find("Armor_Color").GetComponent<Image>();
 
         //First we adjust the images to match the correct variables, note that color varibales are represented by Colors
-        skinColorI.sprite = SpriteManager.Instance.blankSprite;
-        SkinOutlineI.sprite = SpriteManager.Instance.blankSprite;
-        NoseI.sprite = SpriteManager.Instance.blankSprite;
-        MouthI.sprite = SpriteManager.Instance.blankSprite;
-        EyebrowI.sprite = SpriteManager.Instance.blankSprite;
-        EyeOutlineI.sprite = SpriteManager.Instance.blankSprite;
-        EyeColorI.sprite = SpriteManager.Instance.blankSprite;
-        ExtraColorI.sprite = SpriteManager.Instance.blankSprite;
-        ExtraOutlineI.sprite = SpriteManager.Instance.blankSprite;
-        HairColorI.sprite = SpriteManager.Instance.blankSprite;
-        HairOutlineI.sprite = SpriteManager.Instance.blankSprite;
-        PremadeI.sprite = SpriteManager.Instance.blankSprite;
-        Armor_ColorI.sprite = SpriteManager.Instance.blankSprite;
-        Armor_OutlineI.sprite = SpriteManager.Instance.blankSprite;
+        skinColorI.sprite = SpriteManager.Instance.GetBlankSprite();
+        SkinOutlineI.sprite = SpriteManager.Instance.GetBlankSprite();
+        NoseI.sprite = SpriteManager.Instance.GetBlankSprite();
+        MouthI.sprite = SpriteManager.Instance.GetBlankSprite();
+        EyebrowI.sprite = SpriteManager.Instance.GetBlankSprite();
+        EyeOutlineI.sprite = SpriteManager.Instance.GetBlankSprite();
+        EyeColorI.sprite = SpriteManager.Instance.GetBlankSprite();
+        ExtraColorI.sprite = SpriteManager.Instance.GetBlankSprite();
+        ExtraOutlineI.sprite = SpriteManager.Instance.GetBlankSprite();
+        HairColorI.sprite = SpriteManager.Instance.GetBlankSprite();
+        HairOutlineI.sprite = SpriteManager.Instance.GetBlankSprite();
+        PremadeI.sprite = SpriteManager.Instance.GetBlankSprite();
+        Armor_ColorI.sprite = SpriteManager.Instance.GetBlankSprite();
+        Armor_OutlineI.sprite = SpriteManager.Instance.GetBlankSprite();
 
     }
 }
