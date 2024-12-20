@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using Newtonsoft.Json;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : NetworkBehaviour
 {
     /// <summary>
     /// This will be a singleton
@@ -97,6 +99,7 @@ public class BattleManager : MonoBehaviour
         OnTargetSelect.RemoveAllListeners();
         OnActiveSelect.RemoveAllListeners();
     }
+
     /// <summary>
     /// Sets the active character to the provided humanoid
     /// </summary>
@@ -142,6 +145,7 @@ public class BattleManager : MonoBehaviour
     {
         TransitionManager.Instance.Transition(type, time, ()=> { GameManager.Instance.LoadScene("Battle"); SetUpMatch(enemies); });
     }
+
     /// <summary>
     /// Initializes the battle field, sets enemy healths to their maxes if not already
     /// </summary>
@@ -504,6 +508,7 @@ public class BattleManager : MonoBehaviour
 
         return target;
     }
+
 
     /// <summary>
     /// This returns a list of every live person in the party ordered by highest threat first to lowest threat.
